@@ -1,0 +1,32 @@
+﻿FormatVersion: 7
+Name: "ImportOsb 1"
+Script: "ImportOsb"
+Config:
+  Path:
+    Type: "System.String"
+    Value: "storyboard.osb"
+  RandomSeed:
+    Type: "System.Int32"
+    Value: "0"
+    DisplayName: "Random seed"
+Layers:
+  1aecd4aa315f481d85efde4f5e44d171:
+    Name: "Background"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  13ea8b6a4a314e5ca64c8ce2c9c7868b:
+    Name: "Pass"
+    OsbLayer: Pass
+    DiffSpecific: No
+    Visible: Yes
+  b4fa12ab18e3490fb13fdd49c8826e77:
+    Name: "Foreground"
+    OsbLayer: Foreground
+    DiffSpecific: No
+    Visible: Yes
+  e3ef5ea2c3f04077a2d0802bbd24a4c9:
+    Name: "Overlay"
+    OsbLayer: Overlay
+    DiffSpecific: No
+    Visible: Yes

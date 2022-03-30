@@ -1,0 +1,35 @@
+﻿FormatVersion: 7
+Name: "HitObjectGen 3"
+Script: "HitObjectGen"
+Config:
+  BeatDivisor:
+    Type: "System.Int32"
+    Value: "12"
+  StartTime:
+    Type: "System.Int32"
+    Value: "113360"
+  EndTime:
+    Type: "System.Int32"
+    Value: "123944"
+  Circle:
+    Type: "System.Boolean"
+    Value: "True"
+  Highlight:
+    Type: "System.Boolean"
+    Value: "False"
+  Beam:
+    Type: "System.Boolean"
+    Value: "False"
+  Splash:
+    Type: "System.Boolean"
+    Value: "False"
+  RandomSeed:
+    Type: "System.Int32"
+    Value: "0"
+    DisplayName: "Random seed"
+Layers:
+  5a6ea860b2e94c9b819b6eed3de8d3ad:
+    Name: ""
+    OsbLayer: Pass
+    DiffSpecific: No
+    Visible: Yes
