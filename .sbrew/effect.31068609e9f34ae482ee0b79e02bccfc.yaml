@@ -4,7 +4,7 @@ Script: "FogManager"
 Config:
   startTime:
     Type: "System.Int32"
-    Value: "145277"
+    Value: "145000"
   endTime:
     Type: "System.Int32"
     Value: "166360"
@@ -22,10 +22,10 @@ Config:
     Value: "1,1,1,1"
   fade:
     Type: "System.Double"
-    Value: "0.3"
+    Value: "0.25"
   RandomSeed:
     Type: "System.Int32"
-    Value: "1"
+    Value: "12"
     DisplayName: "Random seed"
 Layers:
   e51f2d7960bd4c848c572342da0f0724:
