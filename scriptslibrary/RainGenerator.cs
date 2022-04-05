@@ -31,12 +31,15 @@ public class RainGenerator
             sprite.Fade(startTime, generator.Random(0.15, 0.5));
             sprite.Scale(startTime, generator.Random(0.04, 0.05));
 
-            var splash = generator.GetLayer("Particles").CreateSprite("sb/d.png", OsbOrigin.Centre, new Vector2(posX, 460));
-            splash.StartLoopGroup(startTime + (i * 2.5) + particleSpeed, duration/particleSpeed);
-            splash.MoveY(OsbEasing.OutExpo, 0, particleSpeed, 460, generator.Random(400, 450));
-            splash.Fade(OsbEasing.OutExpo, 0, particleSpeed, 1, 0);
-            splash.Scale(OsbEasing.OutExpo, 0, particleSpeed, generator.Random(0.04, 0.05), 0);
-            splash.EndGroup();
+            for(int s = 0; s < 0.75; s++)
+            {
+                var splash = generator.GetLayer("Particles").CreateSprite("sb/d.png", OsbOrigin.Centre, new Vector2(posX, 460));
+                splash.StartLoopGroup(startTime + (s * 2.5) + particleSpeed, duration/particleSpeed);
+                splash.MoveY(OsbEasing.OutExpo, 0, particleSpeed, 460, generator.Random(400, 450));
+                splash.Fade(OsbEasing.OutExpo, 0, particleSpeed, 1, 0);
+                splash.Scale(OsbEasing.OutExpo, 0, particleSpeed, generator.Random(0.04, 0.05), 0);
+                splash.EndGroup();
+            }
         }
     }
     public void GenerateRainAlt(int startTime, int endTime, int intensity)
@@ -50,7 +53,7 @@ public class RainGenerator
             double angle = Math.Atan2(680 - 0, endX - posX);
 
             var sprite = generator.GetLayer("Particles").CreateSprite("sb/pl.png", OsbOrigin.Centre, new Vector2(posX, 20));
-            sprite.StartLoopGroup(startTime + (i * 50), duration/particleSpeed);
+            sprite.StartLoopGroup(startTime + (i * 75), duration/particleSpeed);
             sprite.MoveY(0, particleSpeed, 20, 460);
             sprite.MoveX(0, particleSpeed, posX, endX);
             sprite.Rotate(0, particleSpeed, Math.PI/2, angle);
@@ -58,12 +61,15 @@ public class RainGenerator
             sprite.Fade(startTime, generator.Random(0.15, 0.5));
             sprite.Scale(startTime, generator.Random(0.04, 0.05));
 
-            var splash = generator.GetLayer("Particles").CreateSprite("sb/d.png", OsbOrigin.Centre, new Vector2(posX, 460));
-            splash.StartLoopGroup(startTime + (i * 50) + particleSpeed, duration/particleSpeed);
-            splash.MoveY(OsbEasing.OutExpo, 0, particleSpeed, 460, generator.Random(400, 450));
-            splash.Fade(OsbEasing.OutExpo, 0, particleSpeed, 1, 0);
-            splash.Scale(OsbEasing.OutExpo, 0, particleSpeed, generator.Random(0.04, 0.05), 0);
-            splash.EndGroup();
+            for(int s = 0; s < 0.75; s++)
+            {
+                var splash = generator.GetLayer("Particles").CreateSprite("sb/d.png", OsbOrigin.Centre, new Vector2(posX, 460));
+                splash.StartLoopGroup(startTime + (s * 75) + particleSpeed, duration/particleSpeed);
+                splash.MoveY(OsbEasing.OutExpo, 0, particleSpeed, 460, generator.Random(400, 450));
+                splash.Fade(OsbEasing.OutExpo, 0, particleSpeed, 1, 0);
+                splash.Scale(OsbEasing.OutExpo, 0, particleSpeed, generator.Random(0.04, 0.05), 0);
+                splash.EndGroup();
+            }
         }
     }
 }

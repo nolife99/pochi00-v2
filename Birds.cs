@@ -57,31 +57,31 @@ namespace StorybrewScripts
                 {
                     var sprite = pool.Get(i, i + RealTravelTime);
 
-                    var RandomScaling = Random(ScaleMin, ScaleMax);
-                    var FlipInterval = Random(FlyingSpeed * 12, Acceleration * 8);
-                    var lastX = Random(StartPosition.X, EndPosition.X);
-                    var lastY = Random(StartPosition.Y, EndPosition.Y);
-                    var rVec = MathHelper.DegreesToRadians(Random(360));
-                    var sVec = FlyingSpeed * 2;
-                    var vX = Math.Cos(rVec) * sVec;
-                    var vY = Math.Sin(rVec) * sVec;
-                    var lastAngle = 0d;
-                    var timeStep = FlipInterval * Random(1, 4.015);
+                    double RandomScaling = Random(ScaleMin, ScaleMax);
+                    int FlipInterval = Random(FlyingSpeed * 12, Acceleration * 8);
+                    float lastX = Random(StartPosition.X, EndPosition.X);
+                    float lastY = Random(StartPosition.Y, EndPosition.Y);
+                    float rVec = MathHelper.DegreesToRadians(Random(360));
+                    int sVec = FlyingSpeed * 2;
+                    double vX = Math.Cos(rVec) * sVec;
+                    double vY = Math.Sin(rVec) * sVec;
+                    double lastAngle = 0;
+                    float timeStep = FlipInterval * Random(0.45f, 4);
 
                     for (var t = i; t < i + RealTravelTime; t += (int)timeStep)
                     {
                         if (right)
                         {
                             var nextX = lastX + vX;
-                            var nextY = lastY - (vY / 5);
+                            var nextY = lastY - (vY / 10);
 
-                            var currentAngle = sprite.RotationAt(t);
-                            var newAngle = Math.Atan2((nextY - lastY), (nextX - lastX)) + (Math.PI / 2);
+                            double currentAngle = sprite.RotationAt(t);
+                            double newAngle = Math.Atan2((nextY - lastY), (nextX - lastX)) + (Math.PI / 2);
 
                             var startPosition = new Vector2d(lastX, lastY);
                             var endPosition = new Vector2d(lastX, lastY);
 
-                            var angle = Math.Atan2((startPosition.Y - endPosition.Y), (startPosition.X - endPosition.X)) - Math.PI / 2f;
+                            double angle = Math.Atan2((startPosition.Y - endPosition.Y), (startPosition.X - endPosition.X)) - Math.PI / 2f;
 
                             sprite.Move(t, t + timeStep, lastX, lastY, nextX, nextY);
                             sprite.Rotate(t, newAngle);
