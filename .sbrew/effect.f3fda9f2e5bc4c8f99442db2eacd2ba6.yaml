@@ -16,7 +16,7 @@ Config:
     Value: "False"
   RandomSeed:
     Type: "System.Int32"
-    Value: "2221"
+    Value: "98"
     DisplayName: "Random seed"
 Layers:
   9b6f38f0c22844a4b141e967b0a4392b:
