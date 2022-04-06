@@ -105,18 +105,18 @@ namespace StorybrewScripts
                     var sprite = GetLayer("").CreateSprite("sb/hl.png", OsbOrigin.Centre, hitobject.Position);
                     sprite.Additive(hitobject.StartTime, hitobject.StartTime + 1000);
                     sprite.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.25, 0);
-                    sprite.Scale(hitobject.StartTime, 0.25);
+                    sprite.Scale(hitobject.StartTime, 0.22);
 
                     if (hitobject is OsuSlider)
                     {
-                        var timestep = Beatmap.GetTimingPointAt((int)hitobject.StartTime).BeatDuration / BeatDivisor;
+                        var timestep = Beatmap.GetTimingPointAt((int)hitobject.StartTime).BeatDuration / 12;
                         var sTime = hitobject.StartTime;
                         while (true)
                         {
                             var stepSprite = GetLayer("").CreateSprite("sb/hl.png", OsbOrigin.Centre, hitobject.PositionAtTime(sTime));
                             stepSprite.Additive(sTime, sTime + 1000);
                             stepSprite.Fade(sTime, sTime + 1000, 0.25, 0);
-                            stepSprite.Scale(sTime, 0.25);
+                            stepSprite.Scale(sTime, 0.22);
 
                             if (sTime > hitobject.EndTime)
                                 break;

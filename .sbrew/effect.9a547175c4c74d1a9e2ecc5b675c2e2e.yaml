@@ -16,7 +16,7 @@ Config:
     Value: "16"
   quantity:
     Type: "System.Int32"
-    Value: "20"
+    Value: "15"
   color:
     Type: "OpenTK.Graphics.Color4"
     Value: "1,1,1,1"
