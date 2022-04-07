@@ -15,26 +15,38 @@ namespace StorybrewScripts
     public class RainManager : StoryboardObjectGenerator
     {
         [Configurable]
-        public int startTime;
+        public int StartTime;
 
         [Configurable]
-        public int endTime;
+        public int EndTime;
 
         [Configurable]
-        public int intensity;
+        public int Intensity;
 
         [Configurable]
         public bool Alternate = false;
 
         public override void Generate()
         {
+            if (StartTime >= EndTime)
+            {
+                StartTime = (int)Beatmap.HitObjects.First().StartTime;
+                EndTime = (int)Beatmap.HitObjects.Last().EndTime;
+            }
+            EndTime = Math.Min(EndTime, (int)AudioDuration);
+            StartTime = Math.Min(StartTime, EndTime);
+
+            if (Intensity <= 0)
+            {
+                Intensity = Random(2, 5);
+            }
             RainGenerator rainManager = new RainGenerator(this);
 
             if(Alternate)
-                rainManager.GenerateRainAlt(startTime, endTime, intensity);
+                rainManager.GenerateRainAlt(StartTime, EndTime, Intensity);
             
             else
-                rainManager.GenerateRain(startTime, endTime, intensity);
+                rainManager.GenerateRain(StartTime, EndTime, Intensity);
         }
     }
 }

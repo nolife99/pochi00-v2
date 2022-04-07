@@ -20,14 +20,17 @@ public class FogGenerator
             int posX = generator.Random(-200, 530);
             int endX = generator.Random(830, 835);
             int elementStartTime = startTime;
+            int particleEndTime = startTime + firstTimeDuration + generator.Random(15000, 40000);
 
             for(int p = 0; p < 2; p++)
             {
                 var particle = generator.GetLayer(layer).CreateSprite("sb/d.png");
                 particle.MoveX(startTime, startTime + firstTimeDuration, generator.Random(posX - 10, posX + 10), endX);
-                particle.StartLoopGroup(startTime + firstTimeDuration, 1);
-                particle.MoveX(0, 0 + generator.Random(15000, 40000), -110, endX);
-                particle.EndGroup();
+                if(particleEndTime > endTime)
+                {
+                    particleEndTime = startTime + firstTimeDuration + 7500;
+                }
+                particle.MoveX(startTime + firstTimeDuration, particleEndTime, -110, endX);
                 particle.MoveY(startTime, generator.Random(posY - stroke, posY + stroke));     
                 particle.Fade(startTime, startTime + 1000, 0, 1);
                 particle.Fade(endTime, endTime + 1000, 1, 0);

@@ -2,12 +2,18 @@
 Name: "SunRays 1"
 Script: "SunRays"
 Config:
+  StartTime:
+    Type: "System.Int32"
+    Value: "587221"
+  EndTime:
+    Type: "System.Int32"
+    Value: "613888"
   RandomSeed:
     Type: "System.Int32"
     Value: "3"
     DisplayName: "Random seed"
 Layers:
-  c7844f782d5642b3a09c9942748221e6:
+  245e9d0b24164cb4868054ed6e3b8c13:
     Name: ""
     OsbLayer: Background
     DiffSpecific: No

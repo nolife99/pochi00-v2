@@ -38,14 +38,17 @@ namespace StorybrewScripts
         public override void Generate()
         {
             if(Circle)
+            {
                 GenerateRing(BeatDivisor, StartTime, EndTime, "sb/cf.png", 0.5f, 0.8f, 1000, 1, OsbEasing.OutExpo, true);
-            
+            }
             if(Highlight)
+            {
                 GenerateKiaiHighlight(StartTime, EndTime);
-
+            }
             if(Beam)
+            {
                 GenerateBeam(StartTime, EndTime);
-            
+            }
             List<double> t23 = new List<double>();
             foreach(var hitobject in Beatmap.HitObjects)
             {
@@ -137,7 +140,7 @@ namespace StorybrewScripts
                     if (hitobject.StartTime - lastObject > 1)
                     {
                         var sprite = GetLayer("").CreateSprite("sb/p.png", OsbOrigin.Centre, hitobject.Position);
-                        sprite.Rotate(hitobject.StartTime, (float)Random(-Math.PI / 8, Math.PI / 8));
+                        sprite.Rotate(hitobject.StartTime, (double)Random(-Math.PI / 8, Math.PI / 8));
                         sprite.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 1000, 5, 1000, 0, 1000);
                         sprite.Additive(hitobject.StartTime, hitobject.StartTime + 1000);
                         sprite.Fade(hitobject.StartTime, 0.5);

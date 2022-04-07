@@ -14,13 +14,27 @@ namespace StorybrewScripts
 {
     public class SunRays : StoryboardObjectGenerator
     {
+        [Configurable]
+        public int StartTime;
+
+        [Configurable]
+        public int EndTime;
+
         public override void Generate()
         {
-		    GodRays(587210, 615210);
+            if (StartTime >= EndTime)
+            {
+                StartTime = (int)Beatmap.HitObjects.First().StartTime;
+                EndTime = (int)Beatmap.HitObjects.Last().EndTime;
+            }
+            EndTime = Math.Min(EndTime, (int)AudioDuration);
+            StartTime = Math.Min(StartTime, EndTime);
+
+		    GodRays(StartTime, EndTime);
         }
         private void GodRays(int startTime, int endTime)
         {
-            for (int i = 0; i < 20 ; i++)
+            for (int i = 0; i < 15 ; i++)
             {
                 var sprite = GetLayer("").CreateSprite("sb/light.png", OsbOrigin.CentreLeft);
                 var rotateStart = MathHelper.DegreesToRadians(Random(80, 100));

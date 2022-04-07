@@ -53,7 +53,7 @@ namespace StorybrewScripts
             { }))
             {
                 var RealTravelTime = RandomDuration ? Random(MinDuration, MaxDuration) : MinDuration;
-                for (int i = StartTime; i < (EndTime); i += RealTravelTime / SpriteAmount)
+                for (int i = StartTime; i < EndTime; i += RealTravelTime / SpriteAmount)
                 {
                     var sprite = pool.Get(i, i + RealTravelTime);
 

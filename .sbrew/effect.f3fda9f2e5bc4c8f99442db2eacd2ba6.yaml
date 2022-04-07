@@ -2,24 +2,24 @@
 Name: "RainManager 3"
 Script: "RainManager"
 Config:
-  startTime:
+  StartTime:
     Type: "System.Int32"
-    Value: "608555"
-  endTime:
+    Value: "597888"
+  EndTime:
     Type: "System.Int32"
-    Value: "629221"
-  intensity:
+    Value: "628888"
+  Intensity:
     Type: "System.Int32"
-    Value: "15"
+    Value: "5"
   Alternate:
     Type: "System.Boolean"
     Value: "False"
   RandomSeed:
     Type: "System.Int32"
-    Value: "98"
+    Value: "2"
     DisplayName: "Random seed"
 Layers:
-  9b6f38f0c22844a4b141e967b0a4392b:
+  614a5cc6461c48b0a5a8771b5a01ac6c:
     Name: "Particles"
     OsbLayer: Background
     DiffSpecific: No
