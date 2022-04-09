@@ -7,13 +7,13 @@ Config:
     Value: "332523"
   endTime:
     Type: "System.Int32"
-    Value: "358010"
+    Value: "358014"
   posY:
     Type: "System.Int32"
     Value: "370"
   stroke:
     Type: "System.Int32"
-    Value: "100"
+    Value: "15"
   quantity:
     Type: "System.Int32"
     Value: "20"
@@ -28,7 +28,7 @@ Config:
     Value: "666"
     DisplayName: "Random seed"
 Layers:
-  c56b3a178f4b44adbcadbd1af06ef02f:
+  d6630d8f25374ea7ada171332071999b:
     Name: "PARTICLES"
     OsbLayer: Background
     DiffSpecific: No

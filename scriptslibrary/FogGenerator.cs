@@ -20,17 +20,13 @@ public class FogGenerator
             int posX = generator.Random(-200, 530);
             int endX = generator.Random(830, 835);
             int elementStartTime = startTime;
-            int particleEndTime = startTime + firstTimeDuration + generator.Random(15000, 40000);
+            int particleEndTime = startTime + firstTimeDuration + generator.Random(15000, 50000);
 
             for(int p = 0; p < 2; p++)
             {
                 var particle = generator.GetLayer(layer).CreateSprite("sb/d.png");
-                particle.MoveX(startTime, startTime + firstTimeDuration, generator.Random(posX - 10, posX + 10), endX);
-                if(particleEndTime > endTime)
-                {
-                    particleEndTime = startTime + firstTimeDuration + 7500;
-                }
-                particle.MoveX(startTime + firstTimeDuration, particleEndTime, -110, endX);
+                particle.MoveX(startTime, startTime + firstTimeDuration, generator.Random(posX - 20, posX + 20), endX);
+                particle.MoveX(startTime + firstTimeDuration, particleEndTime, generator.Random(-127, -107), endX);
                 particle.MoveY(startTime, generator.Random(posY - stroke, posY + stroke));     
                 particle.Fade(startTime, startTime + 1000, 0, 1);
                 particle.Fade(endTime, endTime + 1000, 1, 0);
@@ -50,11 +46,7 @@ public class FogGenerator
             {          
                 int newDuration = generator.Random(15000, 50000);
                 int elementEndTime = elementStartTime + newDuration;
-                if (elementEndTime > endTime)
-                {
-                    elementEndTime = endTime + 5000;
-                }
-                sprite.MoveX(elementStartTime, elementEndTime, -200, endX);       
+                sprite.MoveX(elementStartTime, elementEndTime, generator.Random(-217, -207), 847);       
                 sprite.MoveY(elementStartTime, generator.Random(posY - stroke, posY + stroke));
                 elementStartTime += newDuration;
             }

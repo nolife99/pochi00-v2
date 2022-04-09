@@ -10,23 +10,23 @@ Config:
     Value: "0"
     DisplayName: "Random seed"
 Layers:
-  1aecd4aa315f481d85efde4f5e44d171:
+  68db21b718eb40888719a86d4924a3e3:
     Name: "Background"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
-  13ea8b6a4a314e5ca64c8ce2c9c7868b:
+  199803e70e4c4b3297a88daf23713ab6:
     Name: "Pass"
-    OsbLayer: Pass
+    OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
-  b4fa12ab18e3490fb13fdd49c8826e77:
+  4e488f15c3234a36b24330c3d3fe5840:
+    Name: "Overlay"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  0feff76d53534ca491468397d93de2a9:
     Name: "Foreground"
     OsbLayer: Foreground
-    DiffSpecific: No
-    Visible: Yes
-  e3ef5ea2c3f04077a2d0802bbd24a4c9:
-    Name: "Overlay"
-    OsbLayer: Overlay
     DiffSpecific: No
     Visible: Yes

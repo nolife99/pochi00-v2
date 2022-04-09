@@ -7,16 +7,16 @@ Config:
     Value: "380555"
   EndTime:
     Type: "System.Int32"
-    Value: "433889"
+    Value: "432889"
   Intensity:
     Type: "System.Int32"
-    Value: "6"
+    Value: "9"
   Alternate:
     Type: "System.Boolean"
     Value: "True"
   RandomSeed:
     Type: "System.Int32"
-    Value: "1"
+    Value: "21"
     DisplayName: "Random seed"
 Layers:
   047543f57f754558a1c7bae5b25454cd:

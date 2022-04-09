@@ -7,10 +7,10 @@ Config:
     Value: "608555"
   EndTime:
     Type: "System.Int32"
-    Value: "628888"
+    Value: "629138"
   Intensity:
     Type: "System.Int32"
-    Value: "10"
+    Value: "15"
   Alternate:
     Type: "System.Boolean"
     Value: "False"
