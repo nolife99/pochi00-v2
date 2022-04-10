@@ -16,7 +16,7 @@ public class FogGenerator
     {
         for(int i = 0; i < quantity; i++)
         {
-            int firstTimeDuration = generator.Random(1000, 30000);
+            int firstTimeDuration = generator.Random(5000, 30000);
             int posX = generator.Random(-200, 530);
             int endX = generator.Random(830, 835);
             int elementStartTime = startTime;
@@ -25,7 +25,7 @@ public class FogGenerator
             for(int p = 0; p < 2; p++)
             {
                 var particle = generator.GetLayer(layer).CreateSprite("sb/d.png");
-                particle.MoveX(startTime, startTime + firstTimeDuration, generator.Random(posX - 20, posX + 20), endX);
+                particle.MoveX(startTime, startTime + firstTimeDuration, generator.Random(posX - 25, posX + 25), endX);
                 particle.MoveX(startTime + firstTimeDuration, particleEndTime, generator.Random(-127, -107), endX);
                 particle.MoveY(startTime, generator.Random(posY - stroke, posY + stroke));     
                 particle.Fade(startTime, startTime + 1000, 0, 1);
@@ -46,7 +46,7 @@ public class FogGenerator
             {          
                 int newDuration = generator.Random(15000, 50000);
                 int elementEndTime = elementStartTime + newDuration;
-                sprite.MoveX(elementStartTime, elementEndTime, generator.Random(-217, -207), 847);       
+                sprite.MoveX(elementStartTime, elementEndTime, generator.Random(-217, -207), endX);
                 sprite.MoveY(elementStartTime, generator.Random(posY - stroke, posY + stroke));
                 elementStartTime += newDuration;
             }
