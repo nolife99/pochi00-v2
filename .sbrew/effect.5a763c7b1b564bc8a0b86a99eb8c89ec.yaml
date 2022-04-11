@@ -1,0 +1,14 @@
+﻿FormatVersion: 7
+Name: "Lines 1"
+Script: "Lines"
+Config:
+  RandomSeed:
+    Type: "System.Int32"
+    Value: "0"
+    DisplayName: "Random seed"
+Layers:
+  1db0ca76fb6e46b7899043e372d8739c:
+    Name: ""
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes

@@ -20,19 +20,27 @@ public class FogGenerator
             int posX = generator.Random(-200, 530);
             int endX = generator.Random(830, 835);
             int elementStartTime = startTime;
-            int particleEndTime = startTime + firstTimeDuration + generator.Random(15000, 50000);
+            int particleStartTime = startTime;
 
             for(int p = 0; p < 2; p++)
             {
                 var particle = generator.GetLayer(layer).CreateSprite("sb/d.png");
                 particle.MoveX(startTime, startTime + firstTimeDuration, generator.Random(posX - 25, posX + 25), endX);
-                particle.MoveX(startTime + firstTimeDuration, particleEndTime, generator.Random(-127, -107), endX);
-                particle.MoveY(startTime, generator.Random(posY - stroke, posY + stroke));     
+                particle.MoveY(startTime, generator.Random(posY - stroke, posY + stroke));
                 particle.Fade(startTime, startTime + 1000, 0, 1);
                 particle.Fade(endTime, endTime + 1000, 1, 0);
                 particle.Scale(startTime, generator.Random(0.01, 0.02));
                 particle.Color(startTime, color);
                 particle.Additive(startTime, endTime);
+
+                particleStartTime += firstTimeDuration;
+                while (particleStartTime + 7000 < endTime)
+                {
+                    int NewDuration = generator.Random(15000, 50000);
+                    int particleEndTime = particleStartTime + NewDuration;
+                    particle.MoveX(particleStartTime, particleEndTime, generator.Random(-127, -107), endX);
+                    particleStartTime += NewDuration;
+                }
             }
             var sprite = generator.GetLayer(layer).CreateSprite($"sb/s/s{generator.Random(0, 9)}.png");
             sprite.MoveX(startTime, startTime + firstTimeDuration, posX, endX);
@@ -42,7 +50,7 @@ public class FogGenerator
             sprite.Scale(startTime, generator.Random(0.5, 1.1));
 
             elementStartTime += firstTimeDuration;
-            while(elementStartTime < endTime)
+            while(elementStartTime + 7000 < endTime)
             {          
                 int newDuration = generator.Random(15000, 50000);
                 int elementEndTime = elementStartTime + newDuration;

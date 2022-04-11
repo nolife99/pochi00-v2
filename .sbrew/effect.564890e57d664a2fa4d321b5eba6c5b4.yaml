@@ -10,13 +10,13 @@ Config:
     Value: "422889"
   posY:
     Type: "System.Int32"
-    Value: "410"
+    Value: "400"
   stroke:
     Type: "System.Int32"
-    Value: "12"
+    Value: "15"
   quantity:
     Type: "System.Int32"
-    Value: "15"
+    Value: "20"
   color:
     Type: "OpenTK.Graphics.Color4"
     Value: "1,1,1,1"

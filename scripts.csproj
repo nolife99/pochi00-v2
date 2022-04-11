@@ -56,6 +56,7 @@
     <Compile Include="FogManager.cs" />
     <Compile Include="HitObjectGen.cs" />
     <Compile Include="ImportOsb.cs" />
+    <Compile Include="Lines.cs" />
     <Compile Include="Lyrics.cs" />
     <Compile Include="MovingLightsManager.cs" />
     <Compile Include="Particles.cs" />

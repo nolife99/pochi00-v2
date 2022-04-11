@@ -4,28 +4,28 @@ Script: "FogManager"
 Config:
   startTime:
     Type: "System.Int32"
-    Value: "444555"
+    Value: "444722"
   endTime:
     Type: "System.Int32"
-    Value: "464889"
+    Value: "464555"
   posY:
     Type: "System.Int32"
-    Value: "410"
+    Value: "400"
   stroke:
     Type: "System.Int32"
-    Value: "20"
+    Value: "15"
   quantity:
     Type: "System.Int32"
-    Value: "17"
+    Value: "20"
   color:
     Type: "OpenTK.Graphics.Color4"
-    Value: "0.5921569,0.3529412,0,1"
+    Value: "1,0.5960268,0,1"
   fade:
     Type: "System.Double"
     Value: "0.25"
   RandomSeed:
     Type: "System.Int32"
-    Value: "32"
+    Value: "25"
     DisplayName: "Random seed"
 Layers:
   2c071a499f654a8a839406672c45f69f:
