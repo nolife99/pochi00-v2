@@ -17,16 +17,16 @@ Layers:
     Visible: Yes
   be20acb173f640199a0fb3c596c8d1d4:
     Name: "Pass"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
-  41ffb6a17fad40de8c5d5712fc0b1e5a:
-    Name: "Overlay"
-    OsbLayer: Background
+    OsbLayer: Pass
     DiffSpecific: No
     Visible: Yes
   0feff76d53534ca491468397d93de2a9:
     Name: "Foreground"
     OsbLayer: Foreground
+    DiffSpecific: No
+    Visible: Yes
+  41ffb6a17fad40de8c5d5712fc0b1e5a:
+    Name: "Overlay"
+    OsbLayer: Overlay
     DiffSpecific: No
     Visible: Yes
