@@ -19,7 +19,7 @@ public class MovingLights
             int duration = 5000;
             double angle = generator.Random(0, Math.PI * 2);
             float radius = generator.Random(20, 400);
-            var startPos = new Vector2(generator.Random(-77, 707), generator.Random(0, 400));
+            var startPos = new Vector2(generator.Random(-77, 707), generator.Random(40, 440));
             var endPos = new Vector2((float)(startPos.X + Math.Cos(angle) * radius), (float)(startPos.Y + Math.Sin(angle) * radius));
             var sprite = generator.GetLayer("Particles").CreateSprite("sb/hl.png", OsbOrigin.Centre, startPos);
                 

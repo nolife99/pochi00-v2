@@ -54881,7 +54881,7 @@ Sprite,Background,Centre,"sb\p.png",765,240
  C,0,628556,,12,12,12
  V,0,629205,629505,0,500,15,500
  F,0,631222,632222,1,0
-Animation,Background,Centre,"sb\b\animation\l.png",320,240,5,1,LoopForever
+Animation,Background,Centre,"sb\b\animation\l.png",0,0,5,1,LoopForever
  F,0,276247,,0.1
  S,0,276247,,1.2
  M,0,276247,289488,-404,-144,1044,-144
@@ -72630,8 +72630,8 @@ Sprite,Background,Centre,"sb\c7.png",320,240
  F,0,289488,290488,0,0.15
  S,1,289488,302730,0.25,0.4
  R,0,289488,302730,0,-2.094395
- F,0,290488,302730,0.15,0.3
- F,0,302730,304730,0.8,0
+ F,0,290488,302730,0.15,0.4
+ F,0,302730,304730,0.4,0
 Sprite,Background,Centre,"sb\c8.png",320,240
  L,289488,16
   F,1,0,827,0.2,0
