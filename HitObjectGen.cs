@@ -108,7 +108,7 @@ namespace StorybrewScripts
                     var sprite = GetLayer("").CreateSprite("sb/hl.png", OsbOrigin.Centre, hitobject.Position);
                     sprite.Additive(hitobject.StartTime, hitobject.StartTime + 1000);
                     sprite.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.25, 0);
-                    sprite.Scale(hitobject.StartTime, 0.22);
+                    sprite.Scale(hitobject.StartTime, 0.24);
 
                     if (hitobject is OsuSlider)
                     {

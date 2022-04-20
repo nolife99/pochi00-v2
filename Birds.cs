@@ -34,7 +34,6 @@ namespace StorybrewScripts
             int FadeTimeOut = 500;
             bool RandomScale = true;
             bool RandomDuration = true;
-            bool Additive = false;
             int NewColorEvery = 1;
             Color4 Color = Color4.White;
             Color4 Color2 = Color4.White;
@@ -186,11 +185,6 @@ namespace StorybrewScripts
                     else
                     {
                         sprite.Color(i, Color2);
-                    }
-
-                    if (Additive)
-                    {
-                        sprite.Additive(i, i + RealTravelTime);
                     }
 
                     if (ScaleMin != ScaleMax)

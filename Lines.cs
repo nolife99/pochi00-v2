@@ -16,12 +16,12 @@ namespace StorybrewScripts
     {
         public override void Generate()
         {
-		    Rings(289488, 302730);
+		    Rings(289489, 302730);
         }
         public void Rings(int startTime, int endTime)
         {
             var blankBitmap = GetMapsetBitmap("sb/p.png");
-            int amount = 24;
+            int amount = 22;
             double angle = 90;
             double radius = 150;
             for (var i = 0; i < amount; i++)
@@ -41,20 +41,20 @@ namespace StorybrewScripts
                 lines.Fade(startTime + 1000, endTime, 0.15, 0.8);
                 lines.Fade(endTime, endTime + 2000, 0.8, 0);
 
-                int timeStep = 103;
-                for (int time = startTime; time < endTime; time += timeStep)
+                var timeStep = 80;
+                for (double time = startTime; time < endTime; time += timeStep)
                 {
-                    angle += -0.085;
+                    angle += -0.069;
                     radius += 0.01;
 
                     Vector2 nPosition = new Vector2(
                         (float)(320 + Math.Cos(angle) * radius),
                         (float)(240 + Math.Sin(angle) * radius));
 
-                    var Rotation = Math.Atan2((position.Y - nPosition.Y), (position.X - nPosition.X)) - Math.PI / 2;
+                    double Rotation = Math.Atan2(position.Y - nPosition.Y, position.X - nPosition.X) - Math.PI / 2;
 
                     lines.Move(time, time + timeStep, Position, nPosition);
-                    lines.Rotate(time, time + timeStep, Rotation, Rotation);
+                    lines.Rotate(startTime, endTime, Rotation, Rotation);
 
                     Position = nPosition;
                 }

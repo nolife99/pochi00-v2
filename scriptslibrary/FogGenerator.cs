@@ -31,10 +31,10 @@ public class FogGenerator
                 particle.Fade(endTime, endTime + 1000, 1, 0);
                 particle.Scale(startTime, generator.Random(0.01, 0.02));
                 particle.Color(startTime, color);
-                particle.Additive(startTime, endTime);
+                particle.Additive(startTime);
 
                 particleStartTime += firstTimeDuration;
-                while (particleStartTime + 7000 < endTime)
+                while (particleStartTime + 10000 < endTime)
                 {
                     int NewDuration = generator.Random(15000, 50000);
                     int particleEndTime = particleStartTime + NewDuration;
@@ -50,7 +50,7 @@ public class FogGenerator
             sprite.Scale(startTime, generator.Random(0.5, 1.1));
 
             elementStartTime += firstTimeDuration;
-            while(elementStartTime + 7000 < endTime)
+            while(elementStartTime + 10000 < endTime)
             {          
                 int newDuration = generator.Random(15000, 50000);
                 int elementEndTime = elementStartTime + newDuration;

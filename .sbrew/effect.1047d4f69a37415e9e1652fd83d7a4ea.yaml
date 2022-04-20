@@ -10,10 +10,10 @@ Config:
     Value: "625888"
   fade:
     Type: "System.Double"
-    Value: "0.1"
+    Value: "0.09"
   RandomSeed:
     Type: "System.Int32"
-    Value: "0"
+    Value: "2"
     DisplayName: "Random seed"
 Layers:
   15b6d1ac02d34fba99aa8178a6695717:
