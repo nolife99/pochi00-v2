@@ -25,9 +25,9 @@ namespace StorybrewScripts
 
         public override void Generate()
         {
-            MovingLights particleManager = new MovingLights(this);
+            MovingLights lightsManager = new MovingLights(this);
 
-            particleManager.GenerateMovingLights(startTime, endTime, fade);
+            lightsManager.GenerateMovingLights(startTime, endTime, fade);
         }
     }
 }

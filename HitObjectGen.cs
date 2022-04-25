@@ -14,53 +14,36 @@ namespace StorybrewScripts
 {
     public class HitObjectGen : StoryboardObjectGenerator
     {
-        [Configurable]
-        public int BeatDivisor = 8;
-
-        [Configurable]
-        public int StartTime = 0;
-
-        [Configurable]
-        public int EndTime = 0;
-
-        [Configurable]
-        public bool Circle = true;
-
-        [Configurable]
-        public bool Highlight = false;
-
-        [Configurable]
-        public bool Beam = false;
-
-        [Configurable]
-        public bool Splash = false;
-
         public override void Generate()
         {
-            if(Circle)
-            {
-                GenerateRing(BeatDivisor, StartTime, EndTime, "sb/cf.png", 0.5f, 0.8f, 1000, 1, OsbEasing.OutExpo, true);
-            }
-            if(Highlight)
-            {
-                GenerateKiaiHighlight(StartTime, EndTime);
-            }
-            if(Beam)
-            {
-                GenerateBeam(StartTime, EndTime);
-            }
+            GenerateRing(8, 6693, 27444);
+            GenerateRing(12, 113360, 123944);
+            GenerateRing(8, 189360, 199945);
+            GenerateRing(8, 256385, 272833);
+            GenerateRing(8, 325902, 332316);
+            GenerateRing(8, 433889, 444555);
+            GenerateHighlight(81150, 92694);
+            GenerateHighlight(194694, 203360);
+            GenerateHighlight(484555, 494972);
+            GenerateBeam(81194, 82527);
+            GenerateBeam(82694, 92027);
+            GenerateBeam(412389, 423139);
             List<double> t23 = new List<double>();
             foreach(var hitobject in Beatmap.HitObjects)
             {
-                if(Splash)
-                {
-                    if(hitobject.StartTime >= StartTime && hitobject.StartTime <= EndTime)
+                if(hitobject.StartTime >= 380555 && hitobject.StartTime <= 401888)
                     GenerateSplash(hitobject.StartTime, hitobject.Position);
-                }
             }
         }
-        public void GenerateRing(int BeatDivisor, int StartTime, int EndTime, string SpritePath, float StartScale, float EndScale, int FadeTime, float Fade, OsbEasing Easing, bool UseHitobjectColor)
+        public void GenerateRing(int BeatDivisor, int StartTime, int EndTime)
         {
+            float StartScale = 0.5f;
+            float EndScale = 0.8f;
+            int FadeTime = 1000;
+            float Fade = 1;
+            OsbEasing Easing = OsbEasing.OutExpo;
+            bool UseHitobjectColor = true;
+
             var hitobjectLayer = GetLayer("");
             foreach (var hitobject in Beatmap.HitObjects)
             {
@@ -68,8 +51,8 @@ namespace StorybrewScripts
                     (hitobject.StartTime < StartTime - 5 || EndTime - 5 <= hitobject.StartTime))
                     continue;
 
-                var sprite = hitobjectLayer.CreateSprite(SpritePath, OsbOrigin.Centre, hitobject.Position);
-                sprite.Additive(hitobject.StartTime, hitobject.EndTime + FadeTime);
+                var sprite = hitobjectLayer.CreateSprite("sb/cf.png", OsbOrigin.Centre, hitobject.Position);
+                sprite.Additive(hitobject.StartTime);
                 sprite.Color(hitobject.StartTime, UseHitobjectColor ? hitobject.Color : Color4.White);
 
                 if (hitobject is OsuSlider)
@@ -99,27 +82,27 @@ namespace StorybrewScripts
                 }
             }
         }
-        private void GenerateKiaiHighlight(int startTime, int endTime)
+        private void GenerateHighlight(int startTime, int endTime)
         {
             foreach (var hitobject in Beatmap.HitObjects)
             {
                 if (hitobject.StartTime > startTime - 5 && hitobject.StartTime < endTime + 5)
                 {
                     var sprite = GetLayer("").CreateSprite("sb/hl.png", OsbOrigin.Centre, hitobject.Position);
-                    sprite.Additive(hitobject.StartTime, hitobject.StartTime + 1000);
-                    sprite.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.25, 0);
-                    sprite.Scale(hitobject.StartTime, 0.24);
+                    sprite.Additive(hitobject.StartTime);
+                    sprite.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.4, 0);
+                    sprite.Scale(hitobject.StartTime, 0.25);
 
                     if (hitobject is OsuSlider)
                     {
-                        var timestep = Beatmap.GetTimingPointAt((int)hitobject.StartTime).BeatDuration / 12;
+                        var timestep = Beatmap.GetTimingPointAt((int)hitobject.StartTime).BeatDuration / 11;
                         var sTime = hitobject.StartTime;
                         while (true)
                         {
                             var stepSprite = GetLayer("").CreateSprite("sb/hl.png", OsbOrigin.Centre, hitobject.PositionAtTime(sTime));
-                            stepSprite.Additive(sTime, sTime + 1000);
-                            stepSprite.Fade(sTime, sTime + 1000, 0.25, 0);
-                            stepSprite.Scale(sTime, 0.22);
+                            stepSprite.Additive(sTime);
+                            stepSprite.Fade(sTime, sTime + 1000, 0.3, 0);
+                            stepSprite.Scale(sTime, 0.25);
 
                             if (sTime > hitobject.EndTime)
                                 break;
@@ -135,14 +118,14 @@ namespace StorybrewScripts
             double lastObject = 0;
             foreach (var hitobject in Beatmap.HitObjects)
             {
-                if (hitobject.StartTime >= startTime && hitobject.StartTime <= endTime)
+                if (hitobject.StartTime >= startTime - 1 && hitobject.StartTime <= endTime + 1)
                 {
                     if (hitobject.StartTime - lastObject > 1)
                     {
                         var sprite = GetLayer("").CreateSprite("sb/p.png", OsbOrigin.Centre, hitobject.Position);
                         sprite.Rotate(hitobject.StartTime, (double)Random(-Math.PI / 8, Math.PI / 8));
                         sprite.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 1000, 5, 1000, 0, 1000);
-                        sprite.Additive(hitobject.StartTime, hitobject.StartTime + 1000);
+                        sprite.Additive(hitobject.StartTime);
                         sprite.Fade(hitobject.StartTime, 0.5);
                     }
                     lastObject = hitobject.StartTime;

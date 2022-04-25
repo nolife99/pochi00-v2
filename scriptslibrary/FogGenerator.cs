@@ -18,7 +18,7 @@ public class FogGenerator
         {
             int firstTimeDuration = generator.Random(5000, 30000);
             int posX = generator.Random(-200, 530);
-            int endX = generator.Random(830, 835);
+            int endX = generator.Random(850, 857);
             int elementStartTime = startTime;
             int particleStartTime = startTime;
 
@@ -34,12 +34,13 @@ public class FogGenerator
                 particle.Additive(startTime);
 
                 particleStartTime += firstTimeDuration;
-                while (particleStartTime + 10000 < endTime)
+                while (particleStartTime + 7000 < endTime)
                 {
-                    int NewDuration = generator.Random(15000, 50000);
+                    int NewDuration = generator.Random(10000, 30000);
                     int particleEndTime = particleStartTime + NewDuration;
                     particle.MoveX(particleStartTime, particleEndTime, generator.Random(-127, -107), endX);
                     particleStartTime += NewDuration;
+                    particle.Scale(particleEndTime, 0);
                 }
             }
             var sprite = generator.GetLayer(layer).CreateSprite($"sb/s/s{generator.Random(0, 9)}.png");
@@ -50,13 +51,14 @@ public class FogGenerator
             sprite.Scale(startTime, generator.Random(0.5, 1.1));
 
             elementStartTime += firstTimeDuration;
-            while(elementStartTime + 10000 < endTime)
+            while(elementStartTime + 7000 < endTime)
             {          
-                int newDuration = generator.Random(15000, 50000);
+                int newDuration = generator.Random(10000, 30000);
                 int elementEndTime = elementStartTime + newDuration;
                 sprite.MoveX(elementStartTime, elementEndTime, generator.Random(-217, -207), endX);
                 sprite.MoveY(elementStartTime, generator.Random(posY - stroke, posY + stroke));
                 elementStartTime += newDuration;
+                sprite.Scale(elementEndTime, 0);
             }
         }
     }

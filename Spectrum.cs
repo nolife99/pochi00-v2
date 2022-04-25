@@ -1,4 +1,5 @@
 ﻿using OpenTK;
+using OpenTK.Graphics;
 using StorybrewCommon.Animations;
 using StorybrewCommon.Scripting;
 using StorybrewCommon.Storyboarding;
@@ -93,7 +94,9 @@ namespace StorybrewScripts
 
                 var bar = layer.CreateSprite(SpritePath, SpriteOrigin, new Vector2(Position.X + i * barWidth, Position.Y));
                 bar.CommandSplitThreshold = 300;
-                bar.Additive(StartTime, EndTime);
+                bar.Additive(StartTime);
+                bar.Color(StartTime, Color4.LightSteelBlue);
+                bar.Fade(StartTime, 0.7);
 
                 var scaleX = Scale.X * barWidth / bitmap.Width;
                 scaleX = (float)Math.Floor(scaleX * 10) / 10.0f;

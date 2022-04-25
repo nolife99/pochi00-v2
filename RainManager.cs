@@ -28,25 +28,12 @@ namespace StorybrewScripts
 
         public override void Generate()
         {
-            if (StartTime >= EndTime)
-            {
-                StartTime = (int)Beatmap.HitObjects.First().StartTime;
-                EndTime = (int)Beatmap.HitObjects.Last().EndTime;
-            }
-            EndTime = Math.Min(EndTime, (int)AudioDuration);
-            StartTime = Math.Min(StartTime, EndTime);
-
-            if (Intensity <= 0)
-            {
-                Intensity = Random(2, 5);
-            }
             RainGenerator rainManager = new RainGenerator(this);
 
-            if(Alternate)
-                rainManager.GenerateRainAlt(StartTime, EndTime, Intensity);
-            
-            else
-                rainManager.GenerateRain(StartTime, EndTime, Intensity);
+            rainManager.GenerateRainAlt(380555, 432809, 9);
+            rainManager.GenerateRain(587221, 629138, 5);
+            rainManager.GenerateRain(597888, 629138, 5);
+            rainManager.GenerateRain(608555, 629138, 15);
         }
     }
 }

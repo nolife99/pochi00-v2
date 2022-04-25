@@ -52,18 +52,16 @@
   </Target>
   -->
   <ItemGroup>
-    <Compile Include="Birds.cs" />
-    <Compile Include="FogManager.cs" />
+    <Compile Include="Ending.cs" />
     <Compile Include="HitObjectGen.cs" />
     <Compile Include="ImportOsb.cs" />
     <Compile Include="Lines.cs" />
     <Compile Include="Lyrics.cs" />
     <Compile Include="MovingLightsManager.cs" />
-    <Compile Include="Particles.cs" />
     <Compile Include="RadialSpectrum.cs" />
     <Compile Include="RainManager.cs" />
+    <Compile Include="ScriptsManager.cs" />
     <Compile Include="Spectrum.cs" />
-    <Compile Include="SunRays.cs" />
     <Compile Include="Tetris.cs" />
     <Compile Include="scriptslibrary/FogGenerator.cs" />
     <Compile Include="scriptslibrary/MovingLights.cs" />

@@ -54,7 +54,7 @@ namespace StorybrewScripts
                     double Rotation = Math.Atan2(position.Y - nPosition.Y, position.X - nPosition.X) - Math.PI / 2;
 
                     lines.Move(time, time + timeStep, Position, nPosition);
-                    lines.Rotate(startTime, endTime, Rotation, Rotation);
+                    lines.Rotate(time, time + timeStep, Rotation, Rotation - 0.03405413);
 
                     Position = nPosition;
                 }

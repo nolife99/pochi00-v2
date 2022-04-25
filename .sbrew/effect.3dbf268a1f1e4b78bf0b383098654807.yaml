@@ -1,0 +1,24 @@
+﻿FormatVersion: 7
+Name: "ScriptsManager 1"
+Script: "ScriptsManager"
+Config:
+  RandomSeed:
+    Type: "System.Int32"
+    Value: "0"
+    DisplayName: "Random seed"
+Layers:
+  9c0aced10b1f4d888b045909539eb65a:
+    Name: ""
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  733b4f912c2449d08baaad260a084d21:
+    Name: "PARTICLES"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  aa0a9e9a20ff42f98c5bfc07fb6f3283:
+    Name: "Particles"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
