@@ -14,18 +14,6 @@ namespace StorybrewScripts
 {
     public class RainManager : StoryboardObjectGenerator
     {
-        [Configurable]
-        public int StartTime;
-
-        [Configurable]
-        public int EndTime;
-
-        [Configurable]
-        public int Intensity;
-
-        [Configurable]
-        public bool Alternate = false;
-
         public override void Generate()
         {
             RainGenerator rainManager = new RainGenerator(this);
