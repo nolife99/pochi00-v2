@@ -22,7 +22,7 @@ public class RainGenerator
             int endX = generator.Random(posX - 10, posX + 10);
             double angle = Math.Atan2(680, endX - posX);
 
-            var sprite = generator.GetLayer("Particles").CreateSprite("sb/pl.png", OsbOrigin.Centre, new Vector2(posX, 20));
+            var sprite = generator.GetLayer("Particles0").CreateSprite("sb/pl.png", OsbOrigin.Centre, new Vector2(posX, 20));
             sprite.StartLoopGroup(startTime + (i * 3), duration/particleSpeed);
             sprite.MoveY(0, particleSpeed, 20, 460);
             sprite.MoveX(0, particleSpeed, posX, endX);
@@ -31,7 +31,7 @@ public class RainGenerator
             sprite.Fade(startTime, generator.Random(0.15, 0.5));
             sprite.Scale(startTime, generator.Random(0.04, 0.05));
 
-            var splash = generator.GetLayer("Particles").CreateSprite("sb/d.png", OsbOrigin.Centre, new Vector2(posX, 460));
+            var splash = generator.GetLayer("Particles0").CreateSprite("sb/d.png", OsbOrigin.Centre, new Vector2(posX, 460));
             splash.StartLoopGroup(startTime + (i * 3) + particleSpeed, duration/particleSpeed);
             splash.MoveY(OsbEasing.OutExpo, 0, particleSpeed, 460, generator.Random(400, 450));
             splash.Fade(OsbEasing.OutExpo, 0, particleSpeed, 1, 0);
@@ -55,7 +55,7 @@ public class RainGenerator
             sprite.MoveX(0, particleSpeed, posX, endX);
             sprite.Rotate(0, particleSpeed, Math.PI/2, angle);
             sprite.EndGroup();
-            sprite.Fade(startTime, generator.Random(0.15, 0.5));
+            sprite.Fade(startTime, generator.Random(0.25, 0.6));
             sprite.Scale(startTime, generator.Random(0.04, 0.05));
 
             var splash = generator.GetLayer("Particles1").CreateSprite("sb/d.png", OsbOrigin.Centre, new Vector2(posX, 460));

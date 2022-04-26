@@ -19,23 +19,27 @@ namespace StorybrewScripts
         {
             Rings(289489, 302730);
 
+            Spectrum(4.5f, Color4.SteelBlue);
             Spectrum(0, Color4.LightSteelBlue);
-            Spectrum(4, Color4.SteelBlue);
             //for overlappable objects
             FogGenerator fogManager = new FogGenerator(this);
-
-            fogManager.GenerateFog(28027, 70694, 410, 48, 20, Color4.White, 0.5);
-            fogManager.GenerateFog(81360, 92027, 400, 16, 15, Color4.White, 0.5);
-            fogManager.GenerateFog(145260, 166360, 410, 18, 20, Color4.White, 0.3);
-            fogManager.GenerateFog(168027, 200027, 360, 50, 17, Color4.White, 0.5);
-            fogManager.GenerateFog(332523, 358014, 380, 15, 18, Color4.White, 0.45);
-            fogManager.GenerateFog(401889, 422889, 400, 15, 20, Color4.White, 0.5);
-            fogManager.GenerateFog(444722, 464555, 400, 15, 20, Color4.Orange, 0.5);
-            fogManager.GenerateFog(473889, 496555, 380, 18, 15, Color4.Orange, 0.5);
+            fogManager.GenerateFog(28027, 70694, 400, 15, 25, Color4.White, 0.5);
+            fogManager.GenerateFog(81360, 92027, 400, 15, 25, Color4.White, 0.5);
+            fogManager.GenerateFog(145260, 166360, 400, 15, 25, Color4.White, 0.5);
+            fogManager.GenerateFog(168027, 200027, 400, 15, 25, Color4.White, 0.5);
+            fogManager.GenerateFog(332523, 358014, 400, 15, 25, Color4.White, 0.5);
+            fogManager.GenerateFog(401889, 422889, 400, 15, 25, Color4.White, 0.5);
+            fogManager.GenerateFog(444722, 464555, 400, 15, 25, Color4.Orange, 0.5);
+            fogManager.GenerateFog(473889, 496555, 400, 15, 25, Color4.Orange, 0.5);
 
             MovingLights lightsManager = new MovingLights(this);
-
             lightsManager.GenerateMovingLights(608555, 624555, 0.09);
+
+            RainGenerator rainManager = new RainGenerator(this);
+            rainManager.GenerateRainAlt(380555, 432809, 9);
+            rainManager.GenerateRain(587221, 629138, 5);
+            rainManager.GenerateRain(597888, 629138, 5);
+            rainManager.GenerateRain(608555, 629138, 16);
         }
         public void Rings(int startTime, int endTime)
         {
@@ -82,21 +86,19 @@ namespace StorybrewScripts
         }
         private Vector2 transform(Vector2 position)
         {
-            Vector2 Position = new Vector2(250, 260);
+            Vector2 Position = new Vector2(337, 377);
             var Offset = new Vector2(Position.X, Position.Y);
-            int Rotation = 0;
 
             position = new Vector2(position.X - Offset.X, position.Y - Offset.Y);
-            return Vector2.Transform(position, Quaternion.FromEulerAngles((float)(MathHelper.DegreesToRadians(Rotation)), 0, 0)) + Offset;
+            return Vector2.Transform(position, Quaternion.FromEulerAngles((float)(MathHelper.DegreesToRadians(0)), 0, 0)) + Offset;
         }
         public void Spectrum(float offset, Color4 Color)
         {
-            var MinimalHeight = 0.1f;
+            var MinimalHeight = 0.01f;
             Vector2 Scale = new Vector2(1, 70);
-            float LogScale = 600;
-            int Width = 250;
-            Vector2 Position = new Vector2(340, 360);
-            int Rotation = 0;
+            float LogScale = 250;
+            int Width = 270;
+            Vector2 Position = new Vector2(337, 377);
 
             int StartTime = 276247;
             int EndTime = 289488;
@@ -109,8 +111,8 @@ namespace StorybrewScripts
             for (var i = 0; i < BarCount; i++)
                 heightKeyframes[i] = new KeyframedValue<float>(null);
 
-            var fftTimeStep = Beatmap.GetTimingPointAt(startTime).BeatDuration / 11;
-            var fftOffset = fftTimeStep * 0.2;
+            double fftTimeStep = Beatmap.GetTimingPointAt(startTime).BeatDuration / 11.65;
+            double fftOffset = fftTimeStep * 0.2;
             for (var time = (double)startTime; time < endTime; time += fftTimeStep)
             {
                 var fft = GetFft(time + fftOffset, BarCount, null, OsbEasing.InExpo);
@@ -132,20 +134,12 @@ namespace StorybrewScripts
                 var keyframes = heightKeyframes[i];
                 keyframes.Simplify1dKeyframes(0.2, h => h);
 
-                var bar = GetLayer("Spectrum").CreateSprite("sb/p.png", OsbOrigin.Centre);
+                var bar = GetLayer("Spectrum").CreateSprite("sb/p.png", OsbOrigin.Centre, transform(new Vector2(positionX - offset, Position.Y - offset)));
                 
                 bar.Color(startTime, Color);
-                bar.Fade(endTime, endTime, 0.5f, 0);
+                bar.Fade(endTime, endTime, 0.4f, 0);
 
-                bar.Rotate(OsbEasing.OutBack, startTime + BarCount * i, startTime + 1000 + BarCount * i,
-                    (float)(MathHelper.DegreesToRadians(Rotation)),
-                    (float)(MathHelper.DegreesToRadians(Rotation)));
-
-                bar.Move(OsbEasing.OutBack, startTime + BarCount * i, startTime + 1000 + BarCount * i,
-                    transform(new Vector2(positionX - offset, Position.Y - offset)),
-                    transform(new Vector2(positionX - offset, Position.Y - offset)));
-
-                var scaleX = Scale.X * barWidth / 2.5f / bitmap.Width;
+                var scaleX = Scale.X * barWidth / 1.8f / bitmap.Width;
                 scaleX = (float)Math.Floor(scaleX * 10) / 10.0f;
 
                 var hasScale = false;

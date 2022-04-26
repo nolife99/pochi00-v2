@@ -28,6 +28,7 @@ namespace StorybrewScripts
             GenerateBeam(81194, 82527);
             GenerateBeam(82694, 92027);
             GenerateBeam(412389, 423139);
+            GenerateVerticalBar(575555, 585805);
             List<double> t23 = new List<double>();
             foreach(var hitobject in Beatmap.HitObjects)
             {
@@ -138,6 +139,25 @@ namespace StorybrewScripts
             var sprite = GetLayer("").CreateSprite("sb/c2.png", OsbOrigin.Centre, position);
             sprite.Fade(startTime, startTime + 1000, 0.5, 0);
             sprite.ScaleVec(OsbEasing.OutExpo, startTime, startTime + 500, 0, position.Y/5000 * scaleY, position.Y/1000 * scaleY, position.Y/5000 * scaleY);
+        }
+        private void GenerateVerticalBar(int startTime, int endTime)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                foreach (var hitobject in Beatmap.HitObjects)
+                {
+                    if (hitobject.StartTime >= startTime && hitobject.StartTime <= endTime)
+                    {
+                        var position = new Vector2(Random(0, 640), 240);
+                        var sprite = GetLayer("Random Piano").CreateSprite("sb/p.png", OsbOrigin.Centre, position);
+
+                        sprite.ScaleVec(hitobject.StartTime, 40, 400);
+                        sprite.Fade(hitobject.StartTime, hitobject.StartTime + 500, 0.1, 0);
+                        sprite.Additive(hitobject.StartTime);
+                        sprite.Color(hitobject.StartTime, hitobject.Color);
+                    }
+                }
+            }
         }
     }
 }
