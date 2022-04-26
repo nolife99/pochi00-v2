@@ -2,18 +2,6 @@
 Name: "RainManager 1"
 Script: "RainManager"
 Config:
-  StartTime:
-    Type: "System.Int32"
-    Value: "0"
-  EndTime:
-    Type: "System.Int32"
-    Value: "0"
-  Intensity:
-    Type: "System.Int32"
-    Value: "0"
-  Alternate:
-    Type: "System.Boolean"
-    Value: "False"
   RandomSeed:
     Type: "System.Int32"
     Value: "21"
