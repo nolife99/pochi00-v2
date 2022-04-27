@@ -17,13 +17,13 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
-  9741a86e5e924e8a826c9545dac90c8e:
-    Name: "Spectrum"
+  c69e8789f6064c0896bc200e73ed8f71:
+    Name: "Particles1"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
-  c69e8789f6064c0896bc200e73ed8f71:
-    Name: "Particles1"
+  9741a86e5e924e8a826c9545dac90c8e:
+    Name: "Spectrum"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes

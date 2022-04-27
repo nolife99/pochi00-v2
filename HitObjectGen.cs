@@ -142,7 +142,7 @@ namespace StorybrewScripts
         }
         private void GenerateVerticalBar(int startTime, int endTime)
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 1; i++)
             {
                 foreach (var hitobject in Beatmap.HitObjects)
                 {

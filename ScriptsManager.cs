@@ -19,7 +19,7 @@ namespace StorybrewScripts
         {
             Rings(289489, 302730);
 
-            Spectrum(4.5f, Color4.SteelBlue);
+            Spectrum(4, Color4.SkyBlue);
             Spectrum(0, Color4.LightSteelBlue);
             //for overlappable objects
             FogGenerator fogManager = new FogGenerator(this);
@@ -84,19 +84,11 @@ namespace StorybrewScripts
                 angle += ConnectionAngle / (amount / 2);
             }
         }
-        private Vector2 transform(Vector2 position)
-        {
-            Vector2 Position = new Vector2(337, 377);
-            var Offset = new Vector2(Position.X, Position.Y);
-
-            position = new Vector2(position.X - Offset.X, position.Y - Offset.Y);
-            return Vector2.Transform(position, Quaternion.FromEulerAngles((float)(MathHelper.DegreesToRadians(0)), 0, 0)) + Offset;
-        }
         public void Spectrum(float offset, Color4 Color)
         {
-            var MinimalHeight = 0.01f;
+            var MinimalHeight = 0;
             Vector2 Scale = new Vector2(1, 70);
-            float LogScale = 250;
+            float LogScale = 270;
             int Width = 270;
             Vector2 Position = new Vector2(337, 377);
 
@@ -111,9 +103,9 @@ namespace StorybrewScripts
             for (var i = 0; i < BarCount; i++)
                 heightKeyframes[i] = new KeyframedValue<float>(null);
 
-            double fftTimeStep = Beatmap.GetTimingPointAt(startTime).BeatDuration / 11.65;
+            double fftTimeStep = Beatmap.GetTimingPointAt(startTime).BeatDuration / 11;
             double fftOffset = fftTimeStep * 0.2;
-            for (var time = (double)startTime; time < endTime; time += fftTimeStep)
+            for (var time = (double)startTime; time <= endTime; time += fftTimeStep)
             {
                 var fft = GetFft(time + fftOffset, BarCount, null, OsbEasing.InExpo);
                 for (var i = 0; i < BarCount; i++)
@@ -132,15 +124,16 @@ namespace StorybrewScripts
             {
                 var positionX = posX + i * barWidth;
                 var keyframes = heightKeyframes[i];
-                keyframes.Simplify1dKeyframes(0.2, h => h);
+                var pos = new Vector2(positionX - offset, Position.Y - offset);
+                keyframes.Simplify1dKeyframes(0.15, h => h);
 
-                var bar = GetLayer("Spectrum").CreateSprite("sb/p.png", OsbOrigin.Centre, transform(new Vector2(positionX - offset, Position.Y - offset)));
+                var bar = GetLayer("Spectrum").CreateSprite("sb/p.png", OsbOrigin.Centre, pos);
                 
                 bar.Color(startTime, Color);
-                bar.Fade(endTime, endTime, 0.4f, 0);
+                bar.Fade(endTime, endTime, 0.4, 0);
 
-                var scaleX = Scale.X * barWidth / 1.8f / bitmap.Width;
-                scaleX = (float)Math.Floor(scaleX * 10) / 10.0f;
+                var scaleX = Scale.X * barWidth / 1.75f / bitmap.Width;
+                scaleX = (float)Math.Floor(scaleX * 10) / 10;
 
                 var hasScale = false;
                 keyframes.ForEachPair(
