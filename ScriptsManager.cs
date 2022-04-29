@@ -25,7 +25,7 @@ namespace StorybrewScripts
             FogGenerator fogManager = new FogGenerator(this);
             fogManager.GenerateFog(28027, 70694, 400, 15, 25, Color4.White, 0.5);
             fogManager.GenerateFog(81360, 92027, 400, 15, 25, Color4.White, 0.5);
-            fogManager.GenerateFog(145260, 166360, 400, 15, 25, Color4.White, 0.5);
+            fogManager.GenerateFog(145260, 166339, 400, 15, 25, Color4.White, 0.5);
             fogManager.GenerateFog(168027, 200027, 400, 15, 25, Color4.White, 0.5);
             fogManager.GenerateFog(332523, 358014, 400, 15, 25, Color4.White, 0.5);
             fogManager.GenerateFog(401889, 422889, 400, 15, 25, Color4.White, 0.5);

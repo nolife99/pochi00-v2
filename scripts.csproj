@@ -55,10 +55,8 @@
     <Compile Include="Ending.cs" />
     <Compile Include="HitObjectGen.cs" />
     <Compile Include="ImportOsb.cs" />
-    <Compile Include="RadialSpectrum.cs" />
     <Compile Include="RainManager.cs" />
     <Compile Include="ScriptsManager.cs" />
-    <Compile Include="Spectrum.cs" />
     <Compile Include="scriptslibrary/FogGenerator.cs" />
     <Compile Include="scriptslibrary/MovingLights.cs" />
     <Compile Include="scriptslibrary/RainGenerator.cs" />
