@@ -57,9 +57,7 @@
     <Compile Include="ImportOsb.cs" />
     <Compile Include="RainManager.cs" />
     <Compile Include="ScriptsManager.cs" />
-    <Compile Include="scriptslibrary/FogGenerator.cs" />
-    <Compile Include="scriptslibrary/MovingLights.cs" />
-    <Compile Include="scriptslibrary/RainGenerator.cs" />
+    <Compile Include="scriptslibrary/Scripts.cs" />
   </ItemGroup>
   <ItemGroup />
 </Project>

@@ -21,25 +21,24 @@ namespace StorybrewScripts
 
             Spectrum(4, Color4.SkyBlue);
             Spectrum(0, Color4.LightSteelBlue);
-            //for overlappable objects
-            FogGenerator fogManager = new FogGenerator(this);
-            fogManager.GenerateFog(28027, 70694, 400, 15, 25, Color4.White, 0.5);
-            fogManager.GenerateFog(81360, 92027, 400, 15, 25, Color4.White, 0.5);
-            fogManager.GenerateFog(145260, 166339, 400, 15, 25, Color4.White, 0.5);
-            fogManager.GenerateFog(168027, 200027, 400, 15, 25, Color4.White, 0.5);
-            fogManager.GenerateFog(332523, 358014, 400, 15, 25, Color4.White, 0.5);
-            fogManager.GenerateFog(401889, 422889, 400, 15, 25, Color4.White, 0.5);
-            fogManager.GenerateFog(444722, 464555, 400, 15, 25, Color4.Orange, 0.5);
-            fogManager.GenerateFog(473889, 496555, 400, 15, 25, Color4.Orange, 0.5);
 
-            MovingLights lightsManager = new MovingLights(this);
-            lightsManager.GenerateMovingLights(608555, 624555, 0.09);
+            Scripts particleManager = new Scripts(this);
 
-            RainGenerator rainManager = new RainGenerator(this);
-            rainManager.GenerateRainAlt(380555, 432809, 9);
-            rainManager.GenerateRain(587221, 629138, 5);
-            rainManager.GenerateRain(597888, 629138, 5);
-            rainManager.GenerateRain(608555, 629138, 16);
+            particleManager.GenerateFog(28027, 70694, 400, 15, 25, Color4.White, 0.5);
+            particleManager.GenerateFog(81360, 92027, 400, 15, 25, Color4.White, 0.5);
+            particleManager.GenerateFog(145260, 166339, 400, 15, 25, Color4.White, 0.5);
+            particleManager.GenerateFog(168027, 200027, 400, 15, 25, Color4.White, 0.5);
+            particleManager.GenerateFog(332523, 358014, 400, 15, 25, Color4.White, 0.5);
+            particleManager.GenerateFog(401889, 422889, 400, 15, 25, Color4.White, 0.5);
+            particleManager.GenerateFog(444722, 464555, 400, 15, 25, Color4.Orange, 0.5);
+            particleManager.GenerateFog(473889, 496555, 400, 15, 25, Color4.Orange, 0.5);
+
+            particleManager.GenerateLights(608555, 624555, 0.09);
+
+            particleManager.GenerateRain(380555, 432809, 9, true);
+            particleManager.GenerateRain(587221, 629138, 5);
+            particleManager.GenerateRain(597888, 629138, 5);
+            particleManager.GenerateRain(608555, 629138, 16);
         }
         public void Rings(int startTime, int endTime)
         {
