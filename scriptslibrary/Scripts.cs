@@ -87,7 +87,7 @@ public class Scripts
             int duration = endTime - startTime;
             int particleSpeed = generator.Random(215, 310);
             int posX = generator.Random(-106, 747);
-            int endX = generator.Random(posX - 10, posX + 10);
+            int endX = generator.Random(posX - 17, posX + 17);
             double angle = Math.Atan2(680, endX - posX);
             int delay = 3;
             string layerx = "rain";
@@ -104,8 +104,8 @@ public class Scripts
             sprite.MoveX(0, particleSpeed, posX, endX);
             sprite.Rotate(0, particleSpeed, Math.PI/2, angle);
             sprite.EndGroup();
-            sprite.Fade(startTime, generator.Random(0.15, 0.5));
-            sprite.Scale(startTime, generator.Random(0.04, 0.05));
+            sprite.Fade(startTime + (i * delay), generator.Random(0.15, 0.5));
+            sprite.Scale(startTime + (i * delay), generator.Random(0.04, 0.045));
 
             var splash = generator.GetLayer(layerx).CreateSprite("sb/d.png", OsbOrigin.Centre, new Vector2(posX, 460));
             splash.StartLoopGroup(startTime + (i * delay) + particleSpeed, duration/particleSpeed);

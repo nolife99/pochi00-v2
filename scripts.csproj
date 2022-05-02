@@ -55,7 +55,6 @@
     <Compile Include="Ending.cs" />
     <Compile Include="HitObjectGen.cs" />
     <Compile Include="ImportOsb.cs" />
-    <Compile Include="RainManager.cs" />
     <Compile Include="ScriptsManager.cs" />
     <Compile Include="scriptslibrary/Scripts.cs" />
   </ItemGroup>
