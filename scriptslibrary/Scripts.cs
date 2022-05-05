@@ -80,12 +80,12 @@ public class Scripts
             sprite.Additive(i, i + duration);
         }
     }
-    public void GenerateRain(int startTime, int endTime, int intensity, bool alt = false)
+    public void GenerateRain(int startTime, int endTime, float intensity, bool alt = false)
     {
         for(int i = 0; i < intensity * 10; i++)
         {
             int duration = endTime - startTime;
-            int particleSpeed = generator.Random(215, 310);
+            int particleSpeed = generator.Random(250, 350);
             int posX = generator.Random(-106, 747);
             int endX = generator.Random(posX - 17, posX + 17);
             double angle = Math.Atan2(680, endX - posX);
@@ -108,7 +108,7 @@ public class Scripts
             sprite.Scale(startTime + (i * delay), generator.Random(0.04, 0.045));
 
             var splash = generator.GetLayer(layerx).CreateSprite("sb/d.png", OsbOrigin.Centre, new Vector2(posX, 460));
-            splash.StartLoopGroup(startTime + (i * delay) + particleSpeed, duration/particleSpeed);
+            splash.StartLoopGroup(startTime + (i * delay) + particleSpeed, duration / particleSpeed);
             splash.MoveY(OsbEasing.OutExpo, 0, particleSpeed, 460, generator.Random(400, 450));
             splash.Fade(OsbEasing.OutExpo, 0, particleSpeed, 1, 0);
             splash.Scale(OsbEasing.OutExpo, 0, particleSpeed, generator.Random(0.04, 0.05), 0);

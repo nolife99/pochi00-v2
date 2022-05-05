@@ -17,7 +17,7 @@ namespace StorybrewScripts
     {
         public override void Generate()
         {
-            Rings(289489, 302730);
+            RotatingLines(289489, 302730);
 
             Spectrum(4, Color4.SkyBlue);
             Spectrum(0, Color4.LightSteelBlue);
@@ -35,12 +35,12 @@ namespace StorybrewScripts
 
             particleManager.GenerateLights(608555, 624555, 0.09);
 
-            particleManager.GenerateRain(380555, 432809, 9, true);
+            particleManager.GenerateRain(380555, 432555, 9, true);
             particleManager.GenerateRain(587221, 629138, 5);
             particleManager.GenerateRain(597888, 629138, 5);
-            particleManager.GenerateRain(608555, 629138, 16);
+            particleManager.GenerateRain(608555, 629138, 15);
         }
-        public void Rings(int startTime, int endTime)
+        public void RotatingLines(int startTime, int endTime)
         {
             var blankBitmap = GetMapsetBitmap("sb/p.png");
             int amount = 22;
@@ -63,7 +63,7 @@ namespace StorybrewScripts
                 lines.Fade(startTime + 1000, endTime, 0.15, 0.8);
                 lines.Fade(endTime, endTime + 2000, 0.8, 0);
 
-                var timeStep = 80;
+                double timeStep = 80;
                 for (double time = startTime; time < endTime; time += timeStep)
                 {
                     angle += -0.069;
@@ -76,7 +76,7 @@ namespace StorybrewScripts
                     double Rotation = Math.Atan2(position.Y - nPosition.Y, position.X - nPosition.X) - Math.PI / 2;
 
                     lines.Move(time, time + timeStep, Position, nPosition);
-                    lines.Rotate(time, time + timeStep, Rotation, Rotation - 0.03405413);
+                    lines.Rotate(time, time + timeStep, Rotation, Rotation - Math.PI / 100);
 
                     Position = nPosition;
                 }
@@ -88,7 +88,7 @@ namespace StorybrewScripts
             var MinimalHeight = 0;
             Vector2 Scale = new Vector2(1, 70);
             float LogScale = 270;
-            int Width = 270;
+            int Width = 287;
             Vector2 Position = new Vector2(337, 377);
 
             int StartTime = 276247;
