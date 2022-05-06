@@ -23,14 +23,14 @@ namespace StorybrewScripts
 
             Scripts particleManager = new Scripts(this);
 
-            particleManager.GenerateFog(28027, 70694, 400, 15, 25, Color4.White, 0.5);
-            particleManager.GenerateFog(81360, 92027, 400, 15, 25, Color4.White, 0.5);
-            particleManager.GenerateFog(145260, 166339, 400, 15, 25, Color4.White, 0.5);
-            particleManager.GenerateFog(168027, 200027, 400, 15, 25, Color4.White, 0.5);
-            particleManager.GenerateFog(332523, 358014, 400, 15, 25, Color4.White, 0.5);
-            particleManager.GenerateFog(401889, 422889, 400, 15, 25, Color4.White, 0.5);
-            particleManager.GenerateFog(444722, 464555, 400, 15, 25, Color4.Orange, 0.5);
-            particleManager.GenerateFog(473889, 496555, 400, 15, 25, Color4.Orange, 0.5);
+            particleManager.GenerateFog(28027, 70694, 400, 10, 25, Color4.White, 0.5);
+            particleManager.GenerateFog(81360, 92027, 400, 10, 25, Color4.White, 0.5);
+            particleManager.GenerateFog(145260, 166339, 400, 10, 25, Color4.White, 0.5);
+            particleManager.GenerateFog(168027, 200027, 400, 10, 25, Color4.White, 0.5);
+            particleManager.GenerateFog(332523, 358014, 400, 10, 25, Color4.White, 0.5);
+            particleManager.GenerateFog(401889, 422889, 400, 10, 25, Color4.White, 0.5);
+            particleManager.GenerateFog(444722, 464555, 400, 10, 25, Color4.Orange, 0.5);
+            particleManager.GenerateFog(473889, 496555, 400, 10, 25, Color4.Orange, 0.5);
 
             particleManager.GenerateLights(608555, 624555, 0.09);
 

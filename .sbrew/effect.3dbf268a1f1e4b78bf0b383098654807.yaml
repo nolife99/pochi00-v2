@@ -4,7 +4,7 @@ Script: "ScriptsManager"
 Config:
   RandomSeed:
     Type: "System.Int32"
-    Value: "0"
+    Value: "21"
     DisplayName: "Random seed"
 Layers:
   44b99fd8ab1944f8b2b6ee3926bb4eaa:
