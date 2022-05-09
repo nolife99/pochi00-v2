@@ -17,8 +17,8 @@ namespace StorybrewScripts
     {
         public override void Generate()
         {
-            FlyingBirds(3500, 7000, 20, 30, 587210, 608543, 24, false, true, 0.02, 0.05);
-            FlyingBirds(3500, 7000, 20, 30, 587210, 608543, 25, true, false, 0.02, 0.05);
+            FlyingBirds(3500, 7000, 20, 30, 587221, 608555, 35, false, true, 0.02, 0.05);
+            FlyingBirds(3500, 7000, 20, 30, 587221, 608555, 35, true, false, 0.02, 0.05);
 
             GodRays(587221, 613888);
         }
@@ -32,21 +32,12 @@ namespace StorybrewScripts
             double ParticleFadeMin = 1;
             double ParticleFadeMax = 1;
             int FadeTimeIn = 2000;
-            int FadeTimeOut = 500;
+            int FadeTimeOut = 700;
             bool RandomScale = true;
             bool RandomDuration = true;
             int NewColorEvery = 1;
             Color4 Color = Color4.White;
-            Color4 Color2 = Color4.White;
-
-            if (StartTime == EndTime)
-            {
-                StartTime = (int)Beatmap.HitObjects.First().StartTime;
-                EndTime = (int)Beatmap.HitObjects.Last().EndTime;
-            }
-
-            EndTime = Math.Min(EndTime, (int)AudioDuration);
-            StartTime = Math.Min(StartTime, EndTime);
+            Color4 Color2 = Color4.LightSlateGray;
 
             var layer = GetLayer("");
             using (var pool = new OsbSpritePool(layer, ParticlePath, ParticleOrigin, (sprite, startTime, endTime) =>
@@ -62,11 +53,11 @@ namespace StorybrewScripts
                     float lastX = Random(StartPosition.X, EndPosition.X);
                     float lastY = Random(StartPosition.Y, EndPosition.Y);
                     float rVec = MathHelper.DegreesToRadians(Random(360));
-                    int sVec = FlyingSpeed * 2;
+                    int sVec = FlyingSpeed * 4;
                     double vX = Math.Cos(rVec) * sVec;
                     double vY = Math.Sin(rVec) * sVec;
                     double lastAngle = 0;
-                    float timeStep = FlipInterval * Random(0.45f, 4);
+                    var timeStep = Beatmap.GetTimingPointAt((int)StartTime).BeatDuration / 0.5;
 
                     for (var t = i; t < i + RealTravelTime; t += (int)timeStep)
                     {

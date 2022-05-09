@@ -120,9 +120,14 @@ namespace StorybrewScripts
                 {
                     if (hitobject.StartTime - lastObject > 1)
                     {
+                        int scaleY = 810;
+                        if (startTime > 380555)
+                        {
+                            scaleY = 700;
+                        }
                         var sprite = GetLayer("").CreateSprite("sb/p.png", OsbOrigin.Centre, hitobject.Position);
                         sprite.Rotate(hitobject.StartTime, Random(-Math.PI / 8, Math.PI / 8));
-                        sprite.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 1000, 5, 1000, 0, 1000);
+                        sprite.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 1000, 5, scaleY, 0, scaleY);
                         sprite.Additive(hitobject.StartTime);
                         sprite.Fade(hitobject.StartTime, 0.5);
                     }

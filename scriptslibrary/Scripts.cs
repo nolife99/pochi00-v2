@@ -115,4 +115,32 @@ public class Scripts
             splash.EndGroup();
         }
     }
+    public void SquareTransition(int startTime, int endTime, bool In, int squareScale, Color4 color, OsbEasing easing)
+    {
+        int posX = -107;
+        int posY = 40;
+
+        while (posX < 747 + squareScale)
+        {
+            while (posY < 437 + squareScale)
+            {
+                var sprite = generator.GetLayer("transition").CreateSprite("sb/p.png", OsbOrigin.Centre, new Vector2(posX, posY));
+
+                if (In)
+                {
+                    sprite.Scale(easing, startTime, endTime, 0, squareScale);
+                    sprite.Rotate(easing, startTime, endTime, Math.PI, 0);
+                }
+                else
+                {
+                    sprite.Scale(easing, startTime, endTime, squareScale, 0);
+                    sprite.Rotate(easing, startTime, endTime, 0, -Math.PI);
+                }
+                sprite.Color(startTime, color);
+                posY += squareScale;
+            }
+            posY = 40;
+            posX += squareScale;
+        }
+    }
 }

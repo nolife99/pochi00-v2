@@ -17,13 +17,18 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
+  3e0ead2853ae4d4ba240753f3abd2c53:
+    Name: "circle"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
   733b4f912c2449d08baaad260a084d21:
     Name: "PARTICLES"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
-  9741a86e5e924e8a826c9545dac90c8e:
-    Name: "Spectrum"
+  30b643f9cf394429a963c86a1f134944:
+    Name: "Glitch"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
@@ -34,6 +39,11 @@ Layers:
     Visible: Yes
   8c4f14c51f7245f19e212f734352d702:
     Name: "rain "
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  66d2271f1ccc4012992dc990a18b1728:
+    Name: "transition"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
