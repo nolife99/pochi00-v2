@@ -40,7 +40,7 @@ namespace StorybrewScripts
             bool RandomDuration = true;
             int NewColorEvery = 1;
             Color4 Color = Color4.White;
-            Color4 Color2 = Color4.LightSlateGray;
+            Color4 Color2 = Color4.LightGray;
 
             var layer = GetLayer("");
             using (var pool = new OsbSpritePool(layer, ParticlePath, ParticleOrigin, (sprite, startTime, endTime) =>
@@ -202,22 +202,22 @@ namespace StorybrewScripts
                                     sprite.EndGroup();
         
                                     sprite.ScaleVec(OsbEasing.In, i + FlipInterval * 2 * loopcount, i + RealTravelTime, RandomScaling - 0.005, RandomScaling, 0, RandomScaling / 2); // Workaround to prevent the sprite stopping
-                                    } 
-                                    else 
-                                    {
-                                        sprite.ScaleVec(i, ScaleMin, ScaleMax);
+                                } 
+                                else 
+                                {
+                                    sprite.ScaleVec(i, ScaleMin, ScaleMax);
 
-                                        if (ScaleMin == ScaleMax && ScaleMin != 1)
-                                            sprite.ScaleVec(i, ScaleMin, ScaleMin);
-                                    }
+                                    if (ScaleMin == ScaleMax && ScaleMin != 1)
+                                        sprite.ScaleVec(i, ScaleMin, ScaleMin);
                                 }
                             }
-                            else
-                            {
-                                sprite.ScaleVec(i, ScaleMin, ScaleMax);
+                        }
+                        else
+                        {
+                            sprite.ScaleVec(i, ScaleMin, ScaleMax);
 
-                                if (ScaleMin == ScaleMax && ScaleMin != 1)
-                                    sprite.ScaleVec(i, ScaleMin, ScaleMin);
+                            if (ScaleMin == ScaleMax && ScaleMin != 1)
+                                sprite.ScaleVec(i, ScaleMin, ScaleMin);
                         }
                     }
                 }
@@ -227,26 +227,22 @@ namespace StorybrewScripts
         {
             for (int i = 0; i < 15; i++)
             {
-                var sprite = GetLayer("").CreateSprite("sb/light.png", OsbOrigin.CentreLeft);
+                var pos = new Vector2(Random(-57, 697), -25);
+                var sprite = GetLayer("").CreateSprite("sb/light.png", OsbOrigin.CentreLeft, pos);
                 var rotateStart = MathHelper.DegreesToRadians(Random(80, 100));
                 var rotateEnd = MathHelper.DegreesToRadians(Random(75, 115));
                 int RandomDuration = Random(4000, 7000);
-                int loopCount = (endTime - startTime) / (RandomDuration * 2);
+                var Fade = Random(0.3, 0.5);
 
-                sprite.StartLoopGroup(startTime, (int)loopCount);
+                sprite.StartLoopGroup(startTime, (endTime - startTime) / (RandomDuration * 2));
+                sprite.Fade(0, 1500, 0, Fade);
                 sprite.Rotate(0, RandomDuration, rotateStart, rotateEnd);
                 sprite.Rotate(RandomDuration, RandomDuration * 2, rotateEnd, rotateStart);
-                sprite.EndGroup();
-
-                double Fade = Random(0.25, 0.4);
-                sprite.StartLoopGroup(startTime, loopCount);
-                sprite.Move(0, new Vector2(Random(-57, 697), -25));
-                sprite.Fade(0, 1500, 0, Fade);
                 sprite.Fade(RandomDuration * 2 - 1500, RandomDuration * 2 - 1000, Fade, 0);
                 sprite.EndGroup();
 
                 sprite.Scale(startTime, 0.73);
-                sprite.Additive(startTime, endTime);
+                sprite.Additive(startTime);
             }
         }
     }

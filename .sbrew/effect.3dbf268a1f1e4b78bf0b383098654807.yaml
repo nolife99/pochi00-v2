@@ -7,18 +7,13 @@ Config:
     Value: "21"
     DisplayName: "Random seed"
 Layers:
-  44b99fd8ab1944f8b2b6ee3926bb4eaa:
-    Name: "0"
+  3e0ead2853ae4d4ba240753f3abd2c53:
+    Name: "circle"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
   68e3e2c0ac2b45539b19820728e51bf7:
     Name: "rain"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
-  3e0ead2853ae4d4ba240753f3abd2c53:
-    Name: "circle"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes

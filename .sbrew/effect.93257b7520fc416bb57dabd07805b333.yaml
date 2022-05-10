@@ -4,11 +4,16 @@ Script: "Ending"
 Config:
   RandomSeed:
     Type: "System.Int32"
-    Value: "53"
+    Value: "52"
     DisplayName: "Random seed"
 Layers:
   8d2da3b91c1347c09f7264635b9eb816:
     Name: ""
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  4dc7f32f714242fa8fc747fe697f67f5:
+    Name: "0"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
