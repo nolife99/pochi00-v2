@@ -33,9 +33,8 @@ namespace StorybrewScripts
             particleManager.GenerateFog(444722, 464555, 400, 10, 25, Color4.Orange, 0.5);
             particleManager.GenerateFog(473889, 496555, 400, 10, 25, Color4.Orange, 0.5);
 
-            particleManager.SquareTransition(355695, 359006, true, 19, Color4.Black, OsbEasing.InSine);
-
-            particleManager.GenerateLights(608555, 624555, 0.09);
+            var color = new Color4(10, 10, 10, 1);
+            particleManager.SquareTransition(355695, 359006, true, 18.2f, color, OsbEasing.InSine);
 
             particleManager.GenerateRain(380555, 432555, 9, true);
             particleManager.GenerateRain(587221, 629138, 5);
@@ -145,7 +144,7 @@ namespace StorybrewScripts
             var blankBitmap = GetMapsetBitmap("sb/p.png");
             int amount = 22;
             double angle = 90;
-            double radius = 150;
+            double radius = 165;
             for (var i = 0; i < amount; i++)
             {
                 var Position = new Vector2(0, 0);
@@ -173,8 +172,8 @@ namespace StorybrewScripts
                         (float)(318 + Math.Cos(angle) * radius),
                         (float)(240 + Math.Sin(angle) * radius));
 
-                    lines.Move(time, time + timeStep, Position, nPosition);
-                    Position = nPosition;
+                    lines.Move(time, time + timeStep, position, nPosition);
+                    position = nPosition;
                 }
                 angle += ConnectionAngle / (amount / 2);
 
@@ -182,16 +181,16 @@ namespace StorybrewScripts
                     (float)(318 + Math.Cos(angle) * radius),
                     (float)(240 + Math.Sin(angle) * radius));
                     
-                var Rotation = Math.Atan2(position.Y - pos.Y, position.X - pos.X) - Math.PI / 2;
+                var Rotation = Math.Atan2(position.Y - pos.Y, position.X - pos.X) + Math.PI / 3;
                     
-                lines.Rotate(startTime, endTime, Rotation, Rotation - Math.PI * 2.25);
+                lines.Rotate(startTime, endTime, Rotation, Rotation - Math.PI * 2.3);
             }
         }
         public void GlitchSection(float offset, Color4 Color)
         {
             int startTime = 276247;
             int endTime = 289488;
-            var MinimalHeight = 0;
+            var MinimalHeight = 0.5f;
             Vector2 Scale = new Vector2(1, 70);
             float LogScale = 270;
             int Width = 287;

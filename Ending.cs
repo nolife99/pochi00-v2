@@ -17,12 +17,15 @@ namespace StorybrewScripts
     {
         public override void Generate()
         {
-            FlyingBirds(3500, 7000, 20, 30, 587221, 608555, 35, false, true, 0.02, 0.05);
-            FlyingBirds(3500, 7000, 20, 30, 587221, 608555, 35, true, false, 0.02, 0.05);
+            Birds(3500, 7000, 20, 30, 587221, 608555, 35, false, true, 0.02, 0.05);
+            Birds(3500, 7000, 20, 30, 587221, 608555, 35, true, false, 0.02, 0.05);
 
             GodRays(587221, 613888);
+
+            Scripts particleManager = new Scripts(this);
+            particleManager.GenerateLights(608555, 624555, 0.09);
         }
-        public void FlyingBirds(int MinDuration, int MaxDuration, int FlyingSpeed, int Acceleration, int StartTime, int EndTime, int SpriteAmount, bool right, bool left, double ScaleMin, double ScaleMax)
+        public void Birds(int MinDuration, int MaxDuration, int FlyingSpeed, int Acceleration, int StartTime, int EndTime, int SpriteAmount, bool right, bool left, double ScaleMin, double ScaleMax)
         {
             Vector2 StartPosition = new Vector2(320, 260);
             Vector2 EndPosition = new Vector2(320, 380);

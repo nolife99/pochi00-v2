@@ -34046,10 +34046,10 @@ Sprite,Background,Centre,"sb\p.png",765,240
  C,0,628556,,12,12,12
  V,0,629205,629505,0,500,15,500
  F,0,631222,632221,1,0
-Animation,Background,Centre,"sb\b\a\l.png",0,0,5,13,LoopForever
- F,0,276247,,0.15
+Animation,Background,Centre,"sb\b\a\l.png",0,0,5,2.5,LoopForever
+ F,0,276247,,0.12
  S,0,276247,,1.2
- M,0,276247,289488,-404,-77,1044,-77
+ M,0,276247,289488,-404,17,1044,17
 Sprite,Background,Centre,"sb\d.png",0,0
  M,19,11,7346,320,240,320.1171,253.9995
  F,0,11,7346,1,0
