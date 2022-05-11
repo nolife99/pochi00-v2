@@ -17,29 +17,26 @@ namespace StorybrewScripts
         public override void Generate()
         {
             Circles();
+            GlitchSection();
             RotatingLines();
-
-            GlitchSection(4, Color4.SkyBlue);
-            GlitchSection(0, Color4.LightSteelBlue);
 
             Scripts particleManager = new Scripts(this);
 
-            particleManager.GenerateFog(28027, 70694, 400, 10, 25, Color4.White, 0.5);
-            particleManager.GenerateFog(81360, 92027, 400, 10, 25, Color4.White, 0.5);
-            particleManager.GenerateFog(145260, 166027, 400, 10, 25, Color4.White, 0.5);
-            particleManager.GenerateFog(168027, 200027, 400, 10, 25, Color4.White, 0.5);
-            particleManager.GenerateFog(332523, 358014, 400, 10, 25, Color4.White, 0.5);
-            particleManager.GenerateFog(401889, 422889, 400, 10, 25, Color4.White, 0.5);
-            particleManager.GenerateFog(444722, 464555, 400, 10, 25, Color4.Orange, 0.5);
-            particleManager.GenerateFog(473889, 496555, 400, 10, 25, Color4.Orange, 0.5);
+            particleManager.GenerateFog(28027, 70694, 400, 25, Color4.White, 0.6);
+            particleManager.GenerateFog(81360, 92027, 400, 25, Color4.White, 0.6);
+            particleManager.GenerateFog(145260, 166027, 400, 25, Color4.White, 0.6);
+            particleManager.GenerateFog(168027, 200027, 400, 25, Color4.White, 0.6);
+            particleManager.GenerateFog(332523, 358014, 400, 25, Color4.White, 0.6);
+            particleManager.GenerateFog(401889, 422889, 400, 25, Color4.White, 0.6);
+            particleManager.GenerateFog(444722, 464555, 400, 25, Color4.Orange, 0.6);
+            particleManager.GenerateFog(473889, 496555, 400, 25, Color4.Orange, 0.6);
 
-            var color = new Color4(10, 10, 10, 1);
-            particleManager.SquareTransition(355695, 359006, true, 18.2f, color, OsbEasing.InSine);
+            particleManager.SquareTransition(355695, 359006, true, 18.2f, new Color4(10, 10, 10, 1), OsbEasing.In);
 
-            particleManager.GenerateRain(380555, 432555, 9, true);
-            particleManager.GenerateRain(587221, 629138, 5);
-            particleManager.GenerateRain(597888, 629138, 5);
-            particleManager.GenerateRain(608555, 629138, 15);
+            particleManager.GenerateRain(380555, 431889, 9.6, true);
+            particleManager.GenerateRain(587221, 629471, 5);
+            particleManager.GenerateRain(597888, 629471, 5);
+            particleManager.GenerateRain(608555, 629471, 15);
         }
         public void Circles()
         {
@@ -181,15 +178,26 @@ namespace StorybrewScripts
                     (float)(318 + Math.Cos(angle) * radius),
                     (float)(240 + Math.Sin(angle) * radius));
                     
-                var Rotation = Math.Atan2(position.Y - pos.Y, position.X - pos.X) + Math.PI / 3;
+                var Rotation = Math.Atan2(position.Y - pos.Y, position.X - pos.X) + Math.PI;
                     
-                lines.Rotate(startTime, endTime, Rotation, Rotation - Math.PI * 2.3);
+                lines.Rotate(startTime, endTime, Rotation, Rotation - Math.PI * 3);
             }
         }
-        public void GlitchSection(float offset, Color4 Color)
+        public void GlitchSection()
         {
             int startTime = 276247;
             int endTime = 289488;
+            var ani = GetLayer("Glitch").CreateAnimation("sb/b/a/l.png", 5, 5.2, OsbLoopType.LoopForever);
+
+            ani.Fade(startTime, 0.12);
+            ani.Scale(startTime, 1.2);
+            ani.Move(startTime, endTime, -404, 37, 1044, 37);
+
+            Spectrum(startTime, endTime, 4, Color4.SkyBlue);
+            Spectrum(startTime, endTime, 0, Color4.LightSteelBlue);
+        }
+        private void Spectrum(int startTime, int endTime, float offset, Color4 Color)
+        {
             var MinimalHeight = 0.5f;
             Vector2 Scale = new Vector2(1, 70);
             float LogScale = 270;

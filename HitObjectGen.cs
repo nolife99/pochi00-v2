@@ -123,7 +123,7 @@ namespace StorybrewScripts
                         int scaleY = 810;
                         if (startTime > 380555)
                         {
-                            scaleY = 700;
+                            scaleY = 730;
                         }
                         var sprite = GetLayer("").CreateSprite("sb/p.png", OsbOrigin.Centre, hitobject.Position);
                         sprite.Rotate(hitobject.StartTime, Random(-Math.PI / 8, Math.PI / 8));

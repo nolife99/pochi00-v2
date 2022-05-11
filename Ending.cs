@@ -20,10 +20,10 @@ namespace StorybrewScripts
             Birds(3500, 7000, 20, 30, 587221, 608555, 35, false, true, 0.02, 0.05);
             Birds(3500, 7000, 20, 30, 587221, 608555, 35, true, false, 0.02, 0.05);
 
-            GodRays(587221, 613888);
+            GodRays(587221, 614000);
 
             Scripts particleManager = new Scripts(this);
-            particleManager.GenerateLights(608555, 624555, 0.09);
+            particleManager.GenerateLights(608555, 628888, 0.08);
         }
         public void Birds(int MinDuration, int MaxDuration, int FlyingSpeed, int Acceleration, int StartTime, int EndTime, int SpriteAmount, bool right, bool left, double ScaleMin, double ScaleMax)
         {
@@ -56,10 +56,10 @@ namespace StorybrewScripts
                     float lastX = Random(StartPosition.X, EndPosition.X);
                     float lastY = Random(StartPosition.Y, EndPosition.Y);
                     float rVec = MathHelper.DegreesToRadians(Random(360));
-                    int sVec = FlyingSpeed * 4;
+                    int sVec = FlyingSpeed * 5;
                     double vX = Math.Cos(rVec) * sVec;
                     double vY = Math.Sin(rVec) * sVec;
-                    double lastAngle = 0;
+                    double lastAngle = 90;
                     var timeStep = Beatmap.GetTimingPointAt((int)StartTime).BeatDuration / 0.5;
 
                     for (var t = i; t < i + RealTravelTime; t += (int)timeStep)
@@ -67,7 +67,7 @@ namespace StorybrewScripts
                         if (right)
                         {
                             var nextX = lastX + vX;
-                            var nextY = lastY - (vY / 10);
+                            var nextY = lastY - (vY / 7.5);
 
                             double currentAngle = sprite.RotationAt(t);
                             double newAngle = Math.Atan2((nextY - lastY), (nextX - lastX)) + (Math.PI / 2);
@@ -234,15 +234,15 @@ namespace StorybrewScripts
                 int RandomDuration = Random(4000, 7000);
                 var Fade = Random(0.3, 0.5);
 
-                sprite.StartLoopGroup(startTime, (endTime - startTime) / (RandomDuration * 2));
+                sprite.StartLoopGroup(startTime + i * 120, (endTime - startTime - i * 90) / (RandomDuration * 2));
                 sprite.Fade(0, 1500, 0, Fade);
                 sprite.Rotate(0, RandomDuration, rotateStart, rotateEnd);
                 sprite.Rotate(RandomDuration, RandomDuration * 2, rotateEnd, rotateStart);
                 sprite.Fade(RandomDuration * 2 - 1500, RandomDuration * 2 - 1000, Fade, 0);
                 sprite.EndGroup();
 
-                sprite.Scale(startTime, 0.73);
-                sprite.Additive(startTime);
+                sprite.Scale(startTime + i * 120, 0.73);
+                sprite.Additive(startTime + i * 120);
             }
         }
     }
