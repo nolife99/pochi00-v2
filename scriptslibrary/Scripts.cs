@@ -157,11 +157,11 @@ public class Scripts
         {
             while (posY < 437 + squareScale)
             {
-                var sprite = generator.GetLayer("transition").CreateSprite("sb/p.png", OsbOrigin.Centre, new Vector2(posX, posY));
+                var sprite = generator.GetLayer("transition").CreateSprite("sb/0.png", OsbOrigin.Centre, new Vector2(posX, posY));
 
                 if (In)
                 {
-                    sprite.Scale(easing, startTime, endTime, 0, squareScale);
+                    sprite.Scale(easing, startTime, endTime, 0, squareScale / 2);
                     sprite.Rotate(easing, startTime, endTime, Math.PI, 0);
                 }
                 else
