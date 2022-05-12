@@ -66,11 +66,12 @@ namespace StorybrewScripts
                 var y2 = (int)-radius * (float)Math.Sin(rad) + Pos.Y;
                 var nPos = new Vector2(x2, y2);
 
-                var circle = GetLayer("circle").CreateSprite("sb/c.png", OsbOrigin.Centre);
+                var circle = GetLayer("circle").CreateSprite("sb/c.png", OsbOrigin.Centre, new Vector2(0, 0));
 
                 var TravelTime = Beat * 8;
                 var duration = EndTime - StartTime;
 
+                circle.Fade(StartTime, StartTime + 500, 0, 1);
                 circle.StartLoopGroup(StartTime, 8);
                 circle.Scale(0, 0.05);
                 circle.Scale(TravelTime / 8 - 50, 0.2);
@@ -104,11 +105,12 @@ namespace StorybrewScripts
                 var Y = (int)Radius * (float)Math.Sin(Rad) + Pos.Y;
                 var Position = new Vector2(X, Y);
 
-                var outCircle = GetLayer("circle").CreateSprite("sb/c.png", OsbOrigin.Centre);
+                var outCircle = GetLayer("circle").CreateSprite("sb/c.png", OsbOrigin.Centre, new Vector2(0, 0));
 
                 var travelTime = Beat * 8;
                 var Duration = EndTime - StartTime;
 
+                outCircle.Fade(StartTime, StartTime + 500, 0, 1);
                 outCircle.StartLoopGroup(StartTime, 8);
                 outCircle.Scale(0, 0.2);
                 outCircle.Scale(travelTime / 8 - 50, 0.05);
@@ -145,7 +147,6 @@ namespace StorybrewScripts
             double radius = 165;
             for (var i = 0; i < amount; i++)
             {
-                var Position = new Vector2(0, 0);
                 double ConnectionAngle = Math.PI / amount * 1.5;
 
                 var position = new Vector2(
@@ -153,7 +154,7 @@ namespace StorybrewScripts
                     (float)(240 + Math.Sin(angle) * radius));
 
                 var layer = GetLayer("");
-                var lines = layer.CreateSprite("sb/p.png", OsbOrigin.Centre, Position);
+                var lines = layer.CreateSprite("sb/p.png", OsbOrigin.Centre, new Vector2(0, 0));
 
                 lines.ScaleVec(startTime, 1, 20);
                 lines.Fade(startTime, startTime + 1000, 0, 0.15);
@@ -179,9 +180,9 @@ namespace StorybrewScripts
                     (float)(318 + Math.Cos(angle) * radius),
                     (float)(240 + Math.Sin(angle) * radius));
                     
-                var Rotation = Math.Atan2(position.Y - pos.Y, position.X - pos.X) + Math.PI;
+                var Rotation = Math.Atan2(position.Y - pos.Y, position.X - pos.X) - Math.PI / 1.2;
                     
-                lines.Rotate(startTime, endTime, Rotation, Rotation - Math.PI * 3);
+                lines.Rotate(startTime, endTime, Rotation, Rotation - Math.PI * 2.2);
             }
         }
         public void GlitchSection()
@@ -196,7 +197,300 @@ namespace StorybrewScripts
 
             Spectrum(startTime, endTime, 4, Color4.SkyBlue);
             Spectrum(startTime, endTime, 0, Color4.LightSteelBlue);
+            Squares();
+            Squares2();
+            SquaresGlitch();
+            Squares3();
         }
+        public void Squares()
+        {
+            int sqAmount = 2;
+
+            double angle = 0;
+            double radius = 120;
+            for (var i = 0; i < sqAmount; i++)
+            {
+                var Position = new Vector2(320, 240);
+                var ConnectionAngle = Math.PI / sqAmount;
+
+                Vector2 position = new Vector2(
+                    (float)(320 + Math.Cos(angle) * radius),
+                    (float)(240 + Math.Sin(angle) * radius));
+
+                var layer = GetLayer("Glitch");
+                var sprite = layer.CreateSprite("sb/p.png", OsbOrigin.Centre);
+
+                Vector2 standardScale = new Vector2(100, 150);
+                Vector2 skewedScale = new Vector2(30, -150);
+                float standardRotation = MathHelper.DegreesToRadians(0);
+                float skewedRotation = MathHelper.DegreesToRadians(60);
+
+                sprite.ScaleVec(OsbEasing.InOutSine, 276247, 277902, standardScale, skewedScale);
+                sprite.ScaleVec(OsbEasing.InOutSine, 277902, 283178, skewedScale, standardScale);
+                sprite.ScaleVec(OsbEasing.InOutSine, 283178, 286075, standardScale, skewedScale);
+                sprite.ScaleVec(OsbEasing.InOutSine, 286075, 287833, skewedScale, standardScale);
+                sprite.ScaleVec(OsbEasing.InOutSine, 287833, 289488, standardScale, standardScale.X, 0);
+                sprite.Rotate(OsbEasing.InOutSine, 276247, 277902, standardRotation, skewedRotation);
+                sprite.Rotate(OsbEasing.InOutSine, 277902, 283178, skewedRotation, skewedRotation * 3);
+                sprite.Rotate(OsbEasing.InOutSine, 283178, 289488, skewedRotation * 3, standardRotation);
+                sprite.Fade(276247, 0.07);
+
+                var timeStep = Beatmap.GetTimingPointAt(276247).BeatDuration / 5;
+                for (double time = 276247; time < 289488; time += timeStep)
+                {
+                    angle += 0.0497;
+
+                    Vector2 nPosition = new Vector2(
+                        (float)(320 + Math.Cos(angle) * radius),
+                        (float)(240 + Math.Sin(angle) * radius));
+
+                    sprite.Move(time, time + timeStep, Position, nPosition);
+
+                    Position = nPosition;
+                }
+                angle += ConnectionAngle / (sqAmount / 2);
+            }
+        }
+
+        public void Squares2()
+        {
+            int sqAmount = 2;
+
+            double angle = 0;
+            double radius = 33;
+            for (var i = 0; i < sqAmount; i++)
+            {
+                var Position = new Vector2(320, 240);
+                var ConnectionAngle = Math.PI / sqAmount;
+
+                Vector2 position = new Vector2(
+                    (float)(320 + Math.Cos(angle) * radius),
+                    (float)(240 + Math.Sin(angle) * radius));
+
+                var layer = GetLayer("Glitch");
+                var sprite = layer.CreateSprite("sb/p.png", OsbOrigin.Centre);
+
+                Vector2 standardScale = new Vector2(5, 100);
+                Vector2 skewedScale = new Vector2(50, -100);
+                float standardRotation = MathHelper.DegreesToRadians(60);
+                float skewedRotation = MathHelper.DegreesToRadians(120);
+
+                sprite.ScaleVec(OsbEasing.InOutSine, 276247, 277902, standardScale, skewedScale);
+                sprite.ScaleVec(OsbEasing.InOutSine, 277902, 283178, skewedScale, standardScale);
+                sprite.ScaleVec(OsbEasing.InOutSine, 283178, 286075, standardScale, skewedScale);
+                sprite.ScaleVec(OsbEasing.InOutSine, 286075, 287833, skewedScale, standardScale);
+                sprite.ScaleVec(OsbEasing.InOutSine, 287833, 289488, standardScale, standardScale.X, 0);
+                sprite.Rotate(OsbEasing.InOutSine, 276247, 277902, standardRotation, skewedRotation);
+                sprite.Rotate(OsbEasing.InOutSine, 277902, 283178, skewedRotation, skewedRotation * 3);
+                sprite.Rotate(OsbEasing.InOutSine, 283178, 289488, skewedRotation * 3, standardRotation);
+
+                sprite.Fade(276247, 0.6);
+                sprite.Color(276247, Color4.White);
+
+                
+                sprite.Fade(277902, 1);
+                sprite.Color(277902, Color4.IndianRed);
+                sprite.Fade(278316, 0.6);
+                sprite.Color(278316, Color4.White);
+                
+                sprite.Fade(278730, 1);
+                sprite.Color(278730, Color4.IndianRed);
+                sprite.Fade(278833, 0.6);
+                sprite.Color(278833, Color4.White);
+                
+                sprite.Fade(278937, 1);
+                sprite.Color(278937, Color4.IndianRed);
+                sprite.Fade(279040, 0.6);
+                sprite.Color(279040, Color4.White);
+                
+                sprite.Fade(280385, 1);
+                sprite.Color(280385, Color4.IndianRed);
+                sprite.Fade(280799, 0.6);
+                sprite.Color(280799, Color4.White);
+                
+                sprite.Fade(282868, 1);
+                sprite.Color(282868, Color4.IndianRed);
+                sprite.Fade(283282, 0.6);
+                sprite.Color(283695, Color4.White);
+                
+                sprite.Fade(284523, 1);
+                sprite.Color(284523, Color4.IndianRed);
+                sprite.Fade(284575, 0.6);
+                sprite.Color(284575, Color4.White);
+                
+                sprite.Fade(284626, 1);
+                sprite.Color(284626, Color4.IndianRed);
+                sprite.Fade(284678, 0);
+                sprite.Color(284678, Color4.White);
+                
+                sprite.Fade(284730, 1);
+                sprite.Color(284730, Color4.IndianRed);
+                sprite.Fade(284782, 0.6);
+                sprite.Color(284782, Color4.White);
+                
+                sprite.Fade(284833, 1);
+                sprite.Color(284833, Color4.IndianRed);
+                sprite.Fade(284885, 0.6);
+                sprite.Color(284885, Color4.White);
+                
+                sprite.Fade(284937, 1);
+                sprite.Color(284937, Color4.IndianRed);
+                sprite.Fade(284988, 0.6);
+                sprite.Color(284988, Color4.White);
+                
+                sprite.Fade(285040, 1);
+                sprite.Color(285040, Color4.IndianRed);
+                sprite.Fade(285092, 0.6);
+                sprite.Color(285092, Color4.White);
+                
+                sprite.Fade(285144, 1);
+                sprite.Color(285144, Color4.IndianRed);
+                sprite.Fade(285195, 0.6);
+                sprite.Color(285195, Color4.White);
+                
+                sprite.Fade(285247, 1);
+                sprite.Color(285247, Color4.IndianRed);
+                sprite.Fade(285299, 0.6);
+                sprite.Color(285299, Color4.White);
+                
+                sprite.Fade(286178, 1);
+                sprite.Color(286178, Color4.IndianRed);
+                sprite.Fade(286488, 0.6);
+                sprite.Color(286488, Color4.White);
+                
+                sprite.Fade(286592, 1);
+                sprite.Color(286592, Color4.IndianRed);
+                sprite.Fade(287006, 0.6);
+                sprite.Color(287006, Color4.White);
+                
+                sprite.Fade(287833, 1);
+                sprite.Color(287833, Color4.IndianRed);
+                sprite.Fade(288144, 0.6);
+                sprite.Color(288144, Color4.White);
+                
+                sprite.Fade(288247, 1);
+                sprite.Color(288247, Color4.IndianRed);
+                sprite.Fade(288661, 0.6);
+                sprite.Color(288661, Color4.White);
+
+                sprite.Additive(276247, 289488);
+
+                var timeStep = Beatmap.GetTimingPointAt(276247).BeatDuration / 5;
+                for (double time = 276247; time < 289488; time += timeStep)
+                {
+                    angle += 0.0497;
+
+                    Vector2 nPosition = new Vector2(
+                        (float)(320 + Math.Cos(angle) * radius),
+                        (float)(240 + Math.Sin(angle) * radius));
+
+                    sprite.Move(time, time + timeStep, Position, nPosition);
+
+                    Position = nPosition;
+                }
+                angle += ConnectionAngle / (sqAmount / 2);
+            }
+        }
+        public void SquaresGlitch()
+        {
+            int sqAmount = 2;
+
+            double angle = 0;
+            double radius = 43;
+            for (var i = 0; i < sqAmount; i++)
+            {
+                var Position = new Vector2(320, 240);
+                var ConnectionAngle = Math.PI / sqAmount;
+
+                Vector2 position = new Vector2(
+                    (float)(320 + Math.Cos(angle) * radius),
+                    (float)(240 + Math.Sin(angle) * radius));
+
+                var layer = GetLayer("");
+                var sprite = layer.CreateSprite("sb/p.png", OsbOrigin.Centre);
+
+                Vector2 standardScale = new Vector2(5, 100);
+                Vector2 skewedScale = new Vector2(50, -100);
+                float standardRotation = MathHelper.DegreesToRadians(60);
+                float skewedRotation = MathHelper.DegreesToRadians(120);
+
+                sprite.ScaleVec(OsbEasing.InOutSine, 276247, 277902, standardScale, skewedScale);
+                sprite.ScaleVec(OsbEasing.InOutSine, 277902, 283178, skewedScale, standardScale);
+                sprite.ScaleVec(OsbEasing.InOutSine, 283178, 286075, standardScale, skewedScale);
+                sprite.ScaleVec(OsbEasing.InOutSine, 286075, 287833, skewedScale, standardScale);
+                sprite.ScaleVec(OsbEasing.InOutSine, 287833, 289488, standardScale, standardScale.X, 0);
+                sprite.Rotate(OsbEasing.InOutSine, 276247, 277902, standardRotation, skewedRotation);
+                sprite.Rotate(OsbEasing.InOutSine, 277902, 283178, skewedRotation, skewedRotation * 3);
+                sprite.Rotate(OsbEasing.InOutSine, 283178, 289488, skewedRotation * 3, standardRotation);
+
+                sprite.Fade(276247, 0.6);
+                sprite.Additive(276247, 289488);
+
+                var timeStep = Beatmap.GetTimingPointAt(277902).BeatDuration / 5;
+                for (double time = 276247; time < 289488; time += timeStep)
+                {
+                    angle += 0.0497;
+
+                    Vector2 nPosition = new Vector2(
+                        (float)(320 + Math.Cos(angle) * radius),
+                        (float)(240 + Math.Sin(angle) * radius));
+
+                    sprite.Move(time, time + timeStep, Position, nPosition);
+
+                    Position = nPosition;
+                }
+                angle += ConnectionAngle / (sqAmount / 2);
+            }
+        }
+        public void Squares3()
+        {
+            int sqAmount = 2;
+
+            double angle = 0;
+            double radius = 200;
+            for (var i = 0; i < sqAmount; i++)
+            {
+                var Position = new Vector2(320, 240);
+                var ConnectionAngle = Math.PI / sqAmount;
+
+                Vector2 position = new Vector2(
+                    (float)(320 + Math.Cos(angle) * radius),
+                    (float)(240 + Math.Sin(angle) * radius));
+
+                var layer = GetLayer("Glitch");
+                var sprite = layer.CreateSprite("sb/c.png", OsbOrigin.Centre);
+
+                Vector2 standardScale = new Vector2(4.5f, 4.5f);
+                Vector2 skewedScale = new Vector2(0.15f, -4.5f);
+                float standardRotation = MathHelper.DegreesToRadians(0);
+                float skewedRotation = MathHelper.DegreesToRadians(60);
+
+                sprite.ScaleVec(OsbEasing.InOutSine, 276247, 277902, standardScale, skewedScale);
+                sprite.ScaleVec(OsbEasing.InOutSine, 277902, 283178, skewedScale, standardScale);
+                sprite.ScaleVec(OsbEasing.InOutSine, 283178, 286075, standardScale, skewedScale);
+                sprite.ScaleVec(OsbEasing.InOutSine, 286075, 287833, skewedScale, standardScale);
+                sprite.Rotate(OsbEasing.InOutSine, 276247, 277902, standardRotation, skewedRotation);
+                sprite.Rotate(OsbEasing.InOutSine, 277902, 283178, skewedRotation, skewedRotation * 3);
+                sprite.Rotate(OsbEasing.InOutSine, 283178, 289488, skewedRotation * 3, standardRotation);
+                sprite.Fade(276247, 0.03);
+
+                var timeStep = Beatmap.GetTimingPointAt(276247).BeatDuration / 5;
+                for (double time = 276247; time < 289488; time += timeStep)
+                {
+                    angle += 0.0497;
+
+                    Vector2 nPosition = new Vector2(
+                        (float)(320 + Math.Cos(angle) * radius),
+                        (float)(240 + Math.Sin(angle) * radius)); 
+
+                    sprite.Move(time, time + timeStep, Position, nPosition);
+
+                    Position = nPosition;
+                }
+                angle += ConnectionAngle / (sqAmount / 2);
+            }
+        }
+
         private void Spectrum(int startTime, int endTime, float offset, Color4 Color)
         {
             bool stat = false;
@@ -234,10 +528,9 @@ namespace StorybrewScripts
             {
                 var positionX = posX + i * barWidth;
                 var keyframes = heightKeyframes[i];
-                var pos = new Vector2(positionX - offset, Position.Y - offset);
                 keyframes.Simplify1dKeyframes(0.15, h => h);
 
-                var bar = GetLayer("Glitch").CreateSprite("sb/p.png", OsbOrigin.Centre, pos);
+                var bar = GetLayer("Glitch").CreateSprite("sb/p.png", OsbOrigin.Centre, new Vector2(positionX - offset, Position.Y - offset));
                 
                 bar.Color(startTime, Color);
                 bar.Fade(endTime, endTime, 0.4, 0);
