@@ -16,7 +16,7 @@ public class Scripts
     {
         for (int i = 0; i < quantity; i++)
         {
-            int firstTimeDuration = generator.Random(2000, 20000);
+            int firstTimeDuration = generator.Random(2000, 20000) + i * 75;
             int posX = generator.Random(-157, 647);
             int endX = generator.Random(877, 907);
             int speed = generator.Random(7500, 20000);
@@ -32,11 +32,11 @@ public class Scripts
                 particle.Scale(startTime, generator.Random(0.02, 0.025));
                 particle.Color(startTime, color);
                 particle.Additive(startTime);
-                if (startTime + firstTimeDuration + 7500 > endTime)
+                if (startTime + firstTimeDuration + 5000 > endTime)
                     particle.Scale(startTime + firstTimeDuration, 0);
 
                 particleStartTime += firstTimeDuration;
-                while (particleStartTime + 7500 < endTime)
+                while (particleStartTime + 5000 < endTime)
                 {
                     int NewDuration = generator.Random(7500, 30000);
                     int particleEndTime = particleStartTime + NewDuration;
@@ -50,11 +50,11 @@ public class Scripts
             sprite.Fade(endTime, endTime + 1000, fade, 0);
             sprite.Color(startTime, color);
             sprite.Scale(startTime, generator.Random(0.5, 1.1));
-            if (startTime + firstTimeDuration + 7500 > endTime)
+            if (startTime + firstTimeDuration + 5000 > endTime)
                 sprite.Scale(startTime + firstTimeDuration, 0);
 
             elementStartTime += firstTimeDuration;
-            while (elementStartTime + 7500 < endTime)
+            while (elementStartTime + 5000 < endTime)
             {
                 int newDuration = generator.Random(7500, 30000);
                 int elementEndTime = elementStartTime + newDuration;
@@ -63,25 +63,51 @@ public class Scripts
             }
         }
     }
+    public void GenerateDanmaku(int startTime, int endTime, int speed)
+    {
+        Vector2 basePosition = new Vector2(320, 240);
+        for (int i = 0; i < 4; i++)
+        {
+            double angle = (Math.PI / 2) * i;
+            for (int l = 0; l < 50; l++)
+            {
+                var endPosition = new Vector2(
+                    (float)(320 + Math.Cos(angle) * 450),
+                    (float)(240 + Math.Sin(angle) * 450)
+                );
+
+                var sprite = generator.GetLayer("PARTICLES").CreateSprite("sb/p.png", OsbOrigin.Centre);
+                sprite.StartLoopGroup(startTime + l * 100, (endTime - startTime - l * 33) / speed);
+                sprite.Move(OsbEasing.OutSine, 0 + l, speed, basePosition, endPosition);
+                sprite.Fade(0, 0);
+                sprite.Fade(speed / 6, speed / 2, 0, 1);
+                sprite.ScaleVec(0, speed, 10, 1, 10, 0);
+                sprite.Rotate(OsbEasing.InSine, 0, speed, angle, angle - 1.5);
+                sprite.EndGroup();
+
+                angle += Math.PI / 50;
+            }
+        }
+    }
     public void GenerateLights(int startTime, int endTime, double fade)
     {
         for (int i = 0; i < 15; i++)
         {
             int speed = 5000;
-            int duration = endTime - startTime - i * 50;
+            int duration = endTime - startTime - i * 100;
             double angle = generator.Random(0, Math.PI * 2);
             float radius = generator.Random(20, 400);
             var startPos = new Vector2(generator.Random(-77, 707), generator.Random(40, 440));
             var endPos = new Vector2((float)(startPos.X + Math.Cos(angle) * radius), (float)(startPos.Y + Math.Sin(angle) * radius));
             var sprite = generator.GetLayer("0").CreateSprite("sb/hl.png", OsbOrigin.Centre, startPos);
 
-            sprite.Scale(startTime + i * 50, 0.4);
-            sprite.StartLoopGroup(startTime + i * 50, duration / speed);
+            sprite.Scale(startTime + i * 100, 0.4);
+            sprite.StartLoopGroup(startTime + i * 100, duration / speed);
             sprite.Move(OsbEasing.InOutSine, 0, speed, startPos, endPos);
             sprite.Fade(0, 500, 0, fade);
             sprite.Fade(speed - 500, speed, fade, 0);
             sprite.EndGroup();
-            sprite.Additive(startTime + i * 50);
+            sprite.Additive(startTime + i * 100);
         }
     }
     public void GenerateRain(int startTime, int endTime, double intensity, bool alt = false)
@@ -100,7 +126,7 @@ public class Scripts
             {
                 delay += 80;
                 layer = "rain ";
-                duration = endTime - startTime - i * (delay / 3);
+                duration = endTime - startTime - i * (delay / 2);
             }
 
             var sprite = generator.GetLayer(layer).CreateSprite("sb/pl.png", OsbOrigin.Centre, new Vector2(posX, 20));

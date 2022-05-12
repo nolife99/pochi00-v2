@@ -22,21 +22,22 @@ namespace StorybrewScripts
 
             Scripts particleManager = new Scripts(this);
 
-            particleManager.GenerateFog(28027, 70694, 400, 25, Color4.White, 0.6);
-            particleManager.GenerateFog(81360, 92027, 400, 25, Color4.White, 0.6);
-            particleManager.GenerateFog(145260, 166027, 400, 25, Color4.White, 0.6);
-            particleManager.GenerateFog(168027, 200027, 400, 25, Color4.White, 0.6);
-            particleManager.GenerateFog(332523, 358014, 400, 25, Color4.White, 0.6);
-            particleManager.GenerateFog(401889, 422889, 400, 25, Color4.White, 0.6);
-            particleManager.GenerateFog(444722, 464555, 400, 25, Color4.Orange, 0.6);
-            particleManager.GenerateFog(473889, 496555, 400, 25, Color4.Orange, 0.6);
+            particleManager.GenerateDanmaku(102678, 124027, 5000);
+            particleManager.GenerateFog(28027, 70694, 380, 25, Color4.White, 0.6);
+            particleManager.GenerateFog(81360, 92027, 380, 23, Color4.White, 0.6);
+            particleManager.GenerateFog(145260, 166027, 380, 25, Color4.White, 0.6);
+            particleManager.GenerateFog(168027, 200027, 380, 25, Color4.White, 0.6);
+            particleManager.GenerateFog(332523, 358014, 380, 25, Color4.White, 0.6);
+            particleManager.GenerateFog(401889, 422889, 380, 25, Color4.White, 0.6);
+            particleManager.GenerateFog(444722, 464555, 380, 25, Color4.Orange, 0.6);
+            particleManager.GenerateFog(473889, 496555, 380, 25, Color4.Orange, 0.6);
 
             particleManager.SquareTransition(355695, 359006, true, 18.2f, new Color4(10, 10, 10, 1), OsbEasing.In);
 
-            particleManager.GenerateRain(380555, 431889, 9.6, true);
+            particleManager.GenerateRain(380555, 433889, 10, true);
             particleManager.GenerateRain(587221, 629471, 5);
             particleManager.GenerateRain(597888, 629471, 5);
-            particleManager.GenerateRain(608555, 629471, 15);
+            particleManager.GenerateRain(608555, 629471, 18.5);
         }
         public void Circles()
         {
@@ -198,6 +199,7 @@ namespace StorybrewScripts
         }
         private void Spectrum(int startTime, int endTime, float offset, Color4 Color)
         {
+            bool stat = false;
             var MinimalHeight = 0.5f;
             Vector2 Scale = new Vector2(1, 70);
             float LogScale = 270;
@@ -213,7 +215,7 @@ namespace StorybrewScripts
 
             double fftTimeStep = Beatmap.GetTimingPointAt(startTime).BeatDuration / 11;
             double fftOffset = fftTimeStep * 0.2;
-            for (var time = (double)startTime; time <= endTime; time += fftTimeStep)
+            for (var time = (double)startTime; time <= endTime + 1; time += fftTimeStep)
             {
                 var fft = GetFft(time + fftOffset, BarCount, null, OsbEasing.InExpo);
                 for (var i = 0; i < BarCount; i++)
@@ -248,9 +250,18 @@ namespace StorybrewScripts
                     (start, end) =>
                     {
                         hasScale = true;
-                        bar.ScaleVec(start.Time, end.Time,
+                        if (stat)
+                        {
+                            bar.ScaleVec(start.Time, start.Time,
                             scaleX, start.Value,
                             scaleX, end.Value);
+                        }
+                        else
+                        {
+                            bar.ScaleVec(start.Time, end.Time,
+                            scaleX, start.Value,
+                            scaleX, end.Value);
+                        }
                     },
                     MinimalHeight,
                     s => (float)Math.Round(s, 1)
