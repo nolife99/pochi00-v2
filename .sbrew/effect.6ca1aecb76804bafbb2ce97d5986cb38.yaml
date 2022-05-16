@@ -4,11 +4,11 @@ Script: "HitObjectGen"
 Config:
   RandomSeed:
     Type: "System.Int32"
-    Value: "45"
+    Value: "69"
     DisplayName: "Random seed"
 Layers:
-  0c6288c4948041ed9e4f92a2047491cb:
-    Name: "Random Piano"
+  00e409b606a44bb2876e9ef5afaf2988:
+    Name: "PianoHighlights"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes

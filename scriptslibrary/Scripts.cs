@@ -16,10 +16,9 @@ public class Scripts
     {
         for (int i = 0; i < quantity; i++)
         {
-            int firstTimeDuration = generator.Random(2000, 20000) + i * 75;
+            int firstTimeDuration = generator.Random(1500, 20000) + i * generator.Random(10, 200);
             int posX = generator.Random(-157, 647);
             int endX = generator.Random(877, 907);
-            int speed = generator.Random(7500, 20000);
             int elementStartTime = startTime;
             int particleStartTime = startTime;
 
@@ -36,7 +35,7 @@ public class Scripts
                     particle.Scale(startTime + firstTimeDuration, 0);
 
                 particleStartTime += firstTimeDuration;
-                while (particleStartTime + 5000 < endTime)
+                while (particleStartTime + 4000 < endTime)
                 {
                     int NewDuration = generator.Random(7500, 30000);
                     int particleEndTime = particleStartTime + NewDuration;
@@ -54,7 +53,7 @@ public class Scripts
                 sprite.Scale(startTime + firstTimeDuration, 0);
 
             elementStartTime += firstTimeDuration;
-            while (elementStartTime + 5000 < endTime)
+            while (elementStartTime + 4000 < endTime)
             {
                 int newDuration = generator.Random(7500, 30000);
                 int elementEndTime = elementStartTime + newDuration;
@@ -117,15 +116,15 @@ public class Scripts
         {
             int particleSpeed = generator.Random(275, 350);
             int posX = generator.Random(-106, 747);
-            int endX = generator.Random(posX - 17, posX + 17);
+            int endX = generator.Random(posX - 15, posX + 15);
             double angle = Math.Atan2(680, endX - posX);
-            int delay = 20;
+            int delay = 15;
             int duration = endTime - startTime - i * delay;
             string layer = "rain";
 
             if (alt)
             {
-                delay += 80;
+                delay += 85;
                 layer = "rain ";
                 duration = endTime - startTime - i * (delay / 2);
             }

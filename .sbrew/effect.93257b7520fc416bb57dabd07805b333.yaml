@@ -4,9 +4,14 @@ Script: "Ending"
 Config:
   RandomSeed:
     Type: "System.Int32"
-    Value: "52"
+    Value: "51"
     DisplayName: "Random seed"
 Layers:
+  e28270a125f74af2aa7cb75a75c65498:
+    Name: "PianoHighlights"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
   8d2da3b91c1347c09f7264635b9eb816:
     Name: ""
     OsbLayer: Background

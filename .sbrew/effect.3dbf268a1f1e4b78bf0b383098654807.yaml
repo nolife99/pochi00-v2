@@ -4,21 +4,26 @@ Script: "ScriptsManager"
 Config:
   RandomSeed:
     Type: "System.Int32"
-    Value: "111111"
+    Value: "9"
     DisplayName: "Random seed"
 Layers:
-  68e3e2c0ac2b45539b19820728e51bf7:
-    Name: "rain"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
   3e0ead2853ae4d4ba240753f3abd2c53:
     Name: "circle"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
+  68e3e2c0ac2b45539b19820728e51bf7:
+    Name: "rain"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
   8a6cbd45f6274651b73a54274998adab:
     Name: "Fog"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  8c4f14c51f7245f19e212f734352d702:
+    Name: "rain "
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
@@ -39,11 +44,6 @@ Layers:
     Visible: Yes
   66d2271f1ccc4012992dc990a18b1728:
     Name: "transition"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
-  8c4f14c51f7245f19e212f734352d702:
-    Name: "rain "
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
