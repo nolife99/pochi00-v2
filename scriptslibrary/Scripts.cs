@@ -12,7 +12,7 @@ public class Scripts
     {
         this.generator = generator;
     }
-    public void GenerateFog(int startTime, int endTime, int posY, int quantity, Color4 color, double fade, int stroke = 60, string layer = "Fog")
+    public void GenerateFog(int startTime, int endTime, int posY, int quantity, Color4 color, double fade, string layer = "Fog", int stroke = 60)
     {
         for (int i = 0; i < quantity; i++)
         {
@@ -147,32 +147,76 @@ public class Scripts
             splash.EndGroup();
         }
     }
-    public void SquareTransition(int startTime, int endTime, bool In, float squareScale, Color4 color, OsbEasing easing)
+    public void SquareTransition(int startTime, int endTime, bool In, float squareScale, Color4 color, OsbEasing easing, bool Full = false)
     {
         float posX = -107;
         float posY = 40;
+        int duration = endTime - startTime;
 
-        while (posX < 747 + squareScale)
+        while (posX < 737 + squareScale)
         {
             while (posY < 437 + squareScale)
             {
-                var sprite = generator.GetLayer("transition").CreateSprite("sb/0.png", OsbOrigin.Centre, new Vector2(posX, posY));
+                var sprite = generator.GetLayer("transition!").CreateSprite("sb/0.png", OsbOrigin.Centre, new Vector2(posX, posY));
 
-                if (In)
+                if (Full == false)
                 {
                     sprite.Scale(easing, startTime, endTime, 0, squareScale / 2);
                     sprite.Rotate(easing, startTime, endTime, Math.PI, 0);
                 }
                 else
                 {
-                    sprite.Scale(easing, startTime, endTime, squareScale, 0);
-                    sprite.Rotate(easing, startTime, endTime, 0, -Math.PI);
+                    sprite.Scale(OsbEasing.InSine, startTime, endTime - duration / 2, 0, squareScale / 2);
+                    sprite.Scale(OsbEasing.OutSine, endTime - duration / 2, endTime + 1000, squareScale / 2, 0);
+                    sprite.Rotate(OsbEasing.InSine, startTime, endTime - duration / 2, 0, -Math.PI);
+                    sprite.Rotate(OsbEasing.OutSine, endTime - duration / 2, endTime + 1000, Math.PI, 0);
                 }
                 sprite.Color(startTime, color);
                 posY += squareScale;
             }
             posY = 40;
             posX += squareScale;
+        }
+    }
+    public void TransitionLines(int startTransition, int endTransition, int endTime, string layer = "transition", bool fullscreen = false)
+    {
+        var transitionColor = new Color4(0.05f, 0.05f, 0.05f, 1);
+        int transitionDuration = endTransition - startTransition;
+        int delay = 0;
+        int posX = -120;
+        int scaleY = 406;
+        if (fullscreen)
+            scaleY = 484;
+        for(int i = 0; i < 60; i++)
+        {
+            var sprite = generator.GetLayer(layer).CreateSprite("sb/0.png", OsbOrigin.Centre, new Vector2(posX, 240));
+            sprite.ScaleVec(startTransition + delay, startTransition + delay + 300, 0, scaleY / 2, 7.465, scaleY / 2);
+            sprite.Fade(endTime, endTime + 1000, 1, 0);
+            sprite.Rotate(startTransition, 0.1);
+            sprite.Color(startTransition, transitionColor);
+            
+            delay += transitionDuration / 60;
+            posX += 15;
+        }
+    }
+    public void GenerateGears(int startTime, int endTime, int gearNumber, string layer)
+    {   
+        float colorDark = 0.05f;
+        double maxScale = 0.4;
+        for(int i = 0; i < gearNumber; i ++)
+        {  
+            int baseYPos = generator.Random(0, 480);
+            int duration = generator.Random(15000, 30000);
+            bool isLeft = generator.Random(0,2) == 0 ? true : false;
+            var sprite = generator.GetLayer(layer).CreateSprite($"sb/g/g{generator.Random(1, 7)}.png", OsbOrigin.Centre, new Vector2(i % 2 == 0 ? -107 : 747, baseYPos));
+            sprite.Fade(startTime + (i * 50), startTime + (i * 50) + 300, 0, 1);
+            sprite.Fade(endTime - 1000, endTime, 1, 0);
+            sprite.Scale(startTime, generator.Random(0.1, maxScale));
+            sprite.Color(startTime, colorDark, colorDark, colorDark);
+            sprite.Rotate(startTime, endTime, 0, generator.Random(0, 2) == 0 ? generator.Random(-5, -1) : generator.Random(1, 5));
+            sprite.MoveY(startTime, endTime, baseYPos, baseYPos + generator.Random(-100, 100));
+            colorDark += 0.5f/gearNumber;
+            maxScale-=0.3/gearNumber;
         }
     }
 }

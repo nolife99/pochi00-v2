@@ -106,7 +106,7 @@ namespace StorybrewScripts
 
                     if (hitobject is OsuSlider)
                     {
-                        var timestep = Map.GetTimingPointAt((int)hitobject.StartTime).BeatDuration / 13;
+                        var timestep = Map.GetTimingPointAt((int)hitobject.StartTime).BeatDuration / 13.2;
                         var sTime = hitobject.StartTime;
                         while (true)
                         {

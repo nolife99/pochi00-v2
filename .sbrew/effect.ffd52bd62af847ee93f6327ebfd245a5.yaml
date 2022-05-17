@@ -1,0 +1,89 @@
+﻿FormatVersion: 7
+Name: "Background 1"
+Script: "Background"
+Config:
+  RandomSeed:
+    Type: "System.Int32"
+    Value: "0"
+    DisplayName: "Random seed"
+Layers:
+  e5c235892d3445a9988e4550abe9b01c:
+    Name: "s1"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  16920c5d71cc4c338529b4f7f6e45677:
+    Name: "Back"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  5ea0139b1fb040c5b15f9a64e29aab98:
+    Name: "Back1"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  dddf02d7a50046258e80415320aee9cc:
+    Name: "s2"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  210601d4b9a94ad0be967f812347f744:
+    Name: "base bg"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  d46aff5c02b74559a0e6979e136a14c9:
+    Name: "s3"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  40b14e41b11840b8bb8ec535e1248d62:
+    Name: "sandy"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  f9fbe114296c4909b4e0249fedf6fd4b:
+    Name: "sun"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  facfb7debc4444dfb8b6c026a0a3f141:
+    Name: "69"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  e7d7094a543949b99d8a5b47884e43b5:
+    Name: "420"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  1fd4c5f64a1f45b682cee676426710e0:
+    Name: "before kiai"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  00dbd6242d9742a3b3330bbfd1b918a1:
+    Name: "s01"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  f8ac9905ea7346d895b37151190ba20c:
+    Name: "s02"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  6f0eccf5a4574375a4c2ae89cfc1fc01:
+    Name: "Flash"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  d32aa43817444690b2b464e4cfae42b7:
+    Name: "Letterbox"
+    OsbLayer: Foreground
+    DiffSpecific: No
+    Visible: Yes
+  ef06fe72067d46e3915451d35bab1c4b:
+    Name: "Vignette"
+    OsbLayer: Overlay
+    DiffSpecific: No
+    Visible: Yes

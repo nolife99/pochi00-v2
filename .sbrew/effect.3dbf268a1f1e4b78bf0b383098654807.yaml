@@ -4,9 +4,14 @@ Script: "ScriptsManager"
 Config:
   RandomSeed:
     Type: "System.Int32"
-    Value: "9"
+    Value: "22"
     DisplayName: "Random seed"
 Layers:
+  0ad3f03cd3c64681badde2b8310c788f:
+    Name: "PARTICLES"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
   3e0ead2853ae4d4ba240753f3abd2c53:
     Name: "circle"
     OsbLayer: Background
@@ -17,18 +22,43 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
+  406b9725b3e34524a36e2923a246445a:
+    Name: "transition?"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  66d2271f1ccc4012992dc990a18b1728:
+    Name: "transition"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  ca494d1fe78c462e8dd6e807ffb3c815:
+    Name: "Gear 2"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  37988f6a2bff470d83d4d9a8a0ba76bc:
+    Name: "Gear1"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
   8a6cbd45f6274651b73a54274998adab:
     Name: "Fog"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
-  8c4f14c51f7245f19e212f734352d702:
-    Name: "rain "
+  6d20529fd66b4b02809ada96786d1b33:
+    Name: "transition!"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
-  0ad3f03cd3c64681badde2b8310c788f:
-    Name: "PARTICLES"
+  b44f5dadd6fa4e3497116b1d6c10ae54:
+    Name: "fogKiai"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  8c4f14c51f7245f19e212f734352d702:
+    Name: "rain "
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
@@ -42,8 +72,8 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
-  66d2271f1ccc4012992dc990a18b1728:
-    Name: "transition"
+  b519fa52467e4f18b4fa73bdc3a69458:
+    Name: "Gear 1"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes

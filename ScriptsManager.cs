@@ -19,20 +19,27 @@ namespace StorybrewScripts
             Circles();
             GlitchSection();
             RotatingLines();
+            GearParts();
 
             Scripts particleManager = new Scripts(this);
 
-            particleManager.GenerateDanmaku(102678, 124027, 5000);
             particleManager.GenerateFog(28027, 70694, 380, 25, Color4.White, 0.6);
             particleManager.GenerateFog(81360, 92027, 380, 23, Color4.White, 0.6);
-            particleManager.GenerateFog(145260, 166027, 380, 25, Color4.White, 0.6);
-            particleManager.GenerateFog(168027, 200027, 380, 25, Color4.White, 0.6);
+            particleManager.GenerateFog(145360, 166027, 380, 25, Color4.White, 0.6);
+            particleManager.GenerateFog(168027, 200027, 380, 25, Color4.White, 0.6, "fogKiai");
             particleManager.GenerateFog(332523, 358014, 380, 25, Color4.White, 0.6);
             particleManager.GenerateFog(401889, 422889, 380, 25, Color4.White, 0.6);
             particleManager.GenerateFog(444722, 464555, 380, 25, Color4.Orange, 0.6);
             particleManager.GenerateFog(473889, 496555, 380, 25, Color4.Orange, 0.6);
 
+            particleManager.GenerateDanmaku(102678, 124027, 5000);
+
             particleManager.SquareTransition(355695, 359006, true, 18.2f, new Color4(10, 10, 10, 1), OsbEasing.In);
+            particleManager.SquareTransition(574888, 575555, false, 50, Color4.Black, OsbEasing.InSine, true);
+
+            particleManager.TransitionLines(166345, 166678, 167678);
+            particleManager.TransitionLines(465210, 465543, 465877, "transition?");
+            particleManager.TransitionLines(628556, 629222, 631222, "transition", true);
 
             particleManager.GenerateRain(380555, 433889, 10, true);
             particleManager.GenerateRain(587221, 629471, 5);
@@ -144,7 +151,7 @@ namespace StorybrewScripts
             var blankBitmap = GetMapsetBitmap("sb/p.png");
             int amount = 22;
             double angle = 90;
-            double radius = 165;
+            double radius = 150;
             for (var i = 0; i < amount; i++)
             {
                 double ConnectionAngle = Math.PI / amount * 1.5;
@@ -161,11 +168,11 @@ namespace StorybrewScripts
                 lines.Fade(startTime + 1000, endTime, 0.15, 0.8);
                 lines.Fade(endTime, endTime + 2000, 0.8, 0);
 
-                var timeStep = Beatmap.GetTimingPointAt((int)startTime).BeatDuration / 5;
+                var timeStep = Beatmap.GetTimingPointAt((int)startTime).BeatDuration / 4;
                 for (double time = startTime; time < endTime; time += timeStep)
                 {
-                    angle += -0.068;
-                    radius += 0.01;
+                    angle += -0.085;
+                    radius += 0.02;
 
                     var nPosition = new Vector2(
                         (float)(318 + Math.Cos(angle) * radius),
@@ -458,10 +465,10 @@ namespace StorybrewScripts
                     (float)(240 + Math.Sin(angle) * radius));
 
                 var layer = GetLayer("Glitch");
-                var sprite = layer.CreateSprite("sb/c.png", OsbOrigin.Centre);
+                var sprite = layer.CreateSprite("sb/c3.png", OsbOrigin.Centre);
 
-                Vector2 standardScale = new Vector2(4.5f, 4.5f);
-                Vector2 skewedScale = new Vector2(0.15f, -4.5f);
+                Vector2 standardScale = new Vector2(0.4f, 0.4f);
+                Vector2 skewedScale = new Vector2(0.01f, -0.4f);
                 float standardRotation = MathHelper.DegreesToRadians(0);
                 float skewedRotation = MathHelper.DegreesToRadians(60);
 
@@ -561,6 +568,49 @@ namespace StorybrewScripts
                 );
                 if (!hasScale) bar.ScaleVec(startTime, scaleX, MinimalHeight);
             }
+        }
+        public void GearParts()
+        {
+            Scripts gears = new Scripts(this);
+            gears.GenerateGears(423210, 444543, 40, "Gear 1");
+            gears.GenerateGears(500543, 553877, 40, "Gear 2");
+
+            var gear0 = GetLayer("Gear1").CreateSprite("sb/g/g6.png");
+            gear0.Fade(500555, 501889, 0, 0.1);
+            gear0.Rotate(500555, 527222, 0, Math.PI);
+            gear0.Fade(527221, 0);
+            gear0.Scale(500555, 0.7);
+
+            var gear1 = GetLayer("Gear1").CreateSprite("sb/g/g4.png");
+            gear1.Fade(500555, 501889, 0, 0.1);
+            gear1.Rotate(500555, 527222, 0, -Math.PI);
+            gear1.Fade(527221, 0);
+            gear1.Scale(500555, 0.1);
+
+            var gear2 = GetLayer("Gear1").CreateSprite("sb/g/g6.png");
+            gear2.Fade(500555, 501889, 0, 0.1);
+            gear2.Rotate(500555, 527222, 0, Math.PI*2);
+            gear2.Fade(527221, 0);
+            gear2.Scale(500555, 0.4); 
+
+            Gear(552555, 2, 553555, 0.05);
+            Gear(552721, 6, 553555, 0.12);
+            Gear(552888, 5, 553555, 0.12);
+            Gear(552971, 6, 553555, 0.35);
+            Gear(553055, 6, 553555, 0.5);
+            Gear(553138, 6, 553555, 0.7);
+            Gear(553221, 5, 553555, 0.7);
+        }
+        private void Gear(int startTime, int id, int endTime, double scale)
+        {
+            var sprite = GetLayer("Gear1").CreateSprite($"sb/g/g{id}.png");
+            sprite.Fade(startTime, startTime + 100, 0, 1);
+            sprite.Fade(OsbEasing.OutExpo, endTime, endTime + 1000, 1, 0.1);
+            sprite.Scale(OsbEasing.OutBack, startTime, startTime + 100, scale - 0.1, scale);
+            sprite.Rotate(OsbEasing.OutExpo, endTime, endTime + 1000, Random(-Math.PI, Math.PI), 0);
+
+            sprite.Fade(553888, 555221, 0.1, 0.1);
+            sprite.Rotate(OsbEasing.InSine, endTime + 1000, 575210, 0, Random(-Math.PI, Math.PI));
         }
     }
 }

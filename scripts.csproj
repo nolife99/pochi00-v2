@@ -52,6 +52,8 @@
   </Target>
   -->
   <ItemGroup>
+    <Compile Include="Background.cs" />
+    <Compile Include="Clock.cs" />
     <Compile Include="Ending.cs" />
     <Compile Include="HitObjectGen.cs" />
     <Compile Include="ImportOsb.cs" />

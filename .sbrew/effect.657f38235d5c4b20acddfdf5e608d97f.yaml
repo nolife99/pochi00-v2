@@ -25,8 +25,3 @@ Layers:
     OsbLayer: Foreground
     DiffSpecific: No
     Visible: Yes
-  965fd62a7e174550b63ab593ae27a676:
-    Name: "Overlay"
-    OsbLayer: Overlay
-    DiffSpecific: No
-    Visible: Yes
