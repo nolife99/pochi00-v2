@@ -4,7 +4,7 @@ Script: "ScriptsManager"
 Config:
   RandomSeed:
     Type: "System.Int32"
-    Value: "22"
+    Value: "9"
     DisplayName: "Random seed"
 Layers:
   0ad3f03cd3c64681badde2b8310c788f:
@@ -74,6 +74,6 @@ Layers:
     Visible: Yes
   b519fa52467e4f18b4fa73bdc3a69458:
     Name: "Gear 1"
-    OsbLayer: Background
+    OsbLayer: Foreground
     DiffSpecific: No
     Visible: Yes

@@ -172,7 +172,7 @@ namespace StorybrewScripts
                 for (double time = startTime; time < endTime; time += timeStep)
                 {
                     angle += -0.085;
-                    radius += 0.02;
+                    radius += 0.022;
 
                     var nPosition = new Vector2(
                         (float)(318 + Math.Cos(angle) * radius),

@@ -16,7 +16,7 @@ public class Scripts
     {
         for (int i = 0; i < quantity; i++)
         {
-            int firstTimeDuration = generator.Random(1500, 20000) + i * generator.Random(10, 200);
+            int firstTimeDuration = generator.Random(1000, 20000) + i * generator.Random(1, 200);
             int posX = generator.Random(-157, 647);
             int endX = generator.Random(877, 907);
             int elementStartTime = startTime;
@@ -201,8 +201,8 @@ public class Scripts
     }
     public void GenerateGears(int startTime, int endTime, int gearNumber, string layer)
     {   
-        float colorDark = 0.05f;
-        double maxScale = 0.4;
+        float colorDark = 0.12f;
+        double maxScale = 0.35;
         for(int i = 0; i < gearNumber; i ++)
         {  
             int baseYPos = generator.Random(0, 480);
@@ -215,8 +215,8 @@ public class Scripts
             sprite.Color(startTime, colorDark, colorDark, colorDark);
             sprite.Rotate(startTime, endTime, 0, generator.Random(0, 2) == 0 ? generator.Random(-5, -1) : generator.Random(1, 5));
             sprite.MoveY(startTime, endTime, baseYPos, baseYPos + generator.Random(-100, 100));
-            colorDark += 0.5f/gearNumber;
-            maxScale-=0.3/gearNumber;
+            colorDark += 0.5f / gearNumber;
+            maxScale -= 0.3 / gearNumber;
         }
     }
 }

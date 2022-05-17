@@ -57,6 +57,11 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
+  f8ac9905ea7346d895b37151190ba20c:
+    Name: "s02"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
   1fd4c5f64a1f45b682cee676426710e0:
     Name: "before kiai"
     OsbLayer: Background
@@ -67,14 +72,9 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
-  f8ac9905ea7346d895b37151190ba20c:
-    Name: "s02"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
   6f0eccf5a4574375a4c2ae89cfc1fc01:
     Name: "Flash"
-    OsbLayer: Background
+    OsbLayer: Foreground
     DiffSpecific: No
     Visible: Yes
   d32aa43817444690b2b464e4cfae42b7:
