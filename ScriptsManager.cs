@@ -1,14 +1,9 @@
 using OpenTK;
 using OpenTK.Graphics;
 using StorybrewCommon.Animations;
-using StorybrewCommon.Mapset;
 using StorybrewCommon.Scripting;
 using StorybrewCommon.Storyboarding;
-using StorybrewCommon.Storyboarding.Util;
-using StorybrewCommon.Util;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace StorybrewScripts
 {
@@ -68,7 +63,7 @@ namespace StorybrewScripts
                 var x = (int)radius * (float)Math.Cos(rad) + Pos.X - 2;
                 var y = (int)radius * (float)Math.Sin(rad) + Pos.Y;
                 var position = new Vector2(x, y);
-                
+
                 var x2 = (int)-radius * (float)Math.Cos(rad) + Pos.X - 2;
                 var y2 = (int)-radius * (float)Math.Sin(rad) + Pos.Y;
                 var nPos = new Vector2(x2, y2);
@@ -123,7 +118,7 @@ namespace StorybrewScripts
                 outCircle.Scale(travelTime / 8 - 50, 0.05);
                 outCircle.Scale((travelTime / 8) * 7 + 50, 0.2);
                 outCircle.Scale(travelTime, 0.2);
-                outCircle.Color(0, Color4.GreenYellow); 
+                outCircle.Color(0, Color4.GreenYellow);
                 outCircle.Color(travelTime / 8 - 50, Color4.LightBlue);
                 outCircle.Color((travelTime / 8) * 7 + 50, Color4.GreenYellow);
                 outCircle.EndGroup();
@@ -186,9 +181,9 @@ namespace StorybrewScripts
                 var pos = new Vector2(
                     (float)(318 + Math.Cos(angle) * radius),
                     (float)(240 + Math.Sin(angle) * radius));
-                    
+
                 var Rotation = Math.Atan2(position.Y - pos.Y, position.X - pos.X) - Math.PI / 1.2;
-                    
+
                 lines.Rotate(startTime, endTime, Rotation, Rotation - Math.PI * 2.2);
             }
         }
@@ -294,87 +289,87 @@ namespace StorybrewScripts
                 sprite.Fade(276247, 0.6);
                 sprite.Color(276247, Color4.White);
 
-                
+
                 sprite.Fade(277902, 1);
                 sprite.Color(277902, Color4.IndianRed);
                 sprite.Fade(278316, 0.6);
                 sprite.Color(278316, Color4.White);
-                
+
                 sprite.Fade(278730, 1);
                 sprite.Color(278730, Color4.IndianRed);
                 sprite.Fade(278833, 0.6);
                 sprite.Color(278833, Color4.White);
-                
+
                 sprite.Fade(278937, 1);
                 sprite.Color(278937, Color4.IndianRed);
                 sprite.Fade(279040, 0.6);
                 sprite.Color(279040, Color4.White);
-                
+
                 sprite.Fade(280385, 1);
                 sprite.Color(280385, Color4.IndianRed);
                 sprite.Fade(280799, 0.6);
                 sprite.Color(280799, Color4.White);
-                
+
                 sprite.Fade(282868, 1);
                 sprite.Color(282868, Color4.IndianRed);
                 sprite.Fade(283282, 0.6);
                 sprite.Color(283695, Color4.White);
-                
+
                 sprite.Fade(284523, 1);
                 sprite.Color(284523, Color4.IndianRed);
                 sprite.Fade(284575, 0.6);
                 sprite.Color(284575, Color4.White);
-                
+
                 sprite.Fade(284626, 1);
                 sprite.Color(284626, Color4.IndianRed);
                 sprite.Fade(284678, 0);
                 sprite.Color(284678, Color4.White);
-                
+
                 sprite.Fade(284730, 1);
                 sprite.Color(284730, Color4.IndianRed);
                 sprite.Fade(284782, 0.6);
                 sprite.Color(284782, Color4.White);
-                
+
                 sprite.Fade(284833, 1);
                 sprite.Color(284833, Color4.IndianRed);
                 sprite.Fade(284885, 0.6);
                 sprite.Color(284885, Color4.White);
-                
+
                 sprite.Fade(284937, 1);
                 sprite.Color(284937, Color4.IndianRed);
                 sprite.Fade(284988, 0.6);
                 sprite.Color(284988, Color4.White);
-                
+
                 sprite.Fade(285040, 1);
                 sprite.Color(285040, Color4.IndianRed);
                 sprite.Fade(285092, 0.6);
                 sprite.Color(285092, Color4.White);
-                
+
                 sprite.Fade(285144, 1);
                 sprite.Color(285144, Color4.IndianRed);
                 sprite.Fade(285195, 0.6);
                 sprite.Color(285195, Color4.White);
-                
+
                 sprite.Fade(285247, 1);
                 sprite.Color(285247, Color4.IndianRed);
                 sprite.Fade(285299, 0.6);
                 sprite.Color(285299, Color4.White);
-                
+
                 sprite.Fade(286178, 1);
                 sprite.Color(286178, Color4.IndianRed);
                 sprite.Fade(286488, 0.6);
                 sprite.Color(286488, Color4.White);
-                
+
                 sprite.Fade(286592, 1);
                 sprite.Color(286592, Color4.IndianRed);
                 sprite.Fade(287006, 0.6);
                 sprite.Color(287006, Color4.White);
-                
+
                 sprite.Fade(287833, 1);
                 sprite.Color(287833, Color4.IndianRed);
                 sprite.Fade(288144, 0.6);
                 sprite.Color(288144, Color4.White);
-                
+
                 sprite.Fade(288247, 1);
                 sprite.Color(288247, Color4.IndianRed);
                 sprite.Fade(288661, 0.6);
@@ -488,7 +483,7 @@ namespace StorybrewScripts
 
                     Vector2 nPosition = new Vector2(
                         (float)(320 + Math.Cos(angle) * radius),
-                        (float)(240 + Math.Sin(angle) * radius)); 
+                        (float)(240 + Math.Sin(angle) * radius));
 
                     sprite.Move(time, time + timeStep, Position, nPosition);
 
@@ -538,7 +533,7 @@ namespace StorybrewScripts
                 keyframes.Simplify1dKeyframes(0.15, h => h);
 
                 var bar = GetLayer("Glitch").CreateSprite("sb/p.png", OsbOrigin.Centre, new Vector2(positionX - offset, Position.Y - offset));
-                
+
                 bar.Color(startTime, Color);
                 bar.Fade(endTime, endTime, 0.4, 0);
 
@@ -589,9 +584,9 @@ namespace StorybrewScripts
 
             var gear2 = GetLayer("Gear1").CreateSprite("sb/g/g6.png");
             gear2.Fade(500555, 501889, 0, 0.1);
-            gear2.Rotate(500555, 527222, 0, Math.PI*2);
+            gear2.Rotate(500555, 527222, 0, Math.PI * 2);
             gear2.Fade(527221, 0);
-            gear2.Scale(500555, 0.4); 
+            gear2.Scale(500555, 0.4);
 
             Gear(552555, 2, 553555, 0.05);
             Gear(552721, 6, 553555, 0.12);

@@ -3,11 +3,7 @@ using OpenTK.Graphics;
 using StorybrewCommon.Mapset;
 using StorybrewCommon.Scripting;
 using StorybrewCommon.Storyboarding;
-using StorybrewCommon.Storyboarding.Util;
-using StorybrewCommon.Util;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace StorybrewScripts
 {

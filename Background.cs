@@ -1,14 +1,8 @@
 using OpenTK;
 using OpenTK.Graphics;
-using StorybrewCommon.Mapset;
 using StorybrewCommon.Scripting;
 using StorybrewCommon.Storyboarding;
-using StorybrewCommon.Storyboarding.Util;
-using StorybrewCommon.Subtitles;
-using StorybrewCommon.Util;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace StorybrewScripts
 {
@@ -62,7 +56,7 @@ namespace StorybrewScripts
             b.Fade(332523, 0);
             b.Color(359006, new Color4(5, 12, 12, 1));
             b.Fade(359006, 360006, 0, 1);
-            b.Fade(380543, 0);        
+            b.Fade(380543, 0);
             b.Color(423222, new Color4(25, 25, 25, 1));
             b.Fade(423222, 424222, 0, 1);
             b.Color(433889, 434889, new Color4(25, 25, 25, 1), new Color4(38, 30, 25, 1));
