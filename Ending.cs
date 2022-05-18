@@ -21,15 +21,6 @@ namespace StorybrewScripts
 
             Scripts particleManager = new Scripts(this);
             particleManager.GenerateLights(608555, 628888, 0.08);
-
-            var p = new int[]{
-                575710, 575793, 575877, 576210, 576377, 576543, 576793, 577043, 577210, 577543, 577877, 578210,
-                578293, 578377, 578460, 578543, 578877, 579210, 579460, 579710, 579877, 580127, 580377, 580543,
-                580877, 580960, 581043, 581127, 581210, 581460, 581710, 581877, 582210, 582377, 582460, 582543,
-                582793, 583043, 583210, 583543, 583710, 583793, 583877, 584127, 584377, 584543, 584793, 585043,
-                585210, 585555, 585888, 586221, 586555, 586888
-            };
-            GenerateVerticalBar(p);
         }
         public void Birds(int MinDuration, int MaxDuration, int FlyingSpeed, int Acceleration, int StartTime, int EndTime, int SpriteAmount, bool right, bool left, double ScaleMin, double ScaleMax)
         {
@@ -250,30 +241,6 @@ namespace StorybrewScripts
 
                 sprite.Scale(startTime + i * 120, 0.73);
                 sprite.Additive(startTime + i * 120);
-            }
-        }
-        private void GenerateVerticalBar(int[] l)
-        {
-            for (int i = 0; i < Random(1, 3); i++)
-            {
-                foreach (var hit in l)
-                {
-                    var position = new Vector2(Random(-77, 727), 240);
-                    var sprite = GetLayer("PianoHighlights").CreateSprite("sb/p.png", OsbOrigin.Centre, position);
-
-                    sprite.ScaleVec(hit, 60, 400);
-                    sprite.Fade(hit, hit + 500, 0.1, 0);
-                    sprite.Additive(hit);
-
-                    foreach (var hitobject in Beatmap.HitObjects)
-                    {
-                        if ((hit != 0 || hit + 500 != 0) &&
-                        (hitobject.StartTime < hit - 5 || hit + 500 - 5 <= hitobject.StartTime))
-                            continue;
-
-                        sprite.Color(hit, hitobject.Color);
-                    }
-                }
             }
         }
     }

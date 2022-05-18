@@ -25,7 +25,7 @@ namespace StorybrewScripts
             GenerateBeam(412389, 423139);
             GenerateSplash(380555, 401888);
             var d = 134678 - 124011;
-            var PianoHits = new int[]{
+            var a = new int[]{
                 124011, 124178, 124345, 124511, 124845, 125178, 125345, 125511, 125678, 125845, 126178, 126511,
                 126678, 127011, 127178, 127511, 127678, 127845, 128011, 128345, 128511, 128845, 129345, 129511,
                 129678, 129845, 130178, 130345, 130511, 130678, 131011, 131178, 131678, 131845, 132011, 132178,
@@ -35,10 +35,17 @@ namespace StorybrewScripts
                 129678 + d, 129845 + d, 130178 + d, 130345 + d, 130511 + d, 130678 + d, 131011 + d, 131178 + d, 131678 + d, 131845 + d, 132011 + d, 132178 + d,
                 132345 + d, 132511 + d, 132845 + d, 133011 + d, 133178 + d, 133345 + d, 133511 + d, 133678 + d, 133845 + d,
             };
-            var DumHits = new int[]{
+            var b = new int[]{
                 134345, 134428, 134511, 134595
             };
-            GenerateVerticalBar(PianoHits, DumHits);
+            var c = new int[]{
+                575710, 575793, 575877, 576210, 576377, 576543, 576793, 577043, 577210, 577543, 577877, 578210,
+                578293, 578377, 578460, 578543, 578877, 579210, 579460, 579710, 579877, 580127, 580377, 580543,
+                580877, 580960, 581043, 581127, 581210, 581460, 581710, 581877, 582210, 582377, 582460, 582543,
+                582793, 583043, 583210, 583543, 583710, 583793, 583877, 584127, 584377, 584543, 584793, 585043,
+                585210, 585555, 585888, 586221, 586555, 586888
+            };
+            GenerateVerticalBar(a, b, c);
         }
         public void GenerateRing(int BeatDivisor, int StartTime, int EndTime)
         {
@@ -120,11 +127,11 @@ namespace StorybrewScripts
                 }
             }
         }
-        private void GenerateVerticalBar(int[] pianoHits, int[] DumHits)
+        private void GenerateVerticalBar(int[] a, int[] b, int[] c)
         {
             for (int i = 0; i < 3; i++)
             {
-                foreach (var hit in pianoHits)
+                foreach (var hit in a)
                 {
                     var position = new Vector2(Random(-77, 727), 240);
                     var sprite = GetLayer("PianoHighlights").CreateSprite("sb/p.png", OsbOrigin.Centre, position);
@@ -134,11 +141,28 @@ namespace StorybrewScripts
                     sprite.Additive(hit);
                     sprite.Color(hit, Color4.LightBlue);
                 }
-            }
+                foreach (var hit in c)
+                {
+                    var position = new Vector2(Random(-77, 727), 240);
+                    var sprite = GetLayer("PianoHighlights").CreateSprite("sb/p.png", OsbOrigin.Centre, position);
 
-            for (double i = 0; i < 17.5; i++)
+                    sprite.ScaleVec(hit, 60, 400);
+                    sprite.Fade(hit, hit + 500, 0.1, 0);
+                    sprite.Additive(hit);
+
+                    foreach (var hitobject in Beatmap.HitObjects)
+                    {
+                        if ((hit != 0 || hit + 500 != 0) &&
+                        (hitobject.StartTime < hit - 5 || hit + 500 - 5 <= hitobject.StartTime))
+                            continue;
+
+                        sprite.Color(hit, hitobject.Color);
+                    }
+                }
+            }
+            for (double i = 0; i < 17; i++)
             {
-                foreach (var Hit in DumHits)
+                foreach (var Hit in b)
                 {
                     var position = new Vector2(Random(-77, 727), 240);
                     var sprite = GetLayer("PianoHighlights").CreateSprite("sb/p.png", OsbOrigin.Centre, position);

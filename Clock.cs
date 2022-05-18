@@ -27,7 +27,7 @@ namespace StorybrewScripts
             SetClockSpeed(70694, 81360, beat * 4);
             ModifyScale(80027, 81360, 200, true, 150);
             SetClockSpeed(81360, 92027, beat);
-            SetClockSpeed(92027, 97360, beat * 4);
+            SetClockSpeed(92027, 97360, beat * 2);
             SetClockSpeed(168027, 200027, beat);
             SetClockSpeed(200027, 203360, beat * 2);
 
@@ -81,8 +81,8 @@ namespace StorybrewScripts
             ChangeHour(261351, 263006, 0.05, OsbEasing.OutExpo);
             ChangeHour(263006, 263833, 1, OsbEasing.InExpo);
             ChangeHour(264661, 265488, -1, OsbEasing.InExpo);
-            ChangeHour(266316, 267144, 1, OsbEasing.InExpo);
-            ChangeHour(267144, 267557, 1, OsbEasing.OutExpo);
+            ChangeHour(266316, 267144, 0.25, OsbEasing.InExpo);
+            ChangeHour(267144, 267557, 0.75, OsbEasing.OutExpo);
             ChangeHour(267557, 267971, -0.5, OsbEasing.OutExpo);
             ChangeHour(267971, 268799, 0.5, OsbEasing.InExpo);
             ChangeHour(268799, 269213, 0.2, OsbEasing.OutElastic);

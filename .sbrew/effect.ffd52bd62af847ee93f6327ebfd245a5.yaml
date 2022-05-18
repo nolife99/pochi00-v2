@@ -22,6 +22,11 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
+  4912ff77c9be4263aa3771233decda6e:
+    Name: "alexithymia circles"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
   dddf02d7a50046258e80415320aee9cc:
     Name: "s2"
     OsbLayer: Background
@@ -54,6 +59,11 @@ Layers:
     Visible: Yes
   e7d7094a543949b99d8a5b47884e43b5:
     Name: "420"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  46334f7f9ffa4beaa8ba921af5025a9b:
+    Name: "gradient"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes

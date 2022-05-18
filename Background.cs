@@ -35,7 +35,7 @@ namespace StorybrewScripts
             b.ScaleVec(70694, 427, 200);
             b.Color(70694, new Color4(.05f, 0.1f, 0.2f, 1));
             b.Fade(70694, 71694, 0, 1);
-            b.Fade(81360, 82360, 1, 0);
+            b.Fade(81360, 81694, 1, 0);
             b.Color(102694, new Color4(20, 0, 20, 1));
             b.Fade(102694, 103694, 0, 1);
             b.Fade(123694, 124027, 1, 0.06);
@@ -70,11 +70,12 @@ namespace StorybrewScripts
             b.Fade(553877, 0);
 
             var h = GetLayer("Back1").CreateSprite("sb/hl.png", OsbOrigin.Centre, new Vector2(320, 240));
+            h.Scale(70694, 0.9);
             h.Color(70694, Color4.Black);
             h.Fade(70694, 71694, 0, 1);
             h.Fade(81360, 82360, 1, 0);
-            h.Fade(102694, 103694, 0, 0.8);
-            h.Fade(122694, 124194, 0.8, 0);
+            h.Fade(102694, 103694, 0, 1);
+            h.Fade(122694, 124194, 1, 0);
             h.Fade(203420, 204420, 0, 1);
             h.Fade(272937, 273937, 1, 0);
             h.Fade(315971, 316971, 0, 1);
@@ -116,6 +117,20 @@ namespace StorybrewScripts
             v.Fade(473889, 0);
             v.Fade(500555, 0.8);
             v.Fade(553888, 0);
+
+            var a1 = GetLayer("alexithymia circles").CreateSprite("sb/c2.png", OsbOrigin.Centre, new Vector2(418, 240));
+            var a2 = GetLayer("alexithymia circles").CreateSprite("sb/c2.png", OsbOrigin.Centre, new Vector2(218, 240));
+            a1.Scale(124027, 0.2);
+            a2.Scale(124027, 0.2);
+            a1.Fade(124027, 145194, 1, 1);
+            a2.Fade(124027, 145194, 1, 1);
+
+            var gradient = GetLayer("gradient").CreateSprite("sb/grad.png", OsbOrigin.CentreLeft, new Vector2(320, 480));
+            gradient.Color(380556, 25, 25, 25);
+            gradient.Fade(380556, 391222, 0, 0.12);
+            gradient.Rotate(391222, -Math.PI / 2);
+            gradient.ScaleVec(391222, 0.7, 9);
+            gradient.Fade(401555, 401868, 0.12, 0);
         }
         public void Section1()
         {

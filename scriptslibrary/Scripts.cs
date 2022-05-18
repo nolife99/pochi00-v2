@@ -156,7 +156,7 @@ public class Scripts
         {
             while (posY < 437 + squareScale)
             {
-                var sprite = generator.GetLayer("transition!").CreateSprite("sb/0.png", OsbOrigin.Centre, new Vector2(posX, posY));
+                var sprite = generator.GetLayer("transition").CreateSprite("sb/0.png", OsbOrigin.Centre, new Vector2(posX, posY));
 
                 if (Full == false)
                 {
@@ -200,7 +200,7 @@ public class Scripts
     }
     public void GenerateGears(int startTime, int endTime, int gearNumber, string layer)
     {   
-        float colorDark = 0.12f;
+        float colorDark = 0.15f;
         double maxScale = 0.35;
         for(int i = 0; i < gearNumber; i ++)
         {  

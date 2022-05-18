@@ -27,14 +27,16 @@ namespace StorybrewScripts
             particleManager.GenerateFog(444722, 464555, 380, 25, Color4.Orange, 0.6);
             particleManager.GenerateFog(473889, 496555, 380, 25, Color4.Orange, 0.6);
 
-            particleManager.GenerateDanmaku(102678, 124027, 5000);
+            particleManager.GenerateDanmaku(102694, 124027, 5000);
 
             particleManager.SquareTransition(355695, 359006, true, 18.2f, new Color4(10, 10, 10, 1), OsbEasing.In);
             particleManager.SquareTransition(574888, 575555, false, 50, Color4.Black, OsbEasing.InSine, true);
 
-            particleManager.TransitionLines(166345, 166678, 167678);
-            particleManager.TransitionLines(465210, 465543, 465877, "transition?");
-            particleManager.TransitionLines(628556, 629222, 631222, "transition", true);
+            particleManager.TransitionLines(123360, 124027, 124027, "foreground transition");
+            particleManager.TransitionLines(144011, 145027, 145345);
+            particleManager.TransitionLines(166360, 166694, 167694, "foreground transition");
+            particleManager.TransitionLines(465222, 465555, 465889, "transition?");
+            particleManager.TransitionLines(628555, 629221, 631221, "transition end", true);
 
             particleManager.GenerateRain(380555, 433889, 10, true);
             particleManager.GenerateRain(587221, 629471, 5);
@@ -44,7 +46,7 @@ namespace StorybrewScripts
         public void Circles()
         {
             int StartTime = 124027;
-            int EndTime = 145194;
+            int EndTime = 144881;
             int Amount = 2;
 
             var Beat = Beatmap.GetTimingPointAt(StartTime).BeatDuration / 1;
@@ -559,7 +561,7 @@ namespace StorybrewScripts
                         }
                     },
                     MinimalHeight,
-                    s => (float)Math.Round(s, 1)
+                    s => (float)Math.Round(s, 10)
                 );
                 if (!hasScale) bar.ScaleVec(startTime, scaleX, MinimalHeight);
             }
@@ -604,8 +606,8 @@ namespace StorybrewScripts
             sprite.Scale(OsbEasing.OutBack, startTime, startTime + 100, scale - 0.1, scale);
             sprite.Rotate(OsbEasing.OutExpo, endTime, endTime + 1000, Random(-Math.PI, Math.PI), 0);
 
-            sprite.Fade(553888, 555221, 0.1, 0.1);
-            sprite.Rotate(OsbEasing.InSine, endTime + 1000, 575210, 0, Random(-Math.PI, Math.PI));
+            sprite.Fade(553888, 555220, 0.1, 0.1);
+            sprite.Rotate(OsbEasing.InSine, endTime + 1000, 575220, 0, Random(-Math.PI, Math.PI));
         }
     }
 }
