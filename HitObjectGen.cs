@@ -50,8 +50,8 @@ namespace StorybrewScripts
         public void GenerateRing(int BeatDivisor, int StartTime, int EndTime)
         {
             var Map = GetBeatmap("Chronostasis");
-            float StartScale = 0.5f;
-            float EndScale = 0.8f;
+            float StartScale = 0.125f;
+            float EndScale = 0.2f;
             int FadeTime = 1000;
             float Fade = 1;
             OsbEasing Easing = OsbEasing.OutExpo;
