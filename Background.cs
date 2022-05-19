@@ -148,13 +148,13 @@ namespace StorybrewScripts
             var l1 = GetLayer("s1").CreateSprite("sb/b/0/l1.png", OsbOrigin.Centre, new Vector2(320, 0));
             l1.Scale(28110, 0.4571429);
             l1.Fade(28110, 29110, 0, 1);
-            l1.MoveY(OsbEasing.OutExpo, 28110, 70694, 230, 250);
+            l1.MoveY(OsbEasing.OutExpo, 28110, 70694, 220, 250);
             l1.Fade(70694, 0);
 
             var l2 = GetLayer("s01").CreateSprite("sb/b/0/l2.png", OsbOrigin.Centre, new Vector2(320, 0));
             l2.Scale(28110, 0.4571429);
             l2.Fade(28110, 29110, 0, 1);
-            l2.MoveY(OsbEasing.OutExpo, 28110, 70694, 240, 305);
+            l2.MoveY(OsbEasing.OutExpo, 28110, 70694, 220, 305);
             l2.Fade(70694, 0);
 
             var l3 = GetLayer("s01").CreateSprite("sb/b/0/l3.png", OsbOrigin.Centre, new Vector2(320, 0));
@@ -163,7 +163,7 @@ namespace StorybrewScripts
             l3.MoveY(OsbEasing.OutExpo, 28110, 70694, 400, 460);
             l3.Fade(70694, 0);
 
-            var l4 = GetLayer("s1").CreateSprite("sb/b/0/l4.png", OsbOrigin.Centre, new Vector2(320, 0));
+            var l4 = GetLayer("s01").CreateSprite("sb/b/0/l4.png", OsbOrigin.Centre, new Vector2(320, 0));
             l4.Scale(28110, 0.4571429);
             l4.Fade(28110, 29110, 0, 1);
             l4.MoveY(OsbEasing.OutExpo, 28110, 70694, 400, 520);
