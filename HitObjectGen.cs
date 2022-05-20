@@ -143,20 +143,38 @@ namespace StorybrewScripts
                 }
                 foreach (var hit in c)
                 {
+                    var color1 = new Color4(91, 206, 164, 1);
+                    var color2 = new Color4(129, 87, 86, 1);
+                    //ending colors
+                    var color3 = new Color4(204, 49, 96, 1);
+                    var color4 = new Color4(250, 169, 80, 1);
+                    var color5 = new Color4(63, 220, 248, 1);
                     var position = new Vector2(Random(-77, 727), 240);
-                    var sprite = GetLayer("PianoHighlights").CreateSprite("sb/p.png", OsbOrigin.Centre, position);
+                    var piano = GetLayer("PianoHighlights").CreateSprite("sb/p.png", OsbOrigin.Centre, position);
 
-                    sprite.ScaleVec(hit, 60, 400);
-                    sprite.Fade(hit, hit + 500, 0.1, 0);
-                    sprite.Additive(hit);
+                    piano.ScaleVec(hit, 60, 400);
+                    piano.Fade(hit, hit + 500, 0.1, 0);
+                    piano.Additive(hit);
 
-                    foreach (var hitobject in Beatmap.HitObjects)
+                    if (hit > 575638 & hit < 577805 | hit > 579138 & hit < 579305 | hit > 579638 & hit < 579805 | hit > 580055 & hit < 580221 | hit > 580471 & hit < 581217 | hit > 581388 & hit < 581555 | hit > 581805 & hit < 582550 | hit > 582721 & hit < 582888 | hit > 583138 & hit < 583845 | hit > 584055 & hit < 584221 | hit > 584471 & hit < 585638)
                     {
-                        if ((hit != 0 || hit + 500 != 0) &&
-                        (hitobject.StartTime < hit - 5 || hit + 500 - 5 <= hitobject.StartTime))
-                            continue;
-
-                        sprite.Color(hit, hitobject.Color);
+                        piano.Color(hit, color1);
+                    }
+                    else if (hit > 577805 & hit < 579138 | hit > 579305 & hit < 579638 | hit > 579805 & hit < 580055 | hit > 580221 & hit < 580471 | hit > 581217 & hit < 581388 | hit > 581555 & hit < 581805 | hit > 582550 & hit < 582721 | hit > 582888 & hit < 583138 | hit > 583846 & hit < 583971 | hit > 584221 & hit < 584471)
+                    {
+                        piano.Color(hit, color2);
+                    }
+                    else if (hit > 585805 & hit < 585971)
+                    {
+                        piano.Color(hit, color3);
+                    }
+                    else if (hit > 586138 & hit < 586305)
+                    {
+                        piano.Color(hit, color4);
+                    }
+                    else
+                    {
+                        piano.Color(hit, color5);
                     }
                 }
             }

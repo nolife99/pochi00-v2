@@ -137,7 +137,7 @@ namespace StorybrewScripts
             var grey = GetLayer("s1").CreateSprite("sb/b/0/w.jpg", OsbOrigin.Centre, new Vector2(320, 240));
             grey.Additive(6693);
             grey.Fade(OsbEasing.InSine, 6693, 28027, 0, 1);
-            grey.Scale(OsbEasing.InSine, 6693, 28027, 0.24, 0.23076925);
+            grey.Scale(OsbEasing.InSine, 6693, 28027, 0.12, 0.115384625);
             grey.Fade(OsbEasing.OutSine, 28027, 29360, 1, 0);
 
             var l0 = GetLayer("s1").CreateSprite("sb/b/0/l0.png", OsbOrigin.Centre, new Vector2(320, 240));
