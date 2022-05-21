@@ -87,21 +87,24 @@ public class Scripts
             }
         }
     }
-    public void GenerateLights(int startTime, int endTime, double Fade)
+    public void GenerateLights(int startTime, int endTime, double Fade, bool RandomFade = true)
     {
-        for (int i = startTime; i < endTime - 1000; i += generator.Random(150, 1200))
+        for (int i = startTime; i < endTime - 1000; i += 453)
         {
-            var fade = generator.Random(0.05 + Fade, 0.1 + Fade);
+            var fade = Fade;
+            if (RandomFade)
+            {
+                fade = generator.Random(0.03 + Fade, 0.08 + Fade);
+            }
             var fadeTime = generator.Random(1000, 2000);
             var sprite = generator.GetLayer("Highlight").CreateSprite("sb/hl.png");
-            var pos = new Vector2(320, 240);
-            var newPos = new Vector2(generator.Random(-107.5f, 854.5f), generator.Random(0, 480.5f));
+            var pos = new Vector2(generator.Random(0, 727), generator.Random(10, 380));
+            var newPos = new Vector2(generator.Random(-107, 854), generator.Random(-17, 480));
 
-            sprite.Additive(i);
-            sprite.Move(OsbEasing.Out, i, i + fadeTime * 2, pos, newPos);
-            sprite.Fade(i, i + 500, 0, fade);
+            sprite.Move(OsbEasing.OutSine, i, i + fadeTime * 2, pos, newPos);
+            sprite.Fade(i, i + 250, 0, fade);
             sprite.Fade(i + fadeTime, i + fadeTime * 2, fade, 0);
-            sprite.Scale(i, i + fadeTime * 2, generator.Random(0.9, 2), 0);
+            sprite.Scale(i, i + fadeTime * 2, generator.Random(0.85f, 2f), 0);
         }
     }
     public void GenerateRain(int startTime, int endTime, double intensity, bool alt = false)

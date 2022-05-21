@@ -46,7 +46,7 @@ namespace StorybrewScripts
             particleManager.GenerateRain(597888, 629471, 5);
             particleManager.GenerateRain(608555, 629471, 18.5);
 
-            particleManager.GenerateLights(611221, 628888, 0);
+            particleManager.GenerateLights(610555, 628555, 0);
         }
         public void Circles()
         {
@@ -499,7 +499,6 @@ namespace StorybrewScripts
                 angle += ConnectionAngle / (sqAmount / 2);
             }
         }
-
         private void Spectrum(int startTime, int endTime, float offset, Color4 Color)
         {
             bool stat = false;
@@ -529,7 +528,6 @@ namespace StorybrewScripts
                     heightKeyframes[i].Add(time, height);
                 }
             }
-
             var barWidth = Width / BarCount;
             var posX = Position.X - (Width / 2);
 
@@ -566,7 +564,7 @@ namespace StorybrewScripts
                         }
                     },
                     MinimalHeight,
-                    s => (float)Math.Round(s, 10)
+                    s => (float)Math.Round(s, 0)
                 );
                 if (!hasScale) bar.ScaleVec(startTime, scaleX, MinimalHeight);
             }
