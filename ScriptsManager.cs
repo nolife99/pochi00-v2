@@ -29,12 +29,15 @@ namespace StorybrewScripts
 
             particleManager.GenerateDanmaku(102694, 124027, 5000);
 
+            particleManager.SquareTransition(331695, 332522, false, 50, new Color4(10, 10, 10, 1), OsbEasing.InExpo, false, "foreground transition"); 
             particleManager.SquareTransition(355695, 359006, true, 18.2f, new Color4(10, 10, 10, 1), OsbEasing.In);
-            particleManager.SquareTransition(574888, 575555, false, 50, Color4.Black, OsbEasing.InSine, true);
+            particleManager.SquareTransition(378913, 380555, false, 30, new Color4(33, 25, 25, 0), OsbEasing.InExpo, false, "tt");
+            particleManager.SquareTransition(400889, 401888, false, 50, new Color4(33, 25, 25, 0), OsbEasing.In, false, "foreground transition");
+            particleManager.SquareTransition(574888, 575555, false, 50, new Color4(10, 10, 10, 1), OsbEasing.InSine, true);
 
             particleManager.TransitionLines(123360, 124027, 124027, "foreground transition");
             particleManager.TransitionLines(144011, 145027, 145345);
-            particleManager.TransitionLines(166360, 166694, 167694, "foreground transition");
+            particleManager.TransitionLines(166360, 166694, 167027, "foreground transition");
             particleManager.TransitionLines(465222, 465555, 465889, "transition?");
             particleManager.TransitionLines(628555, 629221, 631221, "transition end", true);
 
@@ -42,6 +45,8 @@ namespace StorybrewScripts
             particleManager.GenerateRain(587221, 629471, 5);
             particleManager.GenerateRain(597888, 629471, 5);
             particleManager.GenerateRain(608555, 629471, 18.5);
+
+            particleManager.GenerateLights(611221, 628888, 0);
         }
         public void Circles()
         {

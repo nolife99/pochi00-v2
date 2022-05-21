@@ -18,9 +18,6 @@ namespace StorybrewScripts
             Birds(3500, 7000, 20, 30, 587221, 608555, 35, true, false, 0.02, 0.05);
 
             GodRays(587221, 614000);
-
-            Scripts particleManager = new Scripts(this);
-            particleManager.GenerateLights(608555, 628888, 0.08);
         }
         public void Birds(int MinDuration, int MaxDuration, int FlyingSpeed, int Acceleration, int StartTime, int EndTime, int SpriteAmount, bool right, bool left, double ScaleMin, double ScaleMax)
         {

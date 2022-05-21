@@ -30,7 +30,7 @@ public class Scripts
                 particle.Scale(startTime, generator.Random(0.02, 0.025));
                 particle.Color(startTime, color);
                 particle.Additive(startTime);
-                if (startTime + firstTimeDuration + 5000 > endTime)
+                if (startTime + firstTimeDuration + 5500 > endTime)
                     particle.Scale(startTime + firstTimeDuration, 0);
 
                 particleStartTime += firstTimeDuration;
@@ -71,8 +71,7 @@ public class Scripts
             {
                 var endPosition = new Vector2(
                     (float)(320 + Math.Cos(angle) * 450),
-                    (float)(240 + Math.Sin(angle) * 450)
-                );
+                    (float)(240 + Math.Sin(angle) * 450));
 
                 var sprite = generator.GetLayer("PARTICLES").CreateSprite("sb/p.png", OsbOrigin.Centre);
                 sprite.StartLoopGroup(startTime + l * 100, (endTime - startTime - l * 35) / speed);
@@ -80,7 +79,7 @@ public class Scripts
                 sprite.Fade(0, 0);
                 sprite.Fade(speed / 6, speed / 2, 0, 1);
                 sprite.ScaleVec(0, speed, 10, 1, 10, 0);
-                sprite.Rotate(OsbEasing.InSine, 0, speed, angle, angle - 1.5);
+                sprite.Rotate(OsbEasing.InSine, 0, speed, angle, angle - 1.25);
                 sprite.EndGroup();
                 sprite.Fade(endTime, endTime + 150, 1, 0);
 
@@ -88,25 +87,21 @@ public class Scripts
             }
         }
     }
-    public void GenerateLights(int startTime, int endTime, double fade)
+    public void GenerateLights(int startTime, int endTime, double Fade)
     {
-        for (int i = 0; i < 15; i++)
+        for (int i = startTime; i < endTime - 1000; i += generator.Random(150, 1200))
         {
-            int speed = 5000;
-            int duration = endTime - startTime - i * 100;
-            double angle = generator.Random(0, Math.PI * 2);
-            float radius = generator.Random(20, 400);
-            var startPos = new Vector2(generator.Random(-77, 707), generator.Random(40, 440));
-            var endPos = new Vector2((float)(startPos.X + Math.Cos(angle) * radius), (float)(startPos.Y + Math.Sin(angle) * radius));
-            var sprite = generator.GetLayer("0").CreateSprite("sb/hl.png", OsbOrigin.Centre, startPos);
+            var fade = generator.Random(0.05 + Fade, 0.1 + Fade);
+            var fadeTime = generator.Random(1000, 2000);
+            var sprite = generator.GetLayer("Highlight").CreateSprite("sb/hl.png");
+            var pos = new Vector2(320, 240);
+            var newPos = new Vector2(generator.Random(-107.5f, 854.5f), generator.Random(0, 480.5f));
 
-            sprite.Scale(startTime + i * 100, 0.4);
-            sprite.StartLoopGroup(startTime + i * 100, duration / speed);
-            sprite.Move(OsbEasing.InOutSine, 0, speed, startPos, endPos);
-            sprite.Fade(0, 500, 0, fade);
-            sprite.Fade(speed - 500, speed, fade, 0);
-            sprite.EndGroup();
-            sprite.Additive(startTime + i * 100);
+            sprite.Additive(i);
+            sprite.Move(OsbEasing.Out, i, i + fadeTime * 2, pos, newPos);
+            sprite.Fade(i, i + 500, 0, fade);
+            sprite.Fade(i + fadeTime, i + fadeTime * 2, fade, 0);
+            sprite.Scale(i, i + fadeTime * 2, generator.Random(0.9, 2), 0);
         }
     }
     public void GenerateRain(int startTime, int endTime, double intensity, bool alt = false)
@@ -121,14 +116,15 @@ public class Scripts
             int duration = endTime - startTime - i * delay;
             string layer = "rain";
 
+            var sprite = generator.GetLayer(layer).CreateSprite("sb/pl.png", OsbOrigin.Centre, new Vector2(posX, 20));
             if (alt)
             {
                 delay += 85;
                 layer = "rain ";
                 duration = endTime - startTime - i * (delay / 2);
+                sprite.Additive(startTime + i * delay);
             }
 
-            var sprite = generator.GetLayer(layer).CreateSprite("sb/pl.png", OsbOrigin.Centre, new Vector2(posX, 20));
             sprite.StartLoopGroup(startTime + i * delay, duration / particleSpeed);
             sprite.MoveY(0, particleSpeed, 20, 460);
             sprite.MoveX(0, particleSpeed, posX, endX);
@@ -136,17 +132,16 @@ public class Scripts
             sprite.EndGroup();
             sprite.Fade(startTime + i * delay, generator.Random(0.15, 0.5));
             sprite.Scale(startTime + i * delay, generator.Random(0.03, 0.05));
-            sprite.Additive(startTime + i * delay);
 
             var splash = generator.GetLayer(layer).CreateSprite("sb/d.png", OsbOrigin.Centre, new Vector2(posX, 460));
-            splash.StartLoopGroup(startTime + (i * delay) + particleSpeed, duration / particleSpeed);
+            splash.StartLoopGroup(startTime + i * delay + particleSpeed, duration / particleSpeed);
             splash.MoveY(OsbEasing.OutExpo, 0, particleSpeed, 460, generator.Random(400, 450));
             splash.Fade(OsbEasing.OutExpo, 0, particleSpeed, 1, 0);
             splash.Scale(OsbEasing.OutExpo, 0, particleSpeed, generator.Random(0.045, 0.055), 0);
             splash.EndGroup();
         }
     }
-    public void SquareTransition(int startTime, int endTime, bool In, float squareScale, Color4 color, OsbEasing easing, bool Full = false)
+    public void SquareTransition(int startTime, int endTime, bool In, float squareScale, Color4 color, OsbEasing easing, bool Full = false, string layer = "transition")
     {
         float posX = -107;
         float posY = 40;
@@ -156,7 +151,7 @@ public class Scripts
         {
             while (posY < 437 + squareScale)
             {
-                var sprite = generator.GetLayer("transition").CreateSprite("sb/0.png", OsbOrigin.Centre, new Vector2(posX, posY));
+                var sprite = generator.GetLayer(layer).CreateSprite("sb/0.png", OsbOrigin.Centre, new Vector2(posX, posY));
 
                 if (Full == false)
                 {

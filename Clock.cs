@@ -53,20 +53,20 @@ namespace StorybrewScripts
             ChangeHour(222454, 222661, 0.2, OsbEasing.OutExpo);
             ChangeHour(222661, 222868, 0.3, OsbEasing.OutExpo);
             ChangeHour(222868, 223075, 0.4, OsbEasing.OutExpo);
-            ChangeHour(223075, 223282, 1, OsbEasing.OutExpo);
+            ChangeHour(223075, 223282, 0.7, OsbEasing.OutExpo);
             ChangeHour(223282, 224109, -1, OsbEasing.InExpo);
-            ChangeHour(224109, 224523, 1, OsbEasing.OutElastic);
+            ChangeHour(224109, 224523, 1, OsbEasing.OutExpo);
             ChangeHour(224523, 224937, 1, OsbEasing.In);
             ChangeHour(224937, 225764, 1, OsbEasing.InExpo);
             ChangeHour(225764, 226075, 0.2, OsbEasing.OutExpo);
             ChangeHour(226075, 226385, 0.2, OsbEasing.OutExpo);
             ChangeHour(226385, 226592, 0.2, OsbEasing.OutExpo);
-            ChangeHour(226592, 227420, 0.2, OsbEasing.InOutElastic);
+            ChangeHour(226592, 227420, 0.2, OsbEasing.InOutExpo);
             ChangeHour(227420, 227833, 1, OsbEasing.OutExpo);
             ChangeHour(227833, 228247, -1, OsbEasing.OutExpo);
             ChangeHour(228247, 229075, 2, OsbEasing.OutExpo);
             ChangeHour(229075, 229488, 1, OsbEasing.OutExpo);
-            ChangeHour(229488, 229902, -1, OsbEasing.InExpo);
+            ChangeHour(229488, 229902, -1.109, OsbEasing.InExpo);
 
             ShowHours(229902, 272937, 120);
             SetClockSpeed(229902, 243144, beat * 4);
@@ -85,19 +85,16 @@ namespace StorybrewScripts
             ChangeHour(267144, 267557, 0.75, OsbEasing.OutExpo);
             ChangeHour(267557, 267971, -0.5, OsbEasing.OutExpo);
             ChangeHour(267971, 268799, 0.5, OsbEasing.InExpo);
-            ChangeHour(268799, 269213, 0.2, OsbEasing.OutElastic);
-            ChangeHour(269213, 269626, 0.4, OsbEasing.OutElastic);
+            ChangeHour(268799, 269213, 0.2, OsbEasing.OutExpo);
+            ChangeHour(269213, 269626, 0.4, OsbEasing.OutExpo);
             ChangeHour(269626, 270454, 0.4, OsbEasing.OutSine);
             ChangeHour(270454, 270868, -0.4, OsbEasing.OutSine);
             ChangeHour(270868, 271282, 0.2, OsbEasing.OutSine);
             ChangeHour(271282, 272109, 0.2, OsbEasing.OutExpo);
             ChangeHour(272109, 272523, 0.4, OsbEasing.OutExpo);
-            ChangeHour(272523, 272937, 0.1, OsbEasing.OutExpo);
-            ChangeHour(272937, 273351, 0.1, OsbEasing.OutExpo);
-            ChangeHour(273351, 273764, 0.5, OsbEasing.OutExpo);
-            ChangeHour(273764, 274178, 0.3, OsbEasing.OutExpo);
-            ChangeHour(274178, 274592, 0.6, OsbEasing.OutExpo);
-            ChangeHour(274592, 276247, -1, OsbEasing.InExpo);
+            ChangeHour(272523, 272937, 0.125, OsbEasing.OutExpo);
+            SetClockSpeed(272937, 274488, beat * 2);
+            ChangeHour(274592, 276247, -1.5, OsbEasing.InExpo);
 
             ModifyScale(289488, 302730, 200, false);
             ChangeHour(302730, 309351, 6, OsbEasing.InSine);
@@ -144,7 +141,7 @@ namespace StorybrewScripts
             center.Fade(0, 0);
 
             background = GetLayer("").CreateSprite("sb/core.png", OsbOrigin.Centre, new Vector2(320, 240));
-            background.ScaleVec(0, currentScale * 0.0018, currentScale * 0.0018);
+            background.ScaleVec(0, currentScale * 0.0009, currentScale * 0.0009);
             background.Fade(0, 0);
 
             bigHand = GetLayer("").CreateSprite("sb/ch1.png", OsbOrigin.BottomCentre, new Vector2(320, 240));
@@ -224,7 +221,7 @@ namespace StorybrewScripts
             littleHand.ScaleVec(OsbEasing.OutSine, startTime, endTime, littleHand.ScaleAt(startTime).X, littleHand.ScaleAt(startTime).Y, scale * 0.0018, scale * 0.0018);
             bigHand.ScaleVec(OsbEasing.OutSine, startTime, endTime, bigHand.ScaleAt(startTime).X, bigHand.ScaleAt(startTime).Y, scale * 0.0018, scale * 0.0018);
             center.ScaleVec(OsbEasing.OutSine, startTime, endTime, bigHand.ScaleAt(startTime).X, bigHand.ScaleAt(startTime).Y, scale * 0.0018, scale * 0.0018);
-            background.ScaleVec(OsbEasing.OutSine, startTime, endTime, bigHand.ScaleAt(startTime).X, bigHand.ScaleAt(startTime).Y, scale * 0.0018, scale * 0.0018);
+            background.ScaleVec(OsbEasing.OutSine, startTime, endTime, bigHand.ScaleAt(startTime).X / 2, bigHand.ScaleAt(startTime).Y / 2, scale * 0.0009, scale * 0.0009);
 
             currentScale = scale;
         }
