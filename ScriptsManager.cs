@@ -46,7 +46,11 @@ namespace StorybrewScripts
             particleManager.GenerateRain(597888, 629471, 5);
             particleManager.GenerateRain(608555, 629471, 18.5);
 
-            particleManager.GenerateLights(610555, 628555, 0);
+            particleManager.GenerateLights(6693, 26694, 0.01, 540);
+            particleManager.GenerateLights(93694, 102694, 0.01, 350);
+            particleManager.GenerateLights(304799, 315971, 0.01, 300);
+            particleManager.GenerateLights(575221, 585888, 0.03, 420);
+            particleManager.GenerateLights(610555, 628555, 0, 400, true);
         }
         public void Circles()
         {

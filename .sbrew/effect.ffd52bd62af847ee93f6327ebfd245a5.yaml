@@ -82,6 +82,11 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
+  6e81c4e13d974db9b247f4491245b656:
+    Name: "least priority"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
   6f0eccf5a4574375a4c2ae89cfc1fc01:
     Name: "Flash"
     OsbLayer: Foreground

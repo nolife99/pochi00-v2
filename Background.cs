@@ -65,12 +65,12 @@ namespace StorybrewScripts
             b.Fade(465889, 0.2);
             b.Fade(473889, 0);
             b.Color(527221, Color4.White);
-            b.Fade(527221, 0.12);
-            b.Fade(548555, 549888, 0.15, 0.12);
+            b.Fade(527221, 0.1);
+            b.Fade(548555, 549888, 0.13, 0.1);
             b.Fade(553877, 0);
 
             var h = GetLayer("Back1").CreateSprite("sb/hl.png", OsbOrigin.Centre, new Vector2(320, 240));
-            h.Scale(70694, 0.9);
+            h.Scale(70694, 1);
             h.Color(70694, Color4.Black);
             h.Fade(70694, 71694, 0, 1);
             h.Fade(81360, 82360, 1, 0);
@@ -222,6 +222,9 @@ namespace StorybrewScripts
         }
         public void Section3()
         {
+            var deleteBg = GetLayer("least priority").CreateSprite("bg.jpg");
+            deleteBg.Fade(0, 0);
+            
             var l0 = GetLayer("s3").CreateSprite("sb/b/5/l0.png", OsbOrigin.Centre, new Vector2(320, 240));
             l0.Scale(332523, 0.23076925);
             l0.Fade(332523, 333523, 0, 1);
@@ -251,7 +254,7 @@ namespace StorybrewScripts
             l4.MoveY(OsbEasing.OutExpo, 332523, 359005, 195, 280);
             l4.Fade(359005, 0);
 
-            var mainBg = GetLayer("base bg").CreateSprite("bg.jpg", OsbOrigin.Centre, new Vector2(0, 240));
+            var mainBg = GetLayer("base bg").CreateSprite("sb/b/6/b.jpg", OsbOrigin.Centre, new Vector2(0, 240));
             mainBg.Fade(0, 0);
             mainBg.Scale(401889, 0.115384625);
             mainBg.Additive(401889);
