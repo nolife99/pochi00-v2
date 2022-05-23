@@ -15,7 +15,10 @@ public class Scripts
     {
         for (int i = 0; i < quantity; i++)
         {
-            int firstTimeDuration = generator.Random(1000, 20000) + i * generator.Random(1, 200);
+            int firstTimeDuration = generator.Random(1000, 20000);
+            if (firstTimeDuration >= 20000)
+                firstTimeDuration = firstTimeDuration * i / 10;
+                        
             int posX = generator.Random(-157, 647);
             int endX = generator.Random(877, 907);
             int elementStartTime = startTime;
@@ -30,13 +33,14 @@ public class Scripts
                 particle.Scale(startTime, generator.Random(0.02, 0.025));
                 particle.Color(startTime, color);
                 particle.Additive(startTime);
-                if (startTime + firstTimeDuration + 5500 > endTime)
-                    particle.Scale(startTime + firstTimeDuration, 0);
 
                 particleStartTime += firstTimeDuration;
                 while (particleStartTime + 4000 < endTime)
                 {
                     int NewDuration = generator.Random(7500, 30000);
+                    if (startTime + firstTimeDuration + 5000 > endTime)
+                        NewDuration -= 1000;
+
                     int particleEndTime = particleStartTime + NewDuration;
                     particle.MoveX(particleStartTime, particleEndTime, generator.Random(-127, -107), endX);
                     particleStartTime += NewDuration;
@@ -48,13 +52,14 @@ public class Scripts
             sprite.Fade(endTime, endTime + 1000, fade, 0);
             sprite.Color(startTime, color);
             sprite.Scale(startTime, generator.Random(0.5, 1.1));
-            if (startTime + firstTimeDuration + 5000 > endTime)
-                sprite.Scale(startTime + firstTimeDuration, 0);
 
             elementStartTime += firstTimeDuration;
             while (elementStartTime + 4000 < endTime)
             {
                 int newDuration = generator.Random(7500, 30000);
+                if (startTime + firstTimeDuration + 5000 > endTime)
+                    newDuration -= 1000;
+                
                 int elementEndTime = elementStartTime + newDuration;
                 sprite.MoveX(elementStartTime, elementEndTime, generator.Random(-227, -220), endX);
                 elementStartTime += newDuration;
@@ -115,25 +120,30 @@ public class Scripts
             sprite.Scale(i, i + fadeTime * 2, Math.Round(generator.Random(0.85, 2), 2), 0);
         }
     }
-    public void GenerateRain(int startTime, int endTime, double intensity, bool alt = false)
+    public void GenerateRain(int startTime, int endTime, double intensity, int type = 1)
     {
         for (int i = 0; i < intensity * 10; i++)
         {
-            int particleSpeed = generator.Random(275, 350);
+            int particleSpeed = generator.Random(300, 400);
             int posX = generator.Random(-106, 747);
             int endX = generator.Random(posX - 15, posX + 15);
             double angle = Math.Atan2(680, endX - posX);
-            int delay = 15;
+            int delay = 20;
             int duration = endTime - startTime - i * delay;
             string layer = "rain";
 
             var sprite = generator.GetLayer(layer).CreateSprite("sb/pl.png", OsbOrigin.Centre, new Vector2(posX, 20));
-            if (alt)
+            if (type == 2)
             {
-                delay += 85;
+                delay += 80;
                 layer = "rain ";
                 duration = endTime - startTime - i * (delay / 2);
                 sprite.Additive(startTime + i * delay);
+            }
+            if (type == 3)
+            {
+                delay += 130;
+                duration = endTime - startTime - i * delay;
             }
 
             sprite.StartLoopGroup(startTime + i * delay, duration / particleSpeed);

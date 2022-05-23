@@ -106,8 +106,8 @@ namespace StorybrewScripts
             ShowHours(302730, 325902, 230);
 
             beat = Beatmap.GetTimingPointAt(380555).BeatDuration;
-            bigHand.Rotate(423055, 0 - 24 * ((Math.PI * 2) / 60));
-            littleHand.Rotate(423055, 0 - 16 * ((Math.PI * 2) / 60));
+            bigHand.Rotate(423221, 0);
+            littleHand.Rotate(423221, 15 * Math.PI * 2 / 60);
             ShowClock(423222, 424555, 444555, 445889, 0.3f);
             ModifyScale(423222, 433889, 150);
             SetClockSpeed(423222, 445889, beat * 2);

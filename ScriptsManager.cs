@@ -41,10 +41,9 @@ namespace StorybrewScripts
             particleManager.TransitionLines(465222, 465555, 465889, "transition?");
             particleManager.TransitionLines(628555, 629221, 631221, "transition end", true);
 
-            particleManager.GenerateRain(380555, 433889, 10, true);
-            particleManager.GenerateRain(587221, 629471, 5);
-            particleManager.GenerateRain(597888, 629471, 5);
-            particleManager.GenerateRain(608555, 629471, 18.5);
+            particleManager.GenerateRain(380555, 433889, 12.5, 2);
+            particleManager.GenerateRain(587221, 629471, 10, 3);
+            particleManager.GenerateRain(608555, 629471, 17.5);
 
             particleManager.GenerateLights(610555, 628555, 0, 400, true);
         }

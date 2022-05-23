@@ -14,8 +14,8 @@ namespace StorybrewScripts
     {
         public override void Generate()
         {
-            Birds(3500, 7000, 20, 30, 587221, 608888, 45, false, 0.02, 0.05);
-            Birds(3500, 7000, 20, 30, 587221, 608888, 45, true, 0.02, 0.05);
+            Birds(3500, 7000, 20, 30, 587221, 608888, 43, false, 0.02, 0.05);
+            Birds(3500, 7000, 20, 30, 587221, 608888, 42, true, 0.02, 0.05);
 
             GodRays(587221, 614000);
         }
@@ -25,7 +25,7 @@ namespace StorybrewScripts
             Vector2 EndPosition = new Vector2(320, 380);
             OsbOrigin ParticleOrigin = OsbOrigin.Centre;
             string ParticlePath = "sb/bird.png";
-            double ParticleFadeMin = 1;
+            double ParticleFade = 1;
             int FadeTimeIn = 2000;
             int FadeTimeOut = 700;
             bool RandomScale = true;
@@ -48,11 +48,11 @@ namespace StorybrewScripts
                     float lastX = Random(StartPosition.X, EndPosition.X);
                     float lastY = Random(StartPosition.Y, EndPosition.Y);
                     float rVec = MathHelper.DegreesToRadians(Random(360));
-                    double sVec = FlyingSpeed * 5.5;
+                    double sVec = FlyingSpeed * 3.5;
                     double vX = Math.Cos(rVec) * sVec;
                     double vY = Math.Sin(rVec) * sVec;
                     double lastAngle = 90;
-                    var timeStep = Beatmap.GetTimingPointAt(i).BeatDuration * 2;
+                    var timeStep = 600;
                     sprite.Additive(i, i + RealTravelTime);
 
                     for (var t = i; t < i + RealTravelTime; t += (int)timeStep)
@@ -94,8 +94,8 @@ namespace StorybrewScripts
                             var currentAngle = sprite.RotationAt(t);
                             var newAngle = Math.Atan2((nextY - lastY), (nextX - lastX)) + (Math.PI / 2);
 
-                            var startPosition = new Vector2d(lastX, lastY);
-                            var endPosition = new Vector2d(lastX, lastY);
+                            var startPosition = new Vector2(lastX, lastY);
+                            var endPosition = new Vector2(lastX, lastY);
 
                             var angle = Math.Atan2((startPosition.Y - endPosition.Y), (startPosition.X - endPosition.X)) - Math.PI / 2f;
 
@@ -117,8 +117,6 @@ namespace StorybrewScripts
                             lastAngle = angle;
                         }
                     }
-                    var ParticleFade = ParticleFadeMin;
-
                     if (i < EndTime - (FadeTimeIn + FadeTimeOut))
                     {
                         sprite.Fade(i, i + FadeTimeIn, 0, ParticleFade);
@@ -133,7 +131,7 @@ namespace StorybrewScripts
                     }
                     else
                     {
-                        sprite.Fade(i - 100, i, ParticleFade, 0);
+                        sprite.Fade(i - FadeTimeIn, i, ParticleFade, 0);
                     }
                     if(i % NewColorEvery != 1)
                     {
