@@ -171,27 +171,6 @@ namespace StorybrewScripts
                 }
             }
         }
-        public void GeneratePiano(int startTime, int endTime)
-        {
-            var Map = GetBeatmap("Chronostasis");
-            foreach (var hitobject in Map.HitObjects)
-            {
-                if ((startTime != 0 || endTime != 0) &&
-                    (hitobject.StartTime < startTime - 5 || endTime - 5 <= hitobject.StartTime))
-                    continue;
-
-                var sprite = GetLayer("").CreateSprite("sb/grad.png", OsbOrigin.CentreLeft, new Vector2(hitobject.Position.X, 450));
-                var sprite2 = GetLayer("").CreateSprite("sb/grad.png", OsbOrigin.CentreLeft, new Vector2(hitobject.Position.X, 30));
-
-                sprite.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
-                sprite.Rotate(hitobject.StartTime, -Math.PI / 2);
-                sprite.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 3000, 0.3, 0.5, 0.3, 0);
-
-                sprite2.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
-                sprite2.Rotate(hitobject.StartTime, Math.PI / 2);
-                sprite2.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 3000, 0.3, 0.5, 0.3, 0);
-            }
-        }
         private void GenerateBeam(int startTime, int endTime)
         {
             double lastObject = 0;
@@ -266,10 +245,30 @@ namespace StorybrewScripts
                 585210, 585555, 585888, 586221, 586555, 586888
             };
             GenerateVerticalBar(a, b, c);
-
             GeneratePiano(359006, 376310);
         }
-        private void Piano(int time)
+        public void GeneratePiano(int startTime, int endTime)
+        {
+            var Map = GetBeatmap("Chronostasis");
+            foreach (var hitobject in Map.HitObjects)
+            {
+                if ((startTime != 0 || endTime != 0) &&
+                    (hitobject.StartTime < startTime - 5 || endTime - 5 <= hitobject.StartTime))
+                    continue;
+
+                var sprite = GetLayer("").CreateSprite("sb/grad.png", OsbOrigin.CentreLeft, new Vector2(hitobject.Position.X, 450));
+                var sprite2 = GetLayer("").CreateSprite("sb/grad.png", OsbOrigin.CentreLeft, new Vector2(hitobject.Position.X, 30));
+
+                sprite.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
+                sprite.Rotate(hitobject.StartTime, -Math.PI / 2);
+                sprite.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 3000, 0.3, 0.5, 0.3, 0);
+
+                sprite2.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
+                sprite2.Rotate(hitobject.StartTime, Math.PI / 2);
+                sprite2.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 3000, 0.3, 0.5, 0.3, 0);
+            }
+        }
+        private void Piano(int time, bool slider = false, int sliderX = 0)
         {
             var Map = GetBeatmap("Chronostasis");
             foreach (var hitobject in Map.HitObjects)
@@ -280,16 +279,14 @@ namespace StorybrewScripts
                     var sprite = GetLayer("").CreateSprite("sb/grad.png", OsbOrigin.CentreLeft, new Vector2(posX, 450));
                     var sprite2 = GetLayer("").CreateSprite("sb/grad.png", OsbOrigin.CentreLeft, new Vector2(posX, 30));
 
-                    sprite.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
-                    sprite.Rotate(hitobject.StartTime, -Math.PI / 2);
-                    sprite.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 3000, 0.3, 0.5, 0.3, 0);
+                    sprite.Fade(time, time + 1000, 0.5, 0);
+                    sprite.ScaleVec(OsbEasing.OutExpo, time, time + 3000, 0.3, 0.5, 0.3, 0);
 
-                    sprite2.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
-                    sprite2.Rotate(hitobject.StartTime, Math.PI / 2);
-                    sprite2.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 3000, 0.3, 0.5, 0.3, 0);
+                    sprite2.Fade(time, time + 1000, 0.5, 0);
+                    sprite2.ScaleVec(OsbEasing.OutExpo, time, time + 3000, 0.3, 0.5, 0.3, 0);
 
-                    sprite.Additive(hitobject.StartTime);
-                    sprite2.Additive(hitobject.StartTime);
+                    sprite.Rotate(time, -Math.PI / 2);
+                    sprite2.Rotate(time, Math.PI / 2);
                 }
             }
         }
