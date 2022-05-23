@@ -7,6 +7,11 @@ Config:
     Value: "0"
     DisplayName: "Random seed"
 Layers:
+  6e81c4e13d974db9b247f4491245b656:
+    Name: "least priority"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
   e5c235892d3445a9988e4550abe9b01c:
     Name: "s1"
     OsbLayer: Background
@@ -79,11 +84,6 @@ Layers:
     Visible: Yes
   00dbd6242d9742a3b3330bbfd1b918a1:
     Name: "s01"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
-  6e81c4e13d974db9b247f4491245b656:
-    Name: "least priority"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes

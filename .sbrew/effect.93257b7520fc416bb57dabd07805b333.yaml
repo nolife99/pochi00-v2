@@ -7,6 +7,11 @@ Config:
     Value: "51"
     DisplayName: "Random seed"
 Layers:
+  f34b0c1a98dc481380eaca8df2b0643e:
+    Name: "Birds"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
   8d2da3b91c1347c09f7264635b9eb816:
     Name: ""
     OsbLayer: Background

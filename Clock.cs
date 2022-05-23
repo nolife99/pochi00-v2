@@ -169,7 +169,6 @@ namespace StorybrewScripts
                     }
                 }
             }
-
             center.Fade(startFade, startTime, 0, 0.8);
             center.Fade(endTime, endFade, 0.8, 0);
 

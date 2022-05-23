@@ -65,7 +65,7 @@ namespace StorybrewScripts
             b.Fade(465889, 0.2);
             b.Fade(473889, 0);
             b.Color(527221, Color4.White);
-            b.Fade(527221, 0.1);
+            b.Fade(527221, 548555, 0.1, 0.1);
             b.Fade(548555, 549888, 0.13, 0.1);
             b.Fade(553877, 0);
 
@@ -263,7 +263,7 @@ namespace StorybrewScripts
             mainBg.Fade(423222, 423305, 1, 0);
 
             var desert = GetLayer("sandy").CreateSprite("sb/b/7/b.jpg");
-            desert.Scale(444555, 0.115384625);
+            desert.Scale(444555, 465804, 0.115384625, 0.115384625);
             desert.Additive(444555);
             desert.Fade(444555, 445889, 0, 1);
             desert.Move(444555, 465804, 310, 240, 330, 240);

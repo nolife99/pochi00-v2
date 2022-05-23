@@ -46,10 +46,6 @@ namespace StorybrewScripts
             particleManager.GenerateRain(597888, 629471, 5);
             particleManager.GenerateRain(608555, 629471, 18.5);
 
-            particleManager.GenerateLights(6693, 26694, 0.01, 540);
-            particleManager.GenerateLights(93694, 102694, 0.01, 350);
-            particleManager.GenerateLights(304799, 315971, 0.01, 300);
-            particleManager.GenerateLights(575221, 585888, 0.03, 420);
             particleManager.GenerateLights(610555, 628555, 0, 400, true);
         }
         public void Circles()
@@ -612,8 +608,6 @@ namespace StorybrewScripts
             sprite.Fade(OsbEasing.OutExpo, endTime, endTime + 1000, 1, 0.1);
             sprite.Scale(OsbEasing.OutBack, startTime, startTime + 100, scale - 0.1, scale);
             sprite.Rotate(OsbEasing.OutExpo, endTime, endTime + 1000, Random(-Math.PI, Math.PI), 0);
-
-            sprite.Fade(553888, 555220, 0.1, 0.1);
             sprite.Rotate(OsbEasing.InSine, endTime + 1000, 575220, 0, Random(-Math.PI, Math.PI));
         }
     }
