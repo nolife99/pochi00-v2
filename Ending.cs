@@ -16,7 +16,6 @@ namespace StorybrewScripts
         {
             Birds(3500, 7000, 20, 30, 587221, 608888, 43, false, 0.02, 0.05);
             Birds(3500, 7000, 20, 30, 587221, 608888, 42, true, 0.02, 0.05);
-
             GodRays(587221, 614000);
         }
         public void Birds(int MinDuration, int MaxDuration, int FlyingSpeed, int Acceleration, int StartTime, int EndTime, int SpriteAmount, bool right, double ScaleMin, double ScaleMax)
@@ -46,14 +45,14 @@ namespace StorybrewScripts
                     float lastX = Random(StartPosition.X, EndPosition.X);
                     float lastY = Random(StartPosition.Y, EndPosition.Y);
                     float rVec = MathHelper.DegreesToRadians(Random(360));
-                    double sVec = FlyingSpeed * 3.5;
+                    double sVec = FlyingSpeed * 3;
                     double vX = Math.Cos(rVec) * sVec;
                     double vY = Math.Sin(rVec) * sVec;
                     double lastAngle = 90;
-                    var timeStep = 600;
-                    sprite.Additive(i, i + RealTravelTime);
+                    var timeStep = Beatmap.GetTimingPointAt(StartTime).BeatDuration / 1.4;
+                    sprite.Additive(i);
 
-                    for (var t = i; t < i + RealTravelTime; t += (int)timeStep)
+                    for (var t = i; t < i + RealTravelTime / 1.04; t += (int)timeStep)
                     {
                         if (right)
                         {
@@ -72,14 +71,14 @@ namespace StorybrewScripts
 
                             if (currentAngle <= MathHelper.RadiansToDegrees(0.05) | currentAngle <= MathHelper.RadiansToDegrees(-0.05))
                             {
-                                sprite.Rotate(t, t + timeStep / 2, currentAngle, newAngle);
+                                sprite.Rotate(t, t + timeStep / 3, currentAngle, newAngle);
                             }
                             else
                             {
-                                sprite.Rotate(t, t + timeStep, currentAngle, newAngle);
+                                sprite.Rotate(t, t + timeStep / 3, currentAngle, newAngle);
                             }
-                            vX += Random(FlyingSpeed) * timeStep / 1000;
-                            vY += Random(FlyingSpeed) * timeStep / 1000;
+                            vX += Random(FlyingSpeed) * timeStep / 750;
+                            vY += Random(FlyingSpeed) * timeStep / 750;
 
                             lastX = (float)nextX;
                             lastY = (float)nextY;
@@ -101,14 +100,14 @@ namespace StorybrewScripts
 
                             if (currentAngle <= MathHelper.RadiansToDegrees(0.05) | currentAngle <= MathHelper.RadiansToDegrees(-0.05))
                             {
-                                sprite.Rotate(t, t + timeStep / 2, currentAngle, newAngle);
+                                sprite.Rotate(t, t + timeStep / 3, currentAngle, newAngle);
                             }
                             else
                             {
-                                sprite.Rotate(t, t + timeStep, currentAngle, newAngle);
+                                sprite.Rotate(t, t + timeStep / 3, currentAngle, newAngle);
                             }
-                            vX += Random(FlyingSpeed) * timeStep / 1000;
-                            vY += Random(FlyingSpeed) * timeStep / 1000;
+                            vX += Random(FlyingSpeed) * timeStep / 750;
+                            vY += Random(FlyingSpeed) * timeStep / 750;
 
                             lastX = (float)nextX;
                             lastY = (float)nextY;
@@ -129,7 +128,7 @@ namespace StorybrewScripts
                     }
                     else
                     {
-                        sprite.Fade(i - FadeTimeIn, i, ParticleFade, 0);
+                        sprite.Fade(i, 0);
                     }
                     if (ScaleMin != ScaleMax)
                     {
@@ -145,8 +144,6 @@ namespace StorybrewScripts
                             sprite.ScaleVec(OsbEasing.In, 0, FlipInterval, RandomScaling - 0.005, RandomScaling, 0, RandomScaling / 2);
                             sprite.ScaleVec(OsbEasing.Out, FlipInterval, FlipInterval * 2, 0, RandomScaling / 2, RandomScaling - 0.005, RandomScaling);
                             sprite.EndGroup();
-
-                            sprite.ScaleVec(OsbEasing.In, i + FlipInterval * 2 * loopcount, i + RealTravelTime, RandomScaling - 0.005, RandomScaling, 0, RandomScaling / 2);
                         }
                         else
                         {

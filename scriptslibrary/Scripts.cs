@@ -96,7 +96,7 @@ public class Scripts
     {
         for (int i = startTime; i < endTime - 1000; i += timeStep)
         {
-            var fadeTime = generator.Random(1000, 2000);
+            var fadeTime = generator.Random(1000, 2500);
             var sprite = generator.GetLayer("Highlight").CreateSprite("sb/hl.png");
             var pos = new Vector2(generator.Random(0, 727), generator.Random(10, 380));
             var newPos = new Vector2(generator.Random(-107, 854), generator.Random(-17, 480));
@@ -117,7 +117,7 @@ public class Scripts
             {
                 sprite.Fade(i + fadeTime, i + fadeTime * 2, fade, 0);
             }
-            sprite.Scale(i, i + fadeTime * 2, Math.Round(generator.Random(0.85, 2), 2), 0);
+            sprite.Scale(OsbEasing.InOutSine, i, i + fadeTime * 2, Math.Round(generator.Random(0.85, 2), 2), 0);
         }
     }
     public void GenerateRain(int startTime, int endTime, double intensity, int type = 1)
