@@ -4,7 +4,7 @@ Script: "Ending"
 Config:
   RandomSeed:
     Type: "System.Int32"
-    Value: "54"
+    Value: "3"
     DisplayName: "Random seed"
 Layers:
   f34b0c1a98dc481380eaca8df2b0643e:
