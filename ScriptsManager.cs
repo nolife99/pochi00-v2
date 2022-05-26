@@ -259,7 +259,6 @@ namespace StorybrewScripts
                 angle += ConnectionAngle / (sqAmount / 2);
             }
         }
-
         public void Squares2()
         {
             int sqAmount = 2;
@@ -500,7 +499,6 @@ namespace StorybrewScripts
         }
         private void Spectrum(int startTime, int endTime, float offset, Color4 Color)
         {
-            bool stat = false;
             var MinimalHeight = 0.5f;
             Vector2 Scale = new Vector2(1, 70);
             float LogScale = 270;
@@ -549,18 +547,10 @@ namespace StorybrewScripts
                     (start, end) =>
                     {
                         hasScale = true;
-                        if (stat)
-                        {
-                            bar.ScaleVec(start.Time, start.Time,
-                            scaleX, start.Value,
-                            scaleX, end.Value);
-                        }
-                        else
-                        {
-                            bar.ScaleVec(start.Time, end.Time,
-                            scaleX, start.Value,
-                            scaleX, end.Value);
-                        }
+                            
+                        bar.ScaleVec(start.Time, end.Time,
+                        scaleX, start.Value,
+                        scaleX, end.Value);
                     },
                     MinimalHeight,
                     s => (float)Math.Round(s, 0)

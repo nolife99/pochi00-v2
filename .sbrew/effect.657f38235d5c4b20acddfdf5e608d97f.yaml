@@ -2,9 +2,6 @@
 Name: "ImportOsb 1"
 Script: "ImportOsb"
 Config:
-  Path:
-    Type: "System.String"
-    Value: "storyboard.osb"
   RandomSeed:
     Type: "System.Int32"
     Value: "0"

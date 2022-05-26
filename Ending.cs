@@ -30,8 +30,6 @@ namespace StorybrewScripts
             int FadeTimeOut = 700;
             bool RandomScale = true;
             int NewColorEvery = 1;
-            Color4 Color = Color4.White;
-            Color4 Color2 = Color4.LightGray;
 
             var layer = GetLayer("Birds");
             var sprite = layer.CreateSprite(ParticlePath);
@@ -132,10 +130,6 @@ namespace StorybrewScripts
                     else
                     {
                         sprite.Fade(i - FadeTimeIn, i, ParticleFade, 0);
-                    }
-                    if(i % NewColorEvery != 1)
-                    {
-                        sprite.Color(i, Color2);
                     }
                     if (ScaleMin != ScaleMax)
                     {
