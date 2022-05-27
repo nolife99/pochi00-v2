@@ -465,7 +465,7 @@ namespace StorybrewScripts
                     (float)(240 + Math.Sin(angle) * radius));
 
                 var layer = GetLayer("Glitch");
-                var sprite = layer.CreateSprite("sb/c3.png", OsbOrigin.Centre);
+                var sprite = layer.CreateSprite("sb/c.png", OsbOrigin.Centre);
 
                 Vector2 standardScale = new Vector2(0.4f, 0.4f);
                 Vector2 skewedScale = new Vector2(0.01f, -0.4f);
