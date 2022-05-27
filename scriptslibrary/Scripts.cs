@@ -51,7 +51,7 @@ public class Scripts
             sprite.Fade(startTime, startTime + 1000, 0, fade);
             sprite.Fade(endTime, endTime + 1000, fade, 0);
             sprite.Color(startTime, color);
-            sprite.Scale(startTime, generator.Random(0.5, 1.1));
+            sprite.Scale(startTime, Math.Round(generator.Random(0.5, 1.1), 2));
 
             elementStartTime += firstTimeDuration;
             while (elementStartTime + 4000 < endTime)
@@ -117,7 +117,7 @@ public class Scripts
             {
                 sprite.Fade(i + fadeTime, i + fadeTime * 2, fade, 0);
             }
-            sprite.Scale(OsbEasing.InOutSine, i, i + fadeTime * 2, Math.Round(generator.Random(0.85, 2), 2), 0);
+            sprite.Scale(OsbEasing.InOutSine, i, i + fadeTime * 2, Math.Round(generator.Random(0.8, 2), 2), 0);
         }
     }
     public void GenerateRain(int startTime, int endTime, double intensity, int type = 1)
@@ -151,14 +151,14 @@ public class Scripts
             sprite.MoveX(0, particleSpeed, posX, endX);
             sprite.Rotate(0, particleSpeed, Math.PI / 2, angle);
             sprite.EndGroup();
-            sprite.Fade(startTime + i * delay, generator.Random(0.15, 0.5));
-            sprite.Scale(startTime + i * delay, generator.Random(0.03, 0.05));
+            sprite.Fade(startTime + i * delay, Math.Round(generator.Random(0.15, 0.5), 2));
+            sprite.Scale(startTime + i * delay, Math.Round(generator.Random(0.03, 0.05), 2));
 
             var splash = generator.GetLayer(layer).CreateSprite("sb/d.png", OsbOrigin.Centre, new Vector2(posX, 460));
             splash.StartLoopGroup(startTime + i * delay + particleSpeed, duration / particleSpeed);
             splash.MoveY(OsbEasing.OutExpo, 0, particleSpeed, 460, generator.Random(400, 450));
             splash.Fade(OsbEasing.OutExpo, 0, particleSpeed, 1, 0);
-            splash.Scale(OsbEasing.OutExpo, 0, particleSpeed, generator.Random(0.045, 0.055), 0);
+            splash.Scale(OsbEasing.OutExpo, 0, particleSpeed, Math.Round(generator.Random(0.045, 0.055), 3), 0);
             splash.EndGroup();
         }
     }

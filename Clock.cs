@@ -137,7 +137,7 @@ namespace StorybrewScripts
             }
 
             center = GetLayer("").CreateSprite("sb/c.png", OsbOrigin.Centre, new Vector2(320, 240));
-            center.ScaleVec(0, currentScale * 0.0002, currentScale * 0.0002);
+            center.ScaleVec(0, currentScale * 0.00016, currentScale * 0.00016);
             center.Fade(0, 0);
 
             background = GetLayer("").CreateSprite("sb/core.png", OsbOrigin.Centre, new Vector2(320, 240));
@@ -219,7 +219,7 @@ namespace StorybrewScripts
             }
             littleHand.ScaleVec(OsbEasing.OutSine, startTime, endTime, littleHand.ScaleAt(startTime).X, littleHand.ScaleAt(startTime).Y, scale * 0.0018, scale * 0.0018);
             bigHand.ScaleVec(OsbEasing.OutSine, startTime, endTime, bigHand.ScaleAt(startTime).X, bigHand.ScaleAt(startTime).Y, scale * 0.0018, scale * 0.0018);
-            center.ScaleVec(OsbEasing.OutSine, startTime, endTime, bigHand.ScaleAt(startTime).X / 10.86, bigHand.ScaleAt(startTime).Y / 10.86, scale * 0.0002, scale * 0.0002);
+            center.ScaleVec(OsbEasing.OutSine, startTime, endTime, bigHand.ScaleAt(startTime).X / 10.86, bigHand.ScaleAt(startTime).Y / 10.86, scale * 0.00016, scale * 0.00016);
             background.ScaleVec(OsbEasing.OutSine, startTime, endTime, bigHand.ScaleAt(startTime).X / 2, bigHand.ScaleAt(startTime).Y / 2, scale * 0.0009, scale * 0.0009);
 
             currentScale = scale;

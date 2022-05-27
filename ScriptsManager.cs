@@ -74,7 +74,7 @@ namespace StorybrewScripts
                 var y2 = (int)-radius * (float)Math.Sin(rad) + Pos.Y;
                 var nPos = new Vector2(x2, y2);
 
-                var circle = GetLayer("circle").CreateSprite("sb/c3.png", OsbOrigin.Centre, new Vector2(0, 0));
+                var circle = GetLayer("circle").CreateSprite("sb/c.png", OsbOrigin.Centre, new Vector2(0, 0));
 
                 var TravelTime = Beat * 8;
                 var duration = EndTime - StartTime;
@@ -113,7 +113,7 @@ namespace StorybrewScripts
                 var Y = (int)Radius * (float)Math.Sin(Rad) + Pos.Y;
                 var Position = new Vector2(X, Y);
 
-                var outCircle = GetLayer("circle").CreateSprite("sb/c3.png", OsbOrigin.Centre, new Vector2(0, 0));
+                var outCircle = GetLayer("circle").CreateSprite("sb/c.png", OsbOrigin.Centre, new Vector2(0, 0));
 
                 var travelTime = Beat * 8;
                 var Duration = EndTime - StartTime;
@@ -190,7 +190,7 @@ namespace StorybrewScripts
 
                 var Rotation = Math.Atan2(position.Y - pos.Y, position.X - pos.X) - Math.PI / 1.2;
 
-                lines.Rotate(startTime, endTime, Rotation, Rotation - Math.PI * 2.2);
+                lines.Rotate(startTime, endTime, Rotation, Rotation - Math.PI * 2.15);
             }
         }
         public void GlitchSection()
