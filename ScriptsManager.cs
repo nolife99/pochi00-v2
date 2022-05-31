@@ -18,14 +18,14 @@ namespace StorybrewScripts
 
             Scripts particleManager = new Scripts(this);
 
-            particleManager.GenerateFog(28027, 70694, 380, 25, Color4.White, 0.6);
-            particleManager.GenerateFog(81360, 92027, 380, 23, Color4.White, 0.6);
-            particleManager.GenerateFog(145360, 166027, 380, 25, Color4.White, 0.6);
-            particleManager.GenerateFog(168027, 200027, 380, 25, Color4.White, 0.6, "fogKiai");
-            particleManager.GenerateFog(332523, 358014, 380, 25, Color4.White, 0.6);
-            particleManager.GenerateFog(401889, 422889, 380, 25, Color4.White, 0.6);
-            particleManager.GenerateFog(444722, 464555, 380, 25, Color4.Orange, 0.6);
-            particleManager.GenerateFog(473889, 496555, 380, 25, Color4.Orange, 0.6);
+            particleManager.GenerateFog(28027, 70694, 380, 20, Color4.White, 0.6);
+            particleManager.GenerateFog(81360, 92027, 380, 20, Color4.White, 0.6);
+            particleManager.GenerateFog(145360, 166027, 380, 20, Color4.White, 0.6);
+            particleManager.GenerateFog(168027, 200027, 380, 20, Color4.White, 0.6, "fogKiai");
+            particleManager.GenerateFog(332523, 358014, 380, 20, Color4.White, 0.6);
+            particleManager.GenerateFog(401889, 422889, 380, 20, Color4.White, 0.6);
+            particleManager.GenerateFog(444722, 464555, 380, 20, Color4.Orange, 0.6);
+            particleManager.GenerateFog(473889, 496555, 380, 20, Color4.Orange, 0.6);
 
             particleManager.GenerateDanmaku(102694, 124027, 5000);
 

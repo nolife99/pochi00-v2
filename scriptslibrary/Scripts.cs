@@ -137,7 +137,7 @@ public class Scripts
             {
                 delay += 80;
                 layer = "rain ";
-                duration = endTime - startTime - i * (delay / 2);
+                duration = endTime - startTime - i * (int)(delay / 1.5);
                 sprite.Additive(startTime + i * delay);
             }
             if (type == 3)
