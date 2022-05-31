@@ -215,7 +215,7 @@ namespace StorybrewScripts
         {
             var times = new int[]{
                 484555, 485055, 485139, 485222, 485555, 485722, 485889, 486139, 486389, 486555, 487222, 487722,
-                487805, 487889, 488222, 488389, 488555, 488805, 488889, 489055, 489222, 489555, 489722, 489889,
+                487805, 487889, 488222, 488389, 488555, 488805, 489055, 489222, 489555, 489722, 489889,
                 490389, 490472, 490555, 490889, 491222, 491472, 491722, 491889, 492555, 493055, 493139, 493222,
                 493555, 493722, 493889, 494139, 494389, 494555, 494889
             };
@@ -268,16 +268,16 @@ namespace StorybrewScripts
                 sprite2.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 3000, 0.3, 0.5, 0.3, 0);
             }
         }
-        private void Piano(int time, bool slider = false, int sliderX = 0)
+        private void Piano(int time)
         {
             var Map = GetBeatmap("Chronostasis");
             foreach (var hitobject in Map.HitObjects)
             {
-                if (hitobject.StartTime <= time && hitobject.EndTime >= time)
+                if (hitobject.StartTime <= time + 1 && hitobject.EndTime >= time - 1)
                 {
-                    var posX = hitobject.Position.X;
-                    var sprite = GetLayer("").CreateSprite("sb/grad.png", OsbOrigin.CentreLeft, new Vector2(posX, 450));
-                    var sprite2 = GetLayer("").CreateSprite("sb/grad.png", OsbOrigin.CentreLeft, new Vector2(posX, 30));
+                    var pos = hitobject.PositionAtTime(time);
+                    var sprite = GetLayer("").CreateSprite("sb/grad.png", OsbOrigin.CentreLeft, new Vector2(pos.X, 450));
+                    var sprite2 = GetLayer("").CreateSprite("sb/grad.png", OsbOrigin.CentreLeft, new Vector2(pos.X, 30));
 
                     sprite.Fade(time, time + 1000, 0.5, 0);
                     sprite.ScaleVec(OsbEasing.OutExpo, time, time + 3000, 0.3, 0.5, 0.3, 0);
