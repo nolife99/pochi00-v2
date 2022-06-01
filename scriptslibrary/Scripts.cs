@@ -30,8 +30,10 @@ public class Scripts
                 particle.MoveX(startTime, startTime + firstTimeDuration, generator.Random(posX - 25, posX + 25), endX);
                 particle.Fade(startTime, startTime + 1000, 0, 1);
                 particle.Fade(endTime, endTime + 1000, 1, 0);
-                particle.Scale(startTime, generator.Random(0.02, 0.025));
-                particle.Color(startTime, color);
+                particle.Scale(startTime, Math.Round(generator.Random(0.015, 0.025), 3));
+                if (color != Color4.White)
+                    particle.Color(startTime, color);
+                    
                 particle.Additive(startTime);
 
                 particleStartTime += firstTimeDuration;
@@ -50,7 +52,9 @@ public class Scripts
             sprite.MoveX(startTime, startTime + firstTimeDuration, posX, endX);
             sprite.Fade(startTime, startTime + 1000, 0, fade);
             sprite.Fade(endTime, endTime + 1000, fade, 0);
-            sprite.Color(startTime, color);
+            if (color != Color4.White)
+                sprite.Color(startTime, color);
+
             sprite.Scale(startTime, Math.Round(generator.Random(0.5, 1.1), 2));
 
             elementStartTime += firstTimeDuration;
@@ -63,6 +67,9 @@ public class Scripts
                 int elementEndTime = elementStartTime + newDuration;
                 sprite.MoveX(elementStartTime, elementEndTime, generator.Random(-227, -220), endX);
                 elementStartTime += newDuration;
+
+                if (elementEndTime + 5000 > endTime)
+                    sprite.Scale(elementEndTime, 0);
             }
         }
     }
