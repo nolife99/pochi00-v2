@@ -110,13 +110,13 @@ namespace StorybrewScripts
 
             var v = GetLayer("Vignette").CreateSprite("sb/vig.png", OsbOrigin.Centre, new Vector2(320, 240));
             v.Scale(124027, 0.4444444);
-            v.Fade(124027, 124360, 0, 0.8);
-            v.Fade(145360, 0);
-            v.Fade(276247, 0.8);
+            v.Fade(124027, 124360, 0, 1);
+            v.Fade(144027, 145360, 1, 0);
+            v.Fade(275833, 276247, 0, 1);
             v.Fade(289488, 0);
-            v.Fade(465805, 466222, 0, 0.8);
+            v.Fade(465805, 466222, 0, 1);
             v.Fade(473889, 0);
-            v.Fade(500555, 0.8);
+            v.Fade(500555, 503222, 0, 1);
             v.Fade(553888, 0);
 
             var a1 = GetLayer("alexithymia circles").CreateSprite("sb/c2.png", OsbOrigin.Centre, new Vector2(418, 240));

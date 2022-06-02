@@ -15,5 +15,5 @@ Layers:
   70ced114bc104f9da0771db831fb3e97:
     Name: ""
     OsbLayer: Pass
-    DiffSpecific: Yes
+    DiffSpecific: No
     Visible: Yes
