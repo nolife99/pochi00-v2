@@ -12,6 +12,11 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
+  ca494d1fe78c462e8dd6e807ffb3c815:
+    Name: "Gear 2"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
   f12592eaefd041b7847a6c3f62f85001:
     Name: "one part"
     OsbLayer: Background
@@ -54,11 +59,6 @@ Layers:
     Visible: Yes
   5d4d54d1569344c2b5191c2e39c361f3:
     Name: "transition?"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
-  ca494d1fe78c462e8dd6e807ffb3c815:
-    Name: "Gear 2"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes

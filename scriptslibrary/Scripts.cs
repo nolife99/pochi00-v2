@@ -74,7 +74,8 @@ public class Scripts
         }
     }
     public void GenerateDanmaku(int startTime, int endTime, int speed)
-    {
+    {   
+        //overlapped commands in sbrew but not in osu 
         Vector2 basePosition = new Vector2(320, 240);
         for (int i = 0; i < 4; i++)
         {
@@ -82,23 +83,24 @@ public class Scripts
             for (int l = 0; l < 50; l++)
             {
                 var endPosition = new Vector2(
-                    (float)(320 + Math.Cos(angle) * 480),
-                    (float)(240 + Math.Sin(angle) * 480));
+                    (float)(320 + Math.Cos(angle) * 450),
+                    (float)(240 + Math.Sin(angle) * 450));
 
-                var sprite = generator.GetLayer("PARTICLES").CreateSprite("sb/p.png", OsbOrigin.Centre);
+                var sprite = generator.GetLayer("PARTICLES").CreateSprite("sb/p.png");
                 sprite.StartLoopGroup(startTime + l * 100, (endTime - startTime - l * 35) / speed);
-                sprite.Move(OsbEasing.OutSine, 0, speed, basePosition, endPosition);
                 sprite.Fade(0, 0);
+                sprite.Move(OsbEasing.OutSine, 0, speed, basePosition, endPosition);
                 sprite.Fade(speed / 6, speed / 2, 0, 1);
-                sprite.ScaleVec(0, speed, 10, 1, 10, 0);
-                sprite.Rotate(OsbEasing.InSine, 0, speed, angle, angle - 1.25);
+                sprite.ScaleVec(OsbEasing.In, 0, speed, 10, 1, 10, 0);
+                sprite.Rotate(OsbEasing.InSine, 0, speed, angle, angle - 1.5);
                 sprite.EndGroup();
+                sprite.Fade(endTime, endTime + 200, 1, 0);
 
                 angle += Math.PI / 50;
             }
         }
     }
-    public void GenerateLights(int startTime, int endTime, double Fade, int timeStep, bool RandomFade = false)
+    public void Highlight(int startTime, int endTime, double Fade, int timeStep, bool RandomFade = false)
     {
         for (int i = startTime; i < endTime - 1000; i += timeStep)
         {
@@ -143,7 +145,7 @@ public class Scripts
             {
                 delay += 80;
                 layer = "rain ";
-                duration = endTime - startTime - i * (int)(delay / 1.5);
+                duration = endTime - startTime - i * (int)(delay / 1.6);
                 sprite.Additive(startTime + i * delay);
             }
             if (type == 3)

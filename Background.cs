@@ -27,6 +27,12 @@ namespace StorybrewScripts
             box2.ScaleVec(6694, 7693, 427, 0, 427, 20);
             box2.ScaleVec(629888, 630888, 427, 20, 427, 0);
 
+            var onePart = GetLayer("part").CreateSprite("sb/0.png", OsbOrigin.Centre, new Vector2(320, 240));
+            onePart.ScaleVec(102694, 854, 400);
+            onePart.Color(102694, new Color4(20, 0, 20, 1));
+            onePart.Fade(102694, 103694, 0, 1);
+            onePart.Fade(123694, 124026, 1, 0);
+            
             var b = GetLayer("Back").CreateSprite("sb/0.png", OsbOrigin.Centre, new Vector2(320, 240));
             b.ScaleVec(27, 427, 240);
             b.Color(27, new Color4(.1f, 0.04f, 0.1f, 1));
@@ -36,11 +42,8 @@ namespace StorybrewScripts
             b.Color(70694, new Color4(.05f, 0.1f, 0.2f, 1));
             b.Fade(70694, 71694, 0, 1);
             b.Fade(81360, 81694, 1, 0);
-            b.Color(102694, new Color4(20, 0, 20, 1));
-            b.Fade(102694, 103694, 0, 1);
-            b.Fade(123694, 124027, 1, 0.06);
-            b.Color(124027, 125027, new Color4(20, 0, 20, 1), new Color4(173, 216, 230, 1));
-            b.Fade(124027, 126694, 0.06, 0.13);
+            b.Color(124027, new Color4(173, 216, 230, 1));
+            b.Fade(124027, 126694, 0, 0.15);
             b.Fade(145360, 0);
             b.Color(203419, new Color4(15, 2, 15, 1));
             b.Fade(203419, 204419, 0, 1);
@@ -273,15 +276,15 @@ namespace StorybrewScripts
             var flare1 = GetLayer("sun").CreateSprite("sb/flare.png", OsbOrigin.Centre, new Vector2(0, 40));
             flare1.Scale(444555, 0.6);
             flare1.Additive(444555);
-            flare1.Fade(444555, 445555, 0, 0.8);
+            flare1.Fade(444555, 445555, 0, 0.7);
             flare1.MoveX(444555, 465222, 707, 727);
-            flare1.Fade(464889, 465222, 0.8, 0);
-            flare1.Fade(473889, 0.8);
+            flare1.Fade(464889, 465222, 0.7, 0);
+            flare1.Fade(473889, 0.7);
             flare1.MoveX(473889, 497222, 707, 727);
-            flare1.Fade(496555, 497222, 0.8, 0);
+            flare1.Fade(496555, 497222, 0.7, 0);
 
             var flare2 = GetLayer("sun").CreateSprite("sb/flare2.png", OsbOrigin.TopLeft, new Vector2(0, 107));
-            flare2.Scale(444555, 0.8);
+            flare2.Scale(444555, 0.7);
             flare2.Additive(444555);
             flare2.Fade(444555, 445555, 0, 0.8);
             flare2.MoveX(444555, 465222, 657, 677);

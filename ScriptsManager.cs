@@ -13,7 +13,6 @@ namespace StorybrewScripts
         {
             Circles();
             GlitchSection();
-            RotatingLines();
             GearParts();
 
             Scripts particleManager = new Scripts(this);
@@ -35,7 +34,7 @@ namespace StorybrewScripts
             particleManager.SquareTransition(400889, 401888, false, 50, new Color4(33, 25, 25, 0), OsbEasing.In, false, "foreground transition");
             particleManager.SquareTransition(574888, 575555, false, 50, new Color4(10, 10, 10, 1), OsbEasing.InSine, true);
 
-            particleManager.TransitionLines(123360, 124027, 124027, "foreground transition");
+            particleManager.TransitionLines(123360, 124027, 124277, "foreground transition");
             particleManager.TransitionLines(144011, 145027, 145345);
             particleManager.TransitionLines(166360, 166694, 167027, "foreground transition");
             particleManager.TransitionLines(465222, 465555, 465889, "transition?");
@@ -45,7 +44,7 @@ namespace StorybrewScripts
             particleManager.GenerateRain(587221, 629471, 10, 3);
             particleManager.GenerateRain(608555, 629471, 17.5);
 
-            particleManager.GenerateLights(610555, 628555, 0, 420, true);
+            particleManager.Highlight(610555, 628555, 0, 420, true);
         }
         public void Circles()
         {
@@ -209,6 +208,7 @@ namespace StorybrewScripts
             Squares2();
             SquaresGlitch();
             Squares3();
+            RotatingLines();
         }
         public void Squares()
         {
@@ -554,7 +554,7 @@ namespace StorybrewScripts
             for (var i = 0; i < BarCount; i++)
                 heightKeyframes[i] = new KeyframedValue<float>(null);
 
-            double fftTimeStep = Beatmap.GetTimingPointAt(startTime).BeatDuration / 11;
+            double fftTimeStep = Beatmap.GetTimingPointAt(startTime).BeatDuration / 12;
             double fftOffset = fftTimeStep * 0.2;
             for (var time = (double)startTime; time <= endTime + 1; time += fftTimeStep)
             {
@@ -574,7 +574,7 @@ namespace StorybrewScripts
             {
                 var positionX = posX + i * barWidth;
                 var keyframes = heightKeyframes[i];
-                keyframes.Simplify1dKeyframes(0.15, h => h);
+                keyframes.Simplify1dKeyframes(1, h => h);
 
                 var bar = GetLayer("Glitch").CreateSprite("sb/p.png", OsbOrigin.Centre, new Vector2(positionX - offset, Position.Y - offset));
 
@@ -631,6 +631,18 @@ namespace StorybrewScripts
             Gear(553055, 6, 553555, 0.5);
             Gear(553138, 6, 553555, 0.7);
             Gear(553221, 5, 553555, 0.7);
+
+            for (int i = 0; i < 10; i++)
+            {
+                var sprite = GetLayer("Foreground Circles").CreateSprite("sb/c.png", OsbOrigin.Centre, new Vector2(0, 240));
+                sprite.Fade(501803 + i * 70, 0.45);
+                sprite.StartLoopGroup(501803 + i * 70, 4);
+                sprite.ScaleVec(OsbEasing.InOutSine, 0, 3330, 0, 0.006, 0.006, 0.006);
+                sprite.ScaleVec(OsbEasing.InOutSine, 3330, 6660, 0.006, 0.006, 0, 0.006);
+                sprite.MoveX(OsbEasing.InOutQuart, 0, 6660, 755, -115);
+                sprite.EndGroup();
+                sprite.Fade(527221, 527555, 0.45, 0);
+            }
         }
         private void Gear(int startTime, int id, int endTime, double scale)
         {

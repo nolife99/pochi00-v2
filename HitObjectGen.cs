@@ -12,11 +12,20 @@ namespace StorybrewScripts
         public override void Generate()
         {
             GenerateRing(8, 6693, 27444);
-            GenerateRing(12, 113360, 123944);
+            //danmaku section
+            GenerateRing(8, 113360, 115277);
+            GenerateRing(12, 115360, 115944);
+            GenerateRing(8, 116027, 117277);
+            GenerateRing(12, 117360, 118277);
+            GenerateRing(8, 118360, 118944);
+            GenerateRing(12, 119027, 120444);
+            GenerateRing(8, 120527, 123444);
+            GenerateRing(12, 123527, 123860);
+
             GenerateRing(8, 189360, 199945);
             GenerateRing(8, 256385, 272833);
             GenerateRing(8, 325902, 332316);
-            GenerateRing(8, 433889, 444555);
+            GenerateRing(8, 433889, 444472);
             GenerateHighlight(81150, 92694);
             GenerateHighlight(194694, 203360);
             GenerateHighlight(484555, 494972);
@@ -29,7 +38,6 @@ namespace StorybrewScripts
         }
         public void GenerateRing(int BeatDivisor, int StartTime, int EndTime)
         {
-            var Map = GetBeatmap("Chronostasis");
             float StartScale = 0.125f;
             float EndScale = 0.2f;
             int FadeTime = 1000;
@@ -37,42 +45,40 @@ namespace StorybrewScripts
             OsbEasing Easing = OsbEasing.OutExpo;
 
             var hitobjectLayer = GetLayer("");
-            foreach (var hitobject in Map.HitObjects)
+            foreach (var hitobject in Beatmap.HitObjects)
             {
-                if ((StartTime != 0 || EndTime != 0) &&
-                    (hitobject.StartTime < StartTime - 5 || EndTime - 5 <= hitobject.StartTime))
-                    continue;
-
-                var sprite = hitobjectLayer.CreateSprite("sb/cf.png", OsbOrigin.Centre, hitobject.Position);
-                sprite.Additive(hitobject.StartTime);
-                sprite.Color(hitobject.StartTime, hitobject.Color);
-
-                if (hitobject is OsuSlider)
+                if (hitobject.StartTime >= StartTime && hitobject.StartTime <= EndTime)
                 {
-                    var timestep = Map.GetTimingPointAt((int)hitobject.StartTime).BeatDuration / BeatDivisor;
-                    var startTime = hitobject.StartTime;
-                    while (true)
+                    var sprite = hitobjectLayer.CreateSprite("sb/cf.png", OsbOrigin.Centre, hitobject.Position);
+                    sprite.Additive(hitobject.StartTime);
+                    sprite.Color(hitobject.StartTime, hitobject.Color);
+
+                    if (hitobject is OsuSlider)
                     {
-                        var endTime = startTime + timestep;
+                        var timestep = Beatmap.GetTimingPointAt((int)hitobject.StartTime).BeatDuration / BeatDivisor;
+                        var startTime = hitobject.StartTime;
+                        while (true)
+                        {
+                            var endTime = startTime + timestep;
 
-                        var complete = hitobject.EndTime - endTime < 5;
-                        if (complete) endTime = hitobject.EndTime;
+                            var complete = hitobject.EndTime - endTime < 5;
+                            if (complete) endTime = hitobject.EndTime;
 
-                        var startPosition = sprite.PositionAt(startTime);
-                        sprite.Move(startTime, endTime, startPosition, hitobject.PositionAtTime(endTime));
+                            var startPosition = sprite.PositionAt(startTime);
+                            sprite.Move(startTime, endTime, startPosition, hitobject.PositionAtTime(endTime));
 
-                        if (complete) break;
-                        startTime += timestep;
+                            if (complete) break;
+                            startTime += timestep;
+                        }
                     }
+                    sprite.Fade(Easing, hitobject.EndTime, hitobject.EndTime + FadeTime, Fade, 0);
+                    sprite.Scale(Easing, hitobject.EndTime, hitobject.EndTime + FadeTime, StartScale, EndScale);
                 }
-                sprite.Fade(Easing, hitobject.EndTime, hitobject.EndTime + FadeTime, Fade, 0);
-                sprite.Scale(Easing, hitobject.EndTime, hitobject.EndTime + FadeTime, StartScale, EndScale);
             }
         }
-        private void GenerateHighlight(int startTime, int endTime)
+        public void GenerateHighlight(int startTime, int endTime)
         {
-            var Map = GetBeatmap("Chronostasis");
-            foreach (var hitobject in Map.HitObjects)
+            foreach (var hitobject in Beatmap.HitObjects)
             {
                 if (hitobject.StartTime > startTime - 5 && hitobject.StartTime < endTime + 5)
                 {
@@ -83,7 +89,7 @@ namespace StorybrewScripts
 
                     if (hitobject is OsuSlider)
                     {
-                        var timestep = Map.GetTimingPointAt((int)hitobject.StartTime).BeatDuration / 14;
+                        var timestep = Beatmap.GetTimingPointAt((int)hitobject.StartTime).BeatDuration / 14;
                         var sTime = hitobject.StartTime;
                         while (true)
                         {
@@ -165,35 +171,30 @@ namespace StorybrewScripts
                 }
             }
         }
-        private void GenerateBeam(int startTime, int endTime)
+        public void GenerateBeam(int startTime, int endTime)
         {
             double lastObject = 0;
-            var Map = GetBeatmap("Chronostasis");
-            foreach (var hitobject in Map.HitObjects)
+            
+            foreach (var hitobject in Beatmap.HitObjects)
             {
                 if (hitobject.StartTime >= startTime - 1 && hitobject.StartTime <= endTime + 1)
                 {
-                    if (hitobject.StartTime - lastObject > 1)
+                    int scaleY = 810;
+                    if (startTime > 380555)
                     {
-                        int scaleY = 810;
-                        if (startTime > 380555)
-                        {
-                            scaleY = 730;
-                        }
-                        var sprite = GetLayer("").CreateSprite("sb/p.png", OsbOrigin.Centre, hitobject.Position);
-                        sprite.Rotate(hitobject.StartTime, Random(-Math.PI / 8, Math.PI / 8));
-                        sprite.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 1000, 5, scaleY, 0, scaleY);
-                        sprite.Additive(hitobject.StartTime);
-                        sprite.Fade(hitobject.StartTime, 0.5);
+                        scaleY = 730;
                     }
-                    lastObject = hitobject.StartTime;
+                    var sprite = GetLayer("").CreateSprite("sb/p.png", OsbOrigin.Centre, hitobject.Position);
+                    sprite.Rotate(hitobject.StartTime, Random(-Math.PI / 8, Math.PI / 8));
+                    sprite.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 1000, 3, scaleY, 0, scaleY);
+                    sprite.Additive(hitobject.StartTime);
+                    sprite.Fade(hitobject.StartTime, 0.8);
                 }
             }
         }
-        private void GenerateSplash(int startTime, int endTime)
+        public void GenerateSplash(int startTime, int endTime)
         {
-            var Map = GetBeatmap("Chronostasis");
-            foreach (var hitobject in Map.HitObjects)
+            foreach (var hitobject in Beatmap.HitObjects)
             {
                 if (hitobject.StartTime >= startTime && hitobject.StartTime <= endTime)
                 {
@@ -243,8 +244,7 @@ namespace StorybrewScripts
         }
         public void GeneratePiano(int startTime, int endTime)
         {
-            var Map = GetBeatmap("Chronostasis");
-            foreach (var hitobject in Map.HitObjects)
+            foreach (var hitobject in Beatmap.HitObjects)
             {
                 if ((startTime != 0 || endTime != 0) &&
                     (hitobject.StartTime < startTime - 5 || endTime - 5 <= hitobject.StartTime))
@@ -264,8 +264,7 @@ namespace StorybrewScripts
         }
         private void Piano(int time)
         {
-            var Map = GetBeatmap("Chronostasis");
-            foreach (var hitobject in Map.HitObjects)
+            foreach (var hitobject in Beatmap.HitObjects)
             {
                 if (hitobject.StartTime <= time + 1 && hitobject.EndTime >= time - 1)
                 {

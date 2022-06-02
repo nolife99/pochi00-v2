@@ -20,11 +20,10 @@ namespace StorybrewScripts
             GenerateClock();
             ShowClock(6693, 28110, 92027, 97360, 0.2f);
             SetClockSpeed(6693, 48027, beat * 4);
-            SetClockSpeed(49360, 70694, beat * 2);
+            SetClockSpeed(49360, 81360, beat * 2);
             ModifyScale(6777, 28027, 250, true, currentScale);
             ModifyScale(28110, 33360, 200, true, 250);
             ModifyScale(70694, 80027, 150, true, 200);
-            SetClockSpeed(70694, 81360, beat * 4);
             ModifyScale(80027, 81360, 200, true, 150);
             SetClockSpeed(81360, 92027, beat);
             SetClockSpeed(92027, 97360, beat * 2);
@@ -38,7 +37,7 @@ namespace StorybrewScripts
             ShowClock(203420, 216661, 276247, 276247, 1, false);
             ShowClock(289488, 302730, 328799, 331695, 1, false);
             SetClockSpeed(203420, 216660, beat * 2);
-            SetClockSpeed(289488, 302316, beat);
+            SetClockSpeed(289488, 302316, beat, true);
             ModifyScale(203420, 216661, 100, false);
             ChangeHour(216661, 217488, 1, OsbEasing.OutExpo);
             ChangeHour(217488, 217902, -0.5, OsbEasing.OutExpo);
@@ -144,11 +143,11 @@ namespace StorybrewScripts
             background.ScaleVec(0, currentScale * 0.0009, currentScale * 0.0009);
             background.Fade(0, 0);
 
-            bigHand = GetLayer("hand").CreateSprite("sb/ch1.png", OsbOrigin.BottomCentre, new Vector2(320, 240));
+            bigHand = GetLayer("").CreateSprite("sb/ch1.png", OsbOrigin.BottomCentre, new Vector2(320, 240));
             bigHand.ScaleVec(0, currentScale * 0.0018, currentScale * 0.0018);
             bigHand.Fade(0, 0);
 
-            littleHand = GetLayer("hand").CreateSprite("sb/ch2.png", OsbOrigin.BottomCentre, new Vector2(320, 240));
+            littleHand = GetLayer("").CreateSprite("sb/ch2.png", OsbOrigin.BottomCentre, new Vector2(320, 240));
             littleHand.ScaleVec(0, currentScale * 0.0018, currentScale * 0.0018);
             littleHand.Fade(0, 0);
         }
@@ -184,11 +183,16 @@ namespace StorybrewScripts
                 background.Fade(endTime, endFade, fade, 0);
             }
         }
-        private void SetClockSpeed(int startTime, int endTime, double speed)
+        private void SetClockSpeed(int startTime, int endTime, double speed, bool advance = false)
         {
             double currentRotation = bigHand.RotationAt(startTime);
             double littleCurrent = littleHand.RotationAt(startTime);
-            for (double i = startTime; i < endTime - 1; i += speed)
+            var end = endTime - 1;
+            if (advance)
+            {
+                end = endTime;
+            }
+            for (double i = startTime; i < end; i += speed)
             {
                 bigHand.Rotate(OsbEasing.OutElastic, i, i + 100, currentRotation, currentRotation + (Math.PI * 2) / 60);
                 currentRotation += (Math.PI * 2) / 60;
