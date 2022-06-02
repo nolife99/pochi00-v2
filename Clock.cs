@@ -144,11 +144,11 @@ namespace StorybrewScripts
             background.ScaleVec(0, currentScale * 0.0009, currentScale * 0.0009);
             background.Fade(0, 0);
 
-            bigHand = GetLayer("").CreateSprite("sb/ch1.png", OsbOrigin.BottomCentre, new Vector2(320, 240));
+            bigHand = GetLayer("hand").CreateSprite("sb/ch1.png", OsbOrigin.BottomCentre, new Vector2(320, 240));
             bigHand.ScaleVec(0, currentScale * 0.0018, currentScale * 0.0018);
             bigHand.Fade(0, 0);
 
-            littleHand = GetLayer("").CreateSprite("sb/ch2.png", OsbOrigin.BottomCentre, new Vector2(320, 240));
+            littleHand = GetLayer("hand").CreateSprite("sb/ch2.png", OsbOrigin.BottomCentre, new Vector2(320, 240));
             littleHand.ScaleVec(0, currentScale * 0.0018, currentScale * 0.0018);
             littleHand.Fade(0, 0);
         }
@@ -188,7 +188,7 @@ namespace StorybrewScripts
         {
             double currentRotation = bigHand.RotationAt(startTime);
             double littleCurrent = littleHand.RotationAt(startTime);
-            for (double i = startTime; i < endTime; i += speed)
+            for (double i = startTime; i < endTime - 1; i += speed)
             {
                 bigHand.Rotate(OsbEasing.OutElastic, i, i + 100, currentRotation, currentRotation + (Math.PI * 2) / 60);
                 currentRotation += (Math.PI * 2) / 60;

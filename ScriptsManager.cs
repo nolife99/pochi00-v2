@@ -45,7 +45,7 @@ namespace StorybrewScripts
             particleManager.GenerateRain(587221, 629471, 10, 3);
             particleManager.GenerateRain(608555, 629471, 17.5);
 
-            particleManager.GenerateLights(610555, 628555, 0, 400, true);
+            particleManager.GenerateLights(610555, 628555, 0, 420, true);
         }
         public void Circles()
         {
@@ -257,6 +257,48 @@ namespace StorybrewScripts
                     Position = nPosition;
                 }
                 angle += ConnectionAngle / (sqAmount / 2);
+            }
+            var Amount = 150;
+            var StartTime = 228247;
+            var EndTime = 230316;
+            for (var i = 0; i < Amount; i++)
+            {
+                float Width = 854;
+                float Height = (float)Random(-190, 190);
+                float nHeight = (float)Random(50, 430);
+                float nHeight2 = (float)Random(51, 429);
+
+                var pos = new Vector2(320 - Width / 2, 240);
+                var spriteSpace = Width / Amount;
+                var position = new Vector2(
+                    pos.X + i * spriteSpace + Random(-5, 5),
+                    pos.Y + Height);
+
+                var sprite = GetLayer("one part").CreateSprite("sb/s.png", OsbOrigin.Centre);
+
+                var Delay = 2;
+                var Fade = Random(0.1, 0.5);
+                var FadeNew = Random(0.5, 1);
+                var Scale = Random(0.03, 0.06);
+                var Rotation = MathHelper.DegreesToRadians(100);
+
+                sprite.Additive(StartTime, EndTime);
+                sprite.Fade(StartTime + Delay * i, StartTime + 200 + Delay * i, 0, Fade);
+                sprite.Fade(229075, 229126, Fade, FadeNew);
+                sprite.Fade(229282, 229333, FadeNew, Fade);
+                sprite.Fade(229488, 229489, Fade, FadeNew);
+                sprite.Fade(229902 + Delay * i, EndTime + Delay * i, FadeNew, 0);
+
+                sprite.Scale(StartTime, Scale);
+                sprite.Scale(OsbEasing.Out, 229075, 229282, Scale + 0.08, Scale);
+                sprite.Scale(229902, 230523, Scale, 0);
+                sprite.Rotate(OsbEasing.OutBack, StartTime, 229075, 0, Random(-Rotation, Rotation));
+                sprite.Rotate(OsbEasing.OutBack, 229075, 229282, Random(-Rotation, Rotation), 0);
+                sprite.Move(OsbEasing.OutBack, StartTime + (Delay + 3) * i, 229075, new Vector2(800, position.Y), position);
+                sprite.Move(229075, new Vector2(position.X, nHeight));
+                sprite.Move(229282, new Vector2(position.X, nHeight2));
+                sprite.Move(OsbEasing.OutBack, 229488 + Delay * i, 229902 + Delay * i, new Vector2(position.X, nHeight2), new Vector2(position.X, Random(230, 250)));
+                sprite.Move(OsbEasing.Out, 229902 + Delay * i, EndTime + Delay * i, new Vector2(position.X, Random(230, 250)), new Vector2(position.X, 240));
             }
         }
         public void Squares2()

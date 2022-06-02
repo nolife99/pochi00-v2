@@ -74,8 +74,6 @@ namespace StorybrewScripts
             h.Color(70694, Color4.Black);
             h.Fade(70694, 71694, 0, 1);
             h.Fade(81360, 82360, 1, 0);
-            h.Fade(102694, 103694, 0, 1);
-            h.Fade(122694, 124194, 1, 0);
             h.Fade(203420, 204420, 0, 1);
             h.Fade(272937, 273937, 1, 0);
             h.Fade(315971, 316971, 0, 1);

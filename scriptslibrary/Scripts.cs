@@ -82,18 +82,17 @@ public class Scripts
             for (int l = 0; l < 50; l++)
             {
                 var endPosition = new Vector2(
-                    (float)(320 + Math.Cos(angle) * 450),
-                    (float)(240 + Math.Sin(angle) * 450));
+                    (float)(320 + Math.Cos(angle) * 480),
+                    (float)(240 + Math.Sin(angle) * 480));
 
                 var sprite = generator.GetLayer("PARTICLES").CreateSprite("sb/p.png", OsbOrigin.Centre);
                 sprite.StartLoopGroup(startTime + l * 100, (endTime - startTime - l * 35) / speed);
-                sprite.Move(OsbEasing.OutSine, 0 + l, speed, basePosition, endPosition);
+                sprite.Move(OsbEasing.OutSine, 0, speed, basePosition, endPosition);
                 sprite.Fade(0, 0);
                 sprite.Fade(speed / 6, speed / 2, 0, 1);
                 sprite.ScaleVec(0, speed, 10, 1, 10, 0);
                 sprite.Rotate(OsbEasing.InSine, 0, speed, angle, angle - 1.25);
                 sprite.EndGroup();
-                sprite.Fade(endTime, endTime + 150, 1, 0);
 
                 angle += Math.PI / 50;
             }
