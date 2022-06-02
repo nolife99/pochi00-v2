@@ -173,8 +173,6 @@ namespace StorybrewScripts
         }
         public void GenerateBeam(int startTime, int endTime)
         {
-            double lastObject = 0;
-            
             foreach (var hitobject in Beatmap.HitObjects)
             {
                 if (hitobject.StartTime >= startTime - 1 && hitobject.StartTime <= endTime + 1)

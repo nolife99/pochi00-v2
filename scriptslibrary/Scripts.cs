@@ -75,7 +75,7 @@ public class Scripts
     }
     public void GenerateDanmaku(int startTime, int endTime, int speed)
     {   
-        //overlapped commands in sbrew but not in osu 
+        //overlapped commands due to unfinished loops
         Vector2 basePosition = new Vector2(320, 240);
         for (int i = 0; i < 4; i++)
         {
@@ -94,6 +94,9 @@ public class Scripts
                 sprite.ScaleVec(OsbEasing.In, 0, speed, 10, 1, 10, 0);
                 sprite.Rotate(OsbEasing.InSine, 0, speed, angle, angle - 1.5);
                 sprite.EndGroup();
+
+                var scaleAtEnd = sprite.ScaleAt(endTime);
+                if (scaleAtEnd.Y != 0)
                 sprite.Fade(endTime, endTime + 200, 1, 0);
 
                 angle += Math.PI / 50;
