@@ -12,8 +12,3 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
-  8422f54337284771bd62feb6dee94ece:
-    Name: "hand"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
