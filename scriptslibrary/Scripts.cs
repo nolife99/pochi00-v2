@@ -98,9 +98,15 @@ public class Scripts
                     sprite.Fade(t, 0);
                 }
                 var scaleAtEnd = sprite.ScaleAt(endTime);
-                if (scaleAtEnd.Y != 0)
-                sprite.Fade(endTime, endTime + 200, 1, 0);
-
+                var posAtEnd = sprite.PositionAt(endTime);
+                if (scaleAtEnd.Y == 0 | posAtEnd.X <= -115 | posAtEnd.X >= 755 | posAtEnd.Y <= 30 | posAtEnd.Y >= 450)
+                {
+                    //placeholder
+                }
+                else
+                {
+                    sprite.Fade(endTime, endTime + 200, 1, 0);
+                }
                 angle += Math.PI / 50;
             }
         }
