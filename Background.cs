@@ -26,12 +26,6 @@ namespace StorybrewScripts
             box2.Color(6694, Color4.Black);
             box2.ScaleVec(6694, 7693, 427, 0, 427, 20);
             box2.ScaleVec(629888, 630888, 427, 20, 427, 0);
-
-            var onePart = GetLayer("part").CreateSprite("sb/0.png", OsbOrigin.Centre, new Vector2(320, 240));
-            onePart.ScaleVec(102694, 854, 400);
-            onePart.Color(102694, new Color4(20, 0, 20, 1));
-            onePart.Fade(102694, 103694, 0, 1);
-            onePart.Fade(123694, 124026, 1, 0);
             
             var b = GetLayer("Back").CreateSprite("sb/0.png", OsbOrigin.Centre, new Vector2(320, 240));
             b.ScaleVec(27, 427, 240);
@@ -42,8 +36,11 @@ namespace StorybrewScripts
             b.Color(70694, new Color4(.05f, 0.1f, 0.2f, 1));
             b.Fade(70694, 71694, 0, 1);
             b.Fade(81360, 81694, 1, 0);
-            b.Color(124027, new Color4(173, 216, 230, 1));
-            b.Fade(124027, 126694, 0, 0.15);
+            b.Color(102694, new Color4(20, 0, 20, 1));
+            b.Fade(102694, 103694, 0, 1);
+            b.Fade(123694, 124027, 1, 0.5);
+            b.Color(124027, 126694, new Color4(20, 0, 20, 1), new Color4(173, 216, 230, 1));
+            b.Fade(124027, 126694, 0.5, 0.15);
             b.Fade(145360, 0);
             b.Color(203419, new Color4(15, 2, 15, 1));
             b.Fade(203419, 204419, 0, 1);
