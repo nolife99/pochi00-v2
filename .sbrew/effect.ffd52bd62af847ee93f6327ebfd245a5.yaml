@@ -17,11 +17,6 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
-  85b107155dd44aaa8f531b285c4c8a05:
-    Name: "part"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
   16920c5d71cc4c338529b4f7f6e45677:
     Name: "Back"
     OsbLayer: Background
