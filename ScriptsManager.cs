@@ -65,13 +65,9 @@ namespace StorybrewScripts
             for (int i = 0; i < Amount; i++)
             {
                 rad = angle * Math.PI / ConnectionAngle;
-                var x = (int)radius * (float)Math.Cos(rad) + Pos.X - 2;
-                var y = (int)radius * (float)Math.Sin(rad) + Pos.Y;
-                var position = new Vector2(x, y);
-
-                var x2 = (int)-radius * (float)Math.Cos(rad) + Pos.X - 2;
-                var y2 = (int)-radius * (float)Math.Sin(rad) + Pos.Y;
-                var nPos = new Vector2(x2, y2);
+                var x = radius * Math.Cos(rad) + Pos.X - 2;
+                var y = radius * Math.Sin(rad) + Pos.Y;
+                var position = new Vector2((int)x, (int)y);
 
                 var circle = GetLayer("circle").CreateSprite("sb/c.png", OsbOrigin.Centre, new Vector2(0, 0));
 
@@ -89,15 +85,15 @@ namespace StorybrewScripts
                 circle.Color((TravelTime / 8) * 7 + 50, Color4.LightBlue);
                 circle.EndGroup();
 
-                var timeStep = Beatmap.GetTimingPointAt((int)StartTime).BeatDuration / 5;
+                var timeStep = Beatmap.GetTimingPointAt((int)StartTime).BeatDuration / 4;
                 for (double time = StartTime; time < EndTime; time += timeStep)
                 {
-                    rad += 0.0786;
+                    rad += 0.0983;
 
-                    x = (int)radius * (float)Math.Cos(rad) + Pos.X - 2;
-                    y = (int)radius * (float)Math.Sin(rad) + Pos.Y;
+                    x = radius * Math.Cos(rad) + Pos.X - 2f;
+                    y = radius * Math.Sin(rad) + Pos.Y;
 
-                    var newPos = new Vector2(x, y);
+                    var newPos = new Vector2((int)x, (int)y);
 
                     circle.Move(time, time + timeStep, position, newPos);
 
@@ -108,9 +104,9 @@ namespace StorybrewScripts
             for (int l = 0; l < Amount; l++)
             {
                 Rad = Angle * Math.PI / ConnectionAngle;
-                var X = (int)Radius * (float)Math.Cos(Rad) + Pos.X - 2;
-                var Y = (int)Radius * (float)Math.Sin(Rad) + Pos.Y;
-                var Position = new Vector2(X, Y);
+                var X = Radius * Math.Cos(Rad) + Pos.X - 2;
+                var Y = Radius * Math.Sin(Rad) + Pos.Y;
+                var Position = new Vector2((int)X, (int)Y);
 
                 var outCircle = GetLayer("circle").CreateSprite("sb/c.png", OsbOrigin.Centre, new Vector2(0, 0));
 
@@ -132,10 +128,10 @@ namespace StorybrewScripts
                 for (double t = StartTime; t < EndTime; t += TimeStep)
                 {
                     Rad += 0.0393;
-                    X = (int)Radius * (float)Math.Cos(Rad) + Pos.X - 2;
-                    Y = (int)Radius * (float)Math.Sin(Rad) + Pos.Y;
+                    X = Radius * Math.Cos(Rad) + Pos.X - 2;
+                    Y = Radius * Math.Sin(Rad) + Pos.Y;
 
-                    var NewPos = new Vector2(X, Y);
+                    var NewPos = new Vector2((int)X, (int)Y);
 
                     outCircle.Move(t, t + TimeStep, Position, NewPos);
 
@@ -222,8 +218,8 @@ namespace StorybrewScripts
                 var ConnectionAngle = Math.PI / sqAmount;
 
                 Vector2 position = new Vector2(
-                    (float)(320 + Math.Cos(angle) * radius),
-                    (float)(240 + Math.Sin(angle) * radius));
+                    (int)(320 + Math.Cos(angle) * radius),
+                    (int)(240 + Math.Sin(angle) * radius));
 
                 var layer = GetLayer("Glitch");
                 var sprite = layer.CreateSprite("sb/p.png", OsbOrigin.Centre);
@@ -243,14 +239,14 @@ namespace StorybrewScripts
                 sprite.Rotate(OsbEasing.InOutSine, 283178, 289488, skewedRotation * 3, standardRotation);
                 sprite.Fade(276247, 0.07);
 
-                var timeStep = Beatmap.GetTimingPointAt(276247).BeatDuration / 5;
+                var timeStep = Beatmap.GetTimingPointAt(276247).BeatDuration / 4;
                 for (double time = 276247; time < 289488; time += timeStep)
                 {
-                    angle += 0.0497;
+                    angle += 0.0623;
 
                     Vector2 nPosition = new Vector2(
-                        (float)(320 + Math.Cos(angle) * radius),
-                        (float)(240 + Math.Sin(angle) * radius));
+                        (int)(320 + Math.Cos(angle) * radius),
+                        (int)(240 + Math.Sin(angle) * radius));
 
                     sprite.Move(time, time + timeStep, Position, nPosition);
 
@@ -424,10 +420,10 @@ namespace StorybrewScripts
 
                 sprite.Additive(276247, 289488);
 
-                var timeStep = Beatmap.GetTimingPointAt(276247).BeatDuration / 5;
+                var timeStep = Beatmap.GetTimingPointAt(276247).BeatDuration / 4;
                 for (double time = 276247; time < 289488; time += timeStep)
                 {
-                    angle += 0.0497;
+                    angle += 0.0625;
 
                     Vector2 nPosition = new Vector2(
                         (float)(320 + Math.Cos(angle) * radius),
@@ -475,10 +471,10 @@ namespace StorybrewScripts
                 sprite.Fade(276247, 0.6);
                 sprite.Additive(276247, 289488);
 
-                var timeStep = Beatmap.GetTimingPointAt(277902).BeatDuration / 5;
+                var timeStep = Beatmap.GetTimingPointAt(277902).BeatDuration / 4;
                 for (double time = 276247; time < 289488; time += timeStep)
                 {
-                    angle += 0.0497;
+                    angle += 0.0623;
 
                     Vector2 nPosition = new Vector2(
                         (float)(320 + Math.Cos(angle) * radius),
@@ -503,8 +499,8 @@ namespace StorybrewScripts
                 var ConnectionAngle = Math.PI / sqAmount;
 
                 Vector2 position = new Vector2(
-                    (float)(320 + Math.Cos(angle) * radius),
-                    (float)(240 + Math.Sin(angle) * radius));
+                    (int)(320 + Math.Cos(angle) * radius),
+                    (int)(240 + Math.Sin(angle) * radius));
 
                 var layer = GetLayer("Glitch");
                 var sprite = layer.CreateSprite("sb/c.png", OsbOrigin.Centre);
@@ -529,8 +525,8 @@ namespace StorybrewScripts
                     angle += 0.0497;
 
                     Vector2 nPosition = new Vector2(
-                        (float)(320 + Math.Cos(angle) * radius),
-                        (float)(240 + Math.Sin(angle) * radius));
+                        (int)(320 + Math.Cos(angle) * radius),
+                        (int)(240 + Math.Sin(angle) * radius));
 
                     sprite.Move(time, time + timeStep, Position, nPosition);
 

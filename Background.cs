@@ -108,8 +108,9 @@ namespace StorybrewScripts
             f.Fade(527221, 530221, 0.8, 0);
             f.Fade(553888, 555221, 0.8, 0);
 
+            var bMap = GetMapsetBitmap("sb/vig.png");
             var v = GetLayer("Vignette").CreateSprite("sb/vig.png", OsbOrigin.Centre, new Vector2(320, 240));
-            v.Scale(124027, 0.4444444);
+            v.Scale(124027, 854d / bMap.Width);
             v.Fade(124027, 124360, 0, 1);
             v.Fade(144027, 145360, 1, 0);
             v.Fade(275833, 276247, 0, 1);
@@ -218,7 +219,7 @@ namespace StorybrewScripts
             var l5 = GetLayer("s02").CreateSprite("sb/b/2/l5.png", OsbOrigin.Centre, new Vector2(320, 0));
             l5.Scale(168027, 0.23076925);
             l5.Fade(168027, 169027, 0, 1);
-            l5.MoveY(OsbEasing.OutExpo, 168027, 200027, 340, 450);
+            l5.MoveY(OsbEasing.OutExpo, 168027, 200027, 345, 450);
             l5.Fade(200027, 0);
         }
         public void Section3()

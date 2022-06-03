@@ -57,18 +57,43 @@ namespace StorybrewScripts
                     {
                         var timestep = Beatmap.GetTimingPointAt((int)hitobject.StartTime).BeatDuration / BeatDivisor;
                         var startTime = hitobject.StartTime;
-                        while (true)
+                        var s = hitobject as OsuSlider;
+                        if (s.ControlPointCount > 1 | s.TravelDuration < 30)
                         {
-                            var endTime = startTime + timestep;
+                            while (hitobject is OsuSlider)
+                            {
+                                var endTime = startTime + timestep;
 
-                            var complete = hitobject.EndTime - endTime < 5;
-                            if (complete) endTime = hitobject.EndTime;
+                                var complete = hitobject.EndTime - endTime < 5;
+                                if (complete) endTime = hitobject.EndTime;
 
-                            var startPosition = sprite.PositionAt(startTime);
-                            sprite.Move(startTime, endTime, startPosition, hitobject.PositionAtTime(endTime));
+                                var startPosition = sprite.PositionAt(startTime);
+                                sprite.Move(startTime, endTime, startPosition, hitobject.PositionAtTime(endTime));
 
-                            if (complete) break;
-                            startTime += timestep;
+                                if (complete) break;
+                                startTime += timestep;
+                            }
+                        }
+                        else if (s.TravelDuration > 50 & s.RepeatCount != 0)
+                        {
+                            while (hitobject is OsuSlider)
+                            {
+                                var tStep = Beatmap.GetTimingPointAt(StartTime).BeatDuration / 4;
+                                var end = startTime + tStep;
+
+                                var complete = hitobject.EndTime - end < 5;
+                                if (complete) end = hitobject.EndTime;
+
+                                var startPosition = sprite.PositionAt(startTime);
+                                sprite.Move(startTime, end, startPosition, hitobject.PositionAtTime(end));
+
+                                if (complete) break;
+                                startTime += tStep;
+                            }
+                        }
+                        else
+                        {
+                            sprite.Move(hitobject.StartTime, hitobject.EndTime, hitobject.PositionAtTime(startTime), hitobject.PositionAtTime(hitobject.EndTime));
                         }
                     }
                     sprite.Fade(Easing, hitobject.EndTime, hitobject.EndTime + FadeTime, Fade, 0);

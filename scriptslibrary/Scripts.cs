@@ -226,8 +226,8 @@ public class Scripts
             var sprite = generator.GetLayer(layer).CreateSprite("sb/0.png", OsbOrigin.Centre, new Vector2(posX, 240));
             sprite.ScaleVec(startTransition + delay, startTransition + delay + 300, 0, scaleY / 2, 7.465, scaleY / 2);
             sprite.Fade(endTime, endTime + 1000, 1, 0);
-            sprite.Rotate(startTransition, 0.1);
-            sprite.Color(startTransition, transitionColor);
+            sprite.Rotate(startTransition + delay, 0.1);
+            sprite.Color(startTransition + delay, transitionColor);
             
             delay += transitionDuration / 60;
             posX += 15;
