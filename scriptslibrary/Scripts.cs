@@ -136,7 +136,7 @@ public class Scripts
             {
                 sprite.Fade(i + fadeTime, i + fadeTime * 2, fade, 0);
             }
-            sprite.Scale(OsbEasing.InOutSine, i, i + fadeTime * 2, Math.Round(generator.Random(0.8, 2), 2), 0);
+            sprite.Scale(OsbEasing.InOutSine, i, i + fadeTime * 2, Math.Round(generator.Random(0.2, 0.5), 2), 0);
         }
     }
     public void GenerateRain(int startTime, int endTime, double intensity, int type = 1)

@@ -73,7 +73,7 @@ namespace StorybrewScripts
             b.Fade(553877, 0);
 
             var h = GetLayer("Back1").CreateSprite("sb/hl.png", OsbOrigin.Centre, new Vector2(320, 240));
-            h.Scale(70694, 1);
+            h.Scale(70694, 0.25);
             h.Color(70694, Color4.Black);
             h.Fade(70694, 71694, 0, 1);
             h.Fade(81360, 82360, 1, 0);
