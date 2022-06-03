@@ -74,8 +74,7 @@ public class Scripts
         }
     }
     public void GenerateDanmaku(int startTime, int endTime, int speed)
-    {   
-        //overlapped commands due to unfinished loops
+    {
         Vector2 basePosition = new Vector2(320, 240);
         for (int i = 0; i < 4; i++)
         {
@@ -88,13 +87,16 @@ public class Scripts
 
                 var sprite = generator.GetLayer("PARTICLES").CreateSprite("sb/p.png");
                 sprite.StartLoopGroup(startTime + l * 100, (endTime - startTime - l * 35) / speed);
-                sprite.Fade(0, 0);
                 sprite.Move(OsbEasing.OutSine, 0, speed, basePosition, endPosition);
-                sprite.Fade(speed / 6, speed / 2, 0, 1);
-                sprite.ScaleVec(OsbEasing.In, 0, speed, 10, 1, 10, 0);
+                sprite.ScaleVec(OsbEasing.In, speed / 6, speed, 10, 1, 10, 0);
                 sprite.Rotate(OsbEasing.InSine, 0, speed, angle, angle - 1.5);
                 sprite.EndGroup();
 
+                for (double t = startTime + l * 100; t < endTime - 2500; t += speed)
+                {
+                    sprite.Fade(t + speed / 6, t + speed / 2, 0, 1);
+                    sprite.Fade(t, 0);
+                }
                 var scaleAtEnd = sprite.ScaleAt(endTime);
                 if (scaleAtEnd.Y != 0)
                 sprite.Fade(endTime, endTime + 200, 1, 0);
