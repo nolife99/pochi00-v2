@@ -191,7 +191,7 @@ public class Scripts
         {
             while (posY < 437 + squareScale)
             {
-                var sprite = generator.GetLayer(layer).CreateSprite("sb/0.png", OsbOrigin.Centre, new Vector2(posX, posY));
+                var sprite = generator.GetLayer(layer).CreateSprite("sb/p.png", OsbOrigin.Centre, new Vector2(posX, posY));
 
                 if (Full == false)
                 {
@@ -200,8 +200,8 @@ public class Scripts
                 }
                 else
                 {
-                    sprite.Scale(OsbEasing.InSine, startTime, endTime - duration / 2, 0, squareScale / 2);
-                    sprite.Scale(OsbEasing.OutSine, endTime - duration / 2, endTime + 1000, squareScale / 2, 0);
+                    sprite.Scale(OsbEasing.InSine, startTime, endTime - duration / 2, 0, squareScale);
+                    sprite.Scale(OsbEasing.OutSine, endTime - duration / 2, endTime + 1000, squareScale, 0);
                     sprite.Rotate(OsbEasing.InSine, startTime, endTime - duration / 2, 0, -Math.PI);
                     sprite.Rotate(OsbEasing.OutSine, endTime - duration / 2, endTime + 1000, Math.PI, 0);
                 }
@@ -223,8 +223,8 @@ public class Scripts
             scaleY = 484;
         for(int i = 0; i < 60; i++)
         {
-            var sprite = generator.GetLayer(layer).CreateSprite("sb/0.png", OsbOrigin.Centre, new Vector2(posX, 240));
-            sprite.ScaleVec(startTransition + delay, startTransition + delay + 300, 0, scaleY / 2, 7.465, scaleY / 2);
+            var sprite = generator.GetLayer(layer).CreateSprite("sb/p.png", OsbOrigin.Centre, new Vector2(posX, 240));
+            sprite.ScaleVec(startTransition + delay, startTransition + delay + 300, 0, scaleY, 14.93, scaleY);
             sprite.Fade(endTime, endTime + 1000, 1, 0);
             sprite.Rotate(startTransition + delay, 0.1);
             sprite.Color(startTransition + delay, transitionColor);

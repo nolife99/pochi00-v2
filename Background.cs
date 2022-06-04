@@ -17,22 +17,22 @@ namespace StorybrewScripts
         }
         public void ColorBackground()
         {
-            var box1 = GetLayer("Letterbox").CreateSprite("sb/0.png", OsbOrigin.TopCentre, new Vector2(320, 0));
+            var box1 = GetLayer("Letterbox").CreateSprite("sb/p.png", OsbOrigin.TopCentre, new Vector2(320, 0));
             box1.Color(6694, Color4.Black);
-            box1.ScaleVec(6694, 7693, 427, 0, 427, 20);
+            box1.ScaleVec(6694, 7693, 427, 0, 854, 40);
             box1.ScaleVec(629888, 630888, 427, 20, 427, 0);
 
-            var box2 = GetLayer("Letterbox").CreateSprite("sb/0.png", OsbOrigin.BottomCentre, new Vector2(320, 480));
+            var box2 = GetLayer("Letterbox").CreateSprite("sb/p.png", OsbOrigin.BottomCentre, new Vector2(320, 480));
             box2.Color(6694, Color4.Black);
-            box2.ScaleVec(6694, 7693, 427, 0, 427, 20);
+            box2.ScaleVec(6694, 7693, 427, 0, 854, 40);
             box2.ScaleVec(629888, 630888, 427, 20, 427, 0);
             
-            var b = GetLayer("Back").CreateSprite("sb/0.png", OsbOrigin.Centre, new Vector2(320, 240));
-            b.ScaleVec(27, 427, 240);
+            var b = GetLayer("Back").CreateSprite("sb/p.png", OsbOrigin.Centre, new Vector2(320, 240));
+            b.ScaleVec(27, 854, 480);
             b.Color(27, new Color4(.1f, 0.04f, 0.1f, 1));
             b.Fade(27, 1026, 0, 1);
             b.Fade(6693, 7693, 1, 0);
-            b.ScaleVec(70694, 427, 200);
+            b.ScaleVec(70694, 854, 400);
             b.Color(70694, new Color4(.05f, 0.1f, 0.2f, 1));
             b.Fade(70694, 71694, 0, 1);
             b.Fade(81360, 81694, 1, 0);
@@ -81,8 +81,8 @@ namespace StorybrewScripts
             h.Fade(423222, 424222, 0, 1);
             h.Fade(444555, 445555, 1, 0);
 
-            var f = GetLayer("Flash").CreateSprite("sb/0.png", OsbOrigin.Centre, new Vector2(320, 240));
-            f.ScaleVec(28027, 427, 200);
+            var f = GetLayer("Flash").CreateSprite("sb/p.png", OsbOrigin.Centre, new Vector2(320, 240));
+            f.ScaleVec(28027, 854, 400);
             f.Additive(28027);
             f.Fade(28027, 29027, 0.8, 0);
             f.Fade(70694, 72694, 0.8, 0);
