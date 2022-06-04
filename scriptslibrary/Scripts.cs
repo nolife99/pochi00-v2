@@ -195,7 +195,7 @@ public class Scripts
 
                 if (Full == false)
                 {
-                    sprite.Scale(easing, startTime, endTime, 0, squareScale / 2);
+                    sprite.Scale(easing, startTime, endTime, 0, squareScale);
                     sprite.Rotate(easing, startTime, endTime, Math.PI, 0);
                 }
                 else
