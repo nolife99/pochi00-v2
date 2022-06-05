@@ -70,7 +70,7 @@ namespace StorybrewScripts
             b.Fade(553877, 0);
 
             var h = GetLayer("Back1").CreateSprite("sb/hl.png", OsbOrigin.Centre, new Vector2(320, 240));
-            h.Scale(70694, 0.25);
+            h.Scale(70694, 0.5);
             h.Color(70694, Color4.Black);
             h.Fade(70694, 71694, 0, 1);
             h.Fade(81360, 82360, 1, 0);
@@ -136,7 +136,7 @@ namespace StorybrewScripts
             var grey = GetLayer("s1").CreateSprite("sb/b/0/w.jpg", OsbOrigin.Centre, new Vector2(320, 240));
             grey.Additive(6693);
             grey.Fade(OsbEasing.InSine, 6693, 28027, 0, 1);
-            grey.Scale(OsbEasing.InSine, 6693, 28027, 0.12, 0.115384625);
+            grey.Scale(OsbEasing.InSine, 6693, 28027, 0.24, 0.23076925);
             grey.Fade(OsbEasing.OutSine, 28027, 29360, 1, 0);
 
             var l0 = GetLayer("s1").CreateSprite("sb/b/0/l0.png", OsbOrigin.Centre, new Vector2(320, 240));
@@ -169,7 +169,7 @@ namespace StorybrewScripts
             l4.Fade(34110, 0);
 
             var bg = GetLayer("s1").CreateSprite("sb/b/0/b.jpg", OsbOrigin.Centre, new Vector2(0, 240));
-            bg.Scale(81360, 0.115384625);
+            bg.Scale(81360, 0.23076925);
             bg.Additive(81360);
             bg.Fade(81360, 81660, 0, 1);
             bg.MoveX(81360, 92027, 330, 310);
@@ -178,7 +178,7 @@ namespace StorybrewScripts
         public void Section2()
         {
             var b = GetLayer("before kiai").CreateSprite("sb/b/1/b.jpg", OsbOrigin.Centre, new Vector2(0, 240));
-            b.Scale(145360, 0.115384625);
+            b.Scale(145360, 0.23076925);
             b.Additive(145360);
             b.Fade(145360, 145660, 0, 1);
             b.MoveX(145360, 166943, 310, 330);
@@ -255,20 +255,20 @@ namespace StorybrewScripts
 
             var mainBg = GetLayer("base bg").CreateSprite("sb/b/6/b.jpg", OsbOrigin.Centre, new Vector2(0, 240));
             mainBg.Fade(0, 0);
-            mainBg.Scale(401889, 0.115384625);
+            mainBg.Scale(401889, 0.23076925);
             mainBg.Additive(401889);
             mainBg.Fade(401889, 1);
             mainBg.MoveX(401889, 423222, 330, 310);
             mainBg.Fade(423222, 423305, 1, 0);
 
             var desert = GetLayer("sandy").CreateSprite("sb/b/7/b.jpg");
-            desert.Scale(444555, 465804, 0.115384625, 0.115384625);
+            desert.Scale(444555, 0.23076925);
             desert.Additive(444555);
             desert.Fade(444555, 445889, 0, 1);
             desert.Move(444555, 465804, 310, 240, 330, 240);
             desert.Fade(465804, 0);
             desert.Fade(473889, 1);
-            desert.Scale(473889, 500555, 0.12, 0.115384625);
+            desert.Scale(473889, 500555, 0.24, 0.23076925);
             desert.Fade(496555, 500555, 1, 0);
 
             var flare1 = GetLayer("sun").CreateSprite("sb/flare.png", OsbOrigin.Centre, new Vector2(0, 40));
@@ -305,7 +305,7 @@ namespace StorybrewScripts
 
             var forestBlur = GetLayer("420").CreateSprite("sb/b/8/f.jpg");
             forestBlur.Additive(575221);
-            forestBlur.Scale(575221, 587221, 0.48, 0.46);
+            forestBlur.Scale(575221, 587221, 0.24, 0.23);
             forestBlur.Fade(587221, 588555, 1, 0);
         }
     }
