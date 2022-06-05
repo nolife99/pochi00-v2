@@ -19,8 +19,8 @@ namespace StorybrewScripts
         {
             var box1 = GetLayer("Letterbox").CreateSprite("sb/p.png", OsbOrigin.TopCentre, new Vector2(320, 0));
             box1.Color(6694, Color4.Black);
-            box1.ScaleVec(6694, 7693, 427, 0, 854, 40);
-            box1.ScaleVec(629888, 630888, 427, 20, 427, 0);
+            box1.ScaleVec(6694, 7693, 854, 0, 854, 40);
+            box1.ScaleVec(629888, 630888, 854, 20, 854, 0);
 
             var box2 = GetLayer("Letterbox").CreateSprite("sb/p.png", OsbOrigin.BottomCentre, new Vector2(320, 480));
             box2.Color(6694, Color4.Black);
