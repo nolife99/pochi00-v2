@@ -74,16 +74,16 @@ namespace StorybrewScripts
                 var TravelTime = Beat * 8;
                 var duration = EndTime - StartTime;
 
+                for (double t = StartTime; t < EndTime; t += TravelTime)
+                {
+                    circle.Scale(t, 0.005);
+                    circle.Scale(t + TravelTime / 8 - 50, 0.02);
+                    circle.Scale(t + TravelTime / 8 * 7 + 50, 0.005);
+                    circle.Color(t, Color4.LightBlue);
+                    circle.Color(t + TravelTime / 8 - 50, Color4.GreenYellow);
+                    circle.Color(t + TravelTime / 8 * 7 + 50, Color4.LightBlue);
+                }
                 circle.Fade(StartTime, StartTime + 500, 0, 1);
-                circle.StartLoopGroup(StartTime, 8);
-                circle.Scale(0, 0.005);
-                circle.Scale(TravelTime / 8 - 50, 0.02);
-                circle.Scale((TravelTime / 8) * 7 + 50, 0.005);
-                circle.Scale(TravelTime, 0.005);
-                circle.Color(0, Color4.LightBlue);
-                circle.Color(TravelTime / 8 - 50, Color4.GreenYellow);
-                circle.Color((TravelTime / 8) * 7 + 50, Color4.LightBlue);
-                circle.EndGroup();
 
                 var timeStep = Beatmap.GetTimingPointAt((int)StartTime).BeatDuration / 4;
                 for (double time = StartTime; time < EndTime; time += timeStep)
@@ -96,7 +96,6 @@ namespace StorybrewScripts
                     var newPos = new Vector2((int)x, (int)y);
 
                     circle.Move(time, time + timeStep, position, newPos);
-
                     position = newPos;
                 }
                 angle += ConnectionAngle / (Amount / 2);
@@ -113,28 +112,27 @@ namespace StorybrewScripts
                 var travelTime = Beat * 8;
                 var Duration = EndTime - StartTime;
 
-                outCircle.Fade(StartTime, StartTime + 500, 0, 1);
-                outCircle.StartLoopGroup(StartTime, 8);
-                outCircle.Scale(0, 0.02);
-                outCircle.Scale(travelTime / 8 - 50, 0.005);
-                outCircle.Scale((travelTime / 8) * 7 + 50, 0.02);
-                outCircle.Scale(travelTime, 0.02);
-                outCircle.Color(0, Color4.GreenYellow);
-                outCircle.Color(travelTime / 8 - 50, Color4.LightBlue);
-                outCircle.Color((travelTime / 8) * 7 + 50, Color4.GreenYellow);
-                outCircle.EndGroup();
-
-                var TimeStep = Beatmap.GetTimingPointAt((int)StartTime).BeatDuration / 5;
-                for (double t = StartTime; t < EndTime; t += TimeStep)
+                for (double t = StartTime; t < EndTime; t += travelTime)
                 {
-                    Rad += 0.0393;
+                    outCircle.Scale(t, 0.02);
+                    outCircle.Scale(t + travelTime / 8 - 50, 0.005);
+                    outCircle.Scale(t + travelTime / 8 * 7 + 50, 0.02);
+                    outCircle.Color(t, Color4.GreenYellow);
+                    outCircle.Color(t + travelTime / 8 - 50, Color4.LightBlue);
+                    outCircle.Color(t + travelTime / 8 * 7 + 50, Color4.GreenYellow);
+                }
+                outCircle.Fade(StartTime, StartTime + 500, 0, 1);
+
+                var timeStep = Beatmap.GetTimingPointAt((int)StartTime).BeatDuration / 4;
+                for (double t = StartTime; t < EndTime; t += timeStep)
+                {
+                    Rad += 0.0493;
                     X = Radius * Math.Cos(Rad) + Pos.X - 2;
                     Y = Radius * Math.Sin(Rad) + Pos.Y;
 
                     var NewPos = new Vector2((int)X, (int)Y);
 
-                    outCircle.Move(t, t + TimeStep, Position, NewPos);
-
+                    outCircle.Move(t, t + timeStep, Position, NewPos);
                     Position = NewPos;
                 }
                 Angle += ConnectionAngle / (Amount / 2);

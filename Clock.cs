@@ -19,7 +19,7 @@ namespace StorybrewScripts
             double beat = Beatmap.GetTimingPointAt(6693).BeatDuration;
             GenerateClock();
             ShowClock(6693, 28110, 92027, 97360, 0.2f);
-            SetClockSpeed(6693, 48027, beat * 4);
+            SetClockSpeed(6693, 48110, beat * 4);
             SetClockSpeed(49360, 81360, beat * 2);
             ModifyScale(6777, 28027, 250, true, currentScale);
             ModifyScale(28110, 33360, 200, true, 250);
@@ -37,7 +37,7 @@ namespace StorybrewScripts
             ShowClock(203420, 216661, 276247, 276247, 1, false);
             ShowClock(289488, 302730, 328799, 331695, 1, false);
             SetClockSpeed(203420, 216660, beat * 2);
-            SetClockSpeed(289488, 302316, beat, true);
+            SetClockSpeed(289488, 302317, beat);
             ModifyScale(203420, 216661, 100, false);
             ChangeHour(216661, 217488, 1, OsbEasing.OutExpo);
             ChangeHour(217488, 217902, -0.5, OsbEasing.OutExpo);
@@ -65,7 +65,7 @@ namespace StorybrewScripts
             ChangeHour(227833, 228247, -1, OsbEasing.OutExpo);
             ChangeHour(228247, 229075, 2, OsbEasing.OutExpo);
             ChangeHour(229075, 229488, 1, OsbEasing.OutExpo);
-            ChangeHour(229488, 229902, -1.109, OsbEasing.InExpo);
+            ChangeHour(229488, 229902, -0.755, OsbEasing.InExpo);
 
             ShowHours(229902, 272937, 120);
             SetClockSpeed(229902, 243144, beat * 4);
@@ -91,7 +91,7 @@ namespace StorybrewScripts
             ChangeHour(270868, 271282, 0.2, OsbEasing.OutSine);
             ChangeHour(271282, 272109, 0.2, OsbEasing.OutExpo);
             ChangeHour(272109, 272523, 0.4, OsbEasing.OutExpo);
-            ChangeHour(272523, 272937, 0.125, OsbEasing.OutExpo);
+            ChangeHour(272523, 272937, 0.011, OsbEasing.OutExpo);
             SetClockSpeed(272937, 274488, beat * 2);
             ChangeHour(274592, 276247, -1.5, OsbEasing.InExpo);
 
@@ -183,15 +183,11 @@ namespace StorybrewScripts
                 background.Fade(endTime, endFade, fade, 0);
             }
         }
-        private void SetClockSpeed(int startTime, int endTime, double speed, bool advance = false)
+        private void SetClockSpeed(int startTime, int endTime, double speed)
         {
             double currentRotation = bigHand.RotationAt(startTime);
             double littleCurrent = littleHand.RotationAt(startTime);
             var end = endTime - 1;
-            if (advance)
-            {
-                end = endTime;
-            }
             for (double i = startTime; i < end; i += speed)
             {
                 bigHand.Rotate(OsbEasing.OutElastic, i, i + 100, currentRotation, currentRotation + (Math.PI * 2) / 60);
