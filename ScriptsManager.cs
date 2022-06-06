@@ -74,12 +74,12 @@ namespace StorybrewScripts
                 var TravelTime = Beat * 8;
                 var duration = EndTime - StartTime;
 
+                circle.Scale(StartTime, 0.005);
+                circle.Color(StartTime, Color4.LightBlue);
                 for (double t = StartTime; t < EndTime; t += TravelTime)
                 {
-                    circle.Scale(t, 0.005);
                     circle.Scale(t + TravelTime / 8 - 50, 0.02);
                     circle.Scale(t + TravelTime / 8 * 7 + 50, 0.005);
-                    circle.Color(t, Color4.LightBlue);
                     circle.Color(t + TravelTime / 8 - 50, Color4.GreenYellow);
                     circle.Color(t + TravelTime / 8 * 7 + 50, Color4.LightBlue);
                 }
@@ -112,12 +112,12 @@ namespace StorybrewScripts
                 var travelTime = Beat * 8;
                 var Duration = EndTime - StartTime;
 
+                outCircle.Scale(StartTime, 0.02);
+                outCircle.Color(StartTime, Color4.GreenYellow);
                 for (double t = StartTime; t < EndTime; t += travelTime)
                 {
-                    outCircle.Scale(t, 0.02);
                     outCircle.Scale(t + travelTime / 8 - 50, 0.005);
                     outCircle.Scale(t + travelTime / 8 * 7 + 50, 0.02);
-                    outCircle.Color(t, Color4.GreenYellow);
                     outCircle.Color(t + travelTime / 8 - 50, Color4.LightBlue);
                     outCircle.Color(t + travelTime / 8 * 7 + 50, Color4.GreenYellow);
                 }
