@@ -55,6 +55,7 @@
     <Compile Include="Background.cs" />
     <Compile Include="Clock.cs" />
     <Compile Include="Ending.cs" />
+    <Compile Include="GlitchKiai.cs" />
     <Compile Include="HitObjectGen.cs" />
     <Compile Include="ImportOsb.cs" />
     <Compile Include="ScriptsManager.cs" />

@@ -12,3 +12,23 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
+  4791a8b07479411e846dd0a0f9d5047f:
+    Name: "Gear 1"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  3c178e7b952a486db6fb2fbac92305ed:
+    Name: "Gear 2"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  d5f6a8ce2ee84dd8ad9a1d797a55c269:
+    Name: "Gear1"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  deacc6baa57b41658b593b27a9b5cd7d:
+    Name: "Foreground Circles"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes

@@ -110,20 +110,20 @@ public class Scripts
     {
         for (int i = 0; i < 7; i++)
         {
-            var fadeTime = generator.Random(1000, 2500);
+            var fadeTime = generator.Random(1000, 5000);
             var sprite = generator.GetLayer("Highlight").CreateSprite("sb/hl.png");
-            var delay = generator.Beatmap.GetTimingPointAt(startTime).BeatDuration * 1.5;
+            var fade = Math.Round(generator.Random(0.05, 0.1), 2);
 
-            for (double t = startTime + delay * i; t < endTime; t += fadeTime * 2)
+            for (int t = startTime + fadeTime * 2; t < endTime - fadeTime; t += fadeTime * 2)
             {
                 var pos = new Vector2(generator.Random(0, 747), generator.Random(40, 440));
                 var newPos = new Vector2(generator.Random(-107, 854), generator.Random(0, 480));
-                var fade = Math.Round(generator.Random(0.05, 0.1), 2);
                 sprite.Move(OsbEasing.Out, t, t + fadeTime * 2, pos, newPos);
-                sprite.Fade(OsbEasing.Out, t, t + fadeTime / 4, 0, fade);
-                sprite.Fade(OsbEasing.In, t + fadeTime, t + fadeTime * 2, fade, 0);
-                sprite.Scale(OsbEasing.Out, t, t + fadeTime * 2, Math.Round(generator.Random(0.4, 1), 2), 0.2);
             }
+            sprite.StartLoopGroup(startTime + fadeTime * 2, ((endTime - startTime - fadeTime * 2) / (fadeTime * 2)));
+            sprite.Fade(OsbEasing.Out, 0, fadeTime / 4, 0, fade);
+            sprite.Fade(OsbEasing.In, fadeTime, fadeTime * 2, fade, 0);
+            sprite.Scale(OsbEasing.Out, 0, fadeTime * 2, Math.Round(generator.Random(0.3, 1), 2), 0.2);
         }
     }
     public void Rain(int startTime, int endTime, double intensity, int type)
@@ -136,13 +136,12 @@ public class Scripts
             double angle = Math.Atan2(680, endX - posX);
             int delay = 20;
             int duration = endTime - startTime - i * delay;
-            string layer = "rain";
+            string layer = type == 2 ? "rain " : "rain";
 
             var sprite = generator.GetLayer(layer).CreateSprite("sb/pl.png", OsbOrigin.Centre, new Vector2(posX, 20));
             if (type == 2)
             {
                 delay += 80;
-                layer = "rain ";
                 duration = endTime - startTime - i * (int)(delay / 1.6);
                 sprite.Additive(startTime + i * delay);
             }

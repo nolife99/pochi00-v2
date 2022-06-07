@@ -6,7 +6,7 @@ using System;
 
 namespace StorybrewScripts
 {
-    public class Clock : StoryboardObjectGenerator
+    class Clock : StoryboardObjectGenerator
     {
         OsbSprite[] cadrant = new OsbSprite[60];
         OsbSprite bigHand;
@@ -117,6 +117,8 @@ namespace StorybrewScripts
             SetClockSpeed(501889, 527221, beat * 2);
             ModifyScale(500555, 500555, 100);
             ShowHours(501889, 527221, 120);
+
+            GearParts();
         }
         private void GenerateClock()
         {
@@ -234,6 +236,59 @@ namespace StorybrewScripts
                 cadrantElement.Rotate(startTime, angle + Math.PI / 4);
                 angle += (Math.PI * 2) / 60;
             }
+        }
+        private void GearParts()
+        {
+            Scripts gears = new Scripts(this);
+            gears.GenerateGears(423210, 444543, 40, "Gear 1");
+            gears.GenerateGears(500543, 553877, 40, "Gear 2");
+
+            var gear0 = GetLayer("Gear1").CreateSprite("sb/g/g6.png");
+            gear0.Fade(500555, 501889, 0, 0.1);
+            gear0.Rotate(500555, 527222, 0, Math.PI);
+            gear0.Fade(527221, 0);
+            gear0.Scale(500555, 0.7);
+
+            var gear1 = GetLayer("Gear1").CreateSprite("sb/g/g4.png");
+            gear1.Fade(500555, 501889, 0, 0.1);
+            gear1.Rotate(500555, 527222, 0, -Math.PI);
+            gear1.Fade(527221, 0);
+            gear1.Scale(500555, 0.1);
+
+            var gear2 = GetLayer("Gear1").CreateSprite("sb/g/g6.png");
+            gear2.Fade(500555, 501889, 0, 0.1);
+            gear2.Rotate(500555, 527222, 0, Math.PI * 2);
+            gear2.Fade(527221, 0);
+            gear2.Scale(500555, 0.4);
+
+            Gear(552555, 2, 553555, 0.05);
+            Gear(552721, 6, 553555, 0.12);
+            Gear(552888, 5, 553555, 0.12);
+            Gear(552971, 6, 553555, 0.35);
+            Gear(553055, 6, 553555, 0.5);
+            Gear(553138, 6, 553555, 0.7);
+            Gear(553221, 5, 553555, 0.7);
+
+            for (int i = 0; i < 10; i++)
+            {
+                var sprite = GetLayer("Foreground Circles").CreateSprite("sb/c.png", OsbOrigin.Centre, new Vector2(0, 240));
+                sprite.Fade(501803 + i * 70, 0.45);
+                sprite.StartLoopGroup(501803 + i * 70, 4);
+                sprite.ScaleVec(OsbEasing.InOutSine, 0, 3330, 0, 0.006, 0.006, 0.006);
+                sprite.ScaleVec(OsbEasing.InOutSine, 3330, 6660, 0.006, 0.006, 0, 0.006);
+                sprite.MoveX(OsbEasing.InOutQuart, 0, 6660, 755, -115);
+                sprite.EndGroup();
+                sprite.Fade(527221, 527555, 0.45, 0);
+            }
+        }
+        private void Gear(int startTime, int id, int endTime, double scale)
+        {
+            var sprite = GetLayer("Gear1").CreateSprite($"sb/g/g{id}.png");
+            sprite.Fade(startTime, startTime + 100, 0, 1);
+            sprite.Fade(OsbEasing.OutExpo, endTime, endTime + 1000, 1, 0.1);
+            sprite.Scale(OsbEasing.OutBack, startTime, startTime + 100, scale - 0.1, scale);
+            sprite.Rotate(OsbEasing.OutExpo, endTime, endTime + 1000, Random(-Math.PI, Math.PI), 0);
+            sprite.Rotate(OsbEasing.InSine, endTime + 1000, 575220, 0, Random(-Math.PI, Math.PI));
         }
     }
 }

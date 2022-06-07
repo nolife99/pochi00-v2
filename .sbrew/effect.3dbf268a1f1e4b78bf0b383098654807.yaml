@@ -12,21 +12,6 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
-  f12592eaefd041b7847a6c3f62f85001:
-    Name: "one part"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
-  5cf715f2ab9f4d3985c4112385160b36:
-    Name: "Glitch"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
-  14e7807ccde944969d1ef2a829449d77:
-    Name: ""
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
   68e3e2c0ac2b45539b19820728e51bf7:
     Name: "rain"
     OsbLayer: Background
@@ -57,23 +42,8 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
-  ca494d1fe78c462e8dd6e807ffb3c815:
-    Name: "Gear 2"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
-  25d822d4078a4099a72b2e156b8b0bf5:
-    Name: "Foreground Circles"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
   921d9f7ff95349a381c4123e7fde2ff3:
     Name: "cross"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
-  37988f6a2bff470d83d4d9a8a0ba76bc:
-    Name: "Gear1"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
@@ -99,11 +69,6 @@ Layers:
     Visible: Yes
   3ed636979fbe4d5797e45f3234da9431:
     Name: "foreground transition"
-    OsbLayer: Foreground
-    DiffSpecific: No
-    Visible: Yes
-  b519fa52467e4f18b4fa73bdc3a69458:
-    Name: "Gear 1"
     OsbLayer: Foreground
     DiffSpecific: No
     Visible: Yes

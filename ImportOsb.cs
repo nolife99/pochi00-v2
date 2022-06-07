@@ -10,7 +10,7 @@ using System.Text;
 
 namespace StorybrewScripts
 {
-    public class ImportOsb : StoryboardObjectGenerator
+    class ImportOsb : StoryboardObjectGenerator
     {
         public string Path = "storyboard.osb";
         private Dictionary<string, string> variables = new Dictionary<string, string>();
