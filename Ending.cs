@@ -44,7 +44,7 @@ namespace StorybrewScripts
                     double vX = Math.Cos(rVec) * sVec;
                     double vY = Math.Sin(rVec) * sVec;
                     double lastAngle = 90;
-                    var timeStep = Beatmap.GetTimingPointAt(StartTime).BeatDuration * 1.32;
+                    var timeStep = Beatmap.GetTimingPointAt(StartTime).BeatDuration * 1.325;
                     sprite.Additive(i);
 
                     for (double t = i; t < i + RealTravelTime / 1.01; t += timeStep)

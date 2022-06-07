@@ -128,28 +128,14 @@ namespace StorybrewScripts
                     (float)(240 + Math.Sin(angle) * currentScale));
 
                 var cadrantElement = GetLayer("").CreateSprite("sb/p.png", OsbOrigin.Centre, position);
-                cadrantElement.ScaleVec(0, 1, i % 12 == 0 ? 30 : 15);
-                cadrantElement.Fade(0, 0);
-                cadrantElement.Rotate(0, angle + Math.PI / 2);
+                cadrantElement.Rotate(6693, angle + Math.PI / 2);
                 angle += (Math.PI * 2) / 60;
                 cadrant[i] = cadrantElement;
             }
-
             center = GetLayer("").CreateSprite("sb/c.png", OsbOrigin.Centre, new Vector2(320, 240));
-            center.ScaleVec(0, currentScale * 0.00016, currentScale * 0.00016);
-            center.Fade(0, 0);
-
             background = GetLayer("").CreateSprite("sb/core.png", OsbOrigin.Centre, new Vector2(320, 240));
-            background.ScaleVec(0, currentScale * 0.0009, currentScale * 0.0009);
-            background.Fade(0, 0);
-
             bigHand = GetLayer("").CreateSprite("sb/ch1.png", OsbOrigin.BottomCentre, new Vector2(320, 240));
-            bigHand.ScaleVec(0, currentScale * 0.0018, currentScale * 0.0018);
-            bigHand.Fade(0, 0);
-
             littleHand = GetLayer("").CreateSprite("sb/ch2.png", OsbOrigin.BottomCentre, new Vector2(320, 240));
-            littleHand.ScaleVec(0, currentScale * 0.0018, currentScale * 0.0018);
-            littleHand.Fade(0, 0);
         }
         private void ShowClock(int startFade, int startTime, int endTime, int endFade, float fade, bool backgroundSprite = true)
         {
@@ -217,10 +203,10 @@ namespace StorybrewScripts
                 }
                 angle += (Math.PI * 2) / 60;
             }
-            littleHand.ScaleVec(OsbEasing.OutSine, startTime, endTime, littleHand.ScaleAt(startTime).X, littleHand.ScaleAt(startTime).Y, scale * 0.0018, scale * 0.0018);
-            bigHand.ScaleVec(OsbEasing.OutSine, startTime, endTime, bigHand.ScaleAt(startTime).X, bigHand.ScaleAt(startTime).Y, scale * 0.0018, scale * 0.0018);
-            center.ScaleVec(OsbEasing.OutSine, startTime, endTime, bigHand.ScaleAt(startTime).X / 10.86, bigHand.ScaleAt(startTime).Y / 10.86, scale * 0.00016, scale * 0.00016);
-            background.ScaleVec(OsbEasing.OutSine, startTime, endTime, bigHand.ScaleAt(startTime).X / 2, bigHand.ScaleAt(startTime).Y / 2, scale * 0.0009, scale * 0.0009);
+            littleHand.Scale(OsbEasing.OutSine, startTime, endTime, littleHand.ScaleAt(startTime).X, scale * 0.0018);
+            bigHand.Scale(OsbEasing.OutSine, startTime, endTime, bigHand.ScaleAt(startTime).X, scale * 0.0018);
+            center.Scale(OsbEasing.OutSine, startTime, endTime, bigHand.ScaleAt(startTime).X / 10.86, scale * 0.00016);
+            background.Scale(OsbEasing.OutSine, startTime, endTime, bigHand.ScaleAt(startTime).X / 2, scale * 0.0009);
 
             currentScale = scale;
         }
@@ -231,7 +217,6 @@ namespace StorybrewScripts
             double littleCurrent = littleHand.RotationAt(startTime);
             bigHand.Rotate(easing, startTime, endTime, currentRotation, currentRotation + (angle + (Math.PI * 2)) * hour);
             littleHand.Rotate(easing, startTime, endTime, littleCurrent, littleCurrent + angle);
-
         }
         private void ShowHours(int startTime, int endTime, int radius)
         {

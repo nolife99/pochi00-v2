@@ -106,35 +106,27 @@ public class Scripts
             }
         }
     }
-    public void Highlight(int startTime, int endTime, double Fade, int timeStep, bool RandomFade = false)
+    public void Highlight(int startTime, int endTime)
     {
-        for (int i = startTime; i < endTime - 1000; i += timeStep)
+        for (int i = 0; i < 7; i++)
         {
-            var fadeTime = generator.Random(1000, 2200);
+            var fadeTime = generator.Random(1000, 2500);
             var sprite = generator.GetLayer("Highlight").CreateSprite("sb/hl.png");
-            var pos = new Vector2(generator.Random(0, 727), generator.Random(10, 380));
-            var newPos = new Vector2(generator.Random(-107, 854), generator.Random(-17, 480));
-            double fade;
+            var delay = generator.Beatmap.GetTimingPointAt(startTime).BeatDuration * 1.5;
 
-            if (RandomFade)
+            for (double t = startTime + delay * i; t < endTime; t += fadeTime * 2)
             {
-                fade = Math.Round(generator.Random(0.03 + Fade, 0.07 + Fade), 2);
-                sprite.Move(OsbEasing.OutSine, i, i + fadeTime * 2, pos, newPos);
+                var pos = new Vector2(generator.Random(0, 747), generator.Random(40, 440));
+                var newPos = new Vector2(generator.Random(-107, 854), generator.Random(0, 480));
+                var fade = Math.Round(generator.Random(0.05, 0.1), 2);
+                sprite.Move(OsbEasing.Out, t, t + fadeTime * 2, pos, newPos);
+                sprite.Fade(OsbEasing.Out, t, t + fadeTime / 4, 0, fade);
+                sprite.Fade(OsbEasing.In, t + fadeTime, t + fadeTime * 2, fade, 0);
+                sprite.Scale(OsbEasing.Out, t, t + fadeTime * 2, Math.Round(generator.Random(0.4, 1), 2), 0.2);
             }
-            else
-            {
-                fade = Fade;
-                sprite = generator.GetLayer("Highlight").CreateSprite("sb/hl.png", OsbOrigin.Centre, newPos);
-            }
-            sprite.Fade(i, i + 250, 0, fade);
-            if (fade > 0.01)
-            {
-                sprite.Fade(i + fadeTime, i + fadeTime * 2, fade, 0);
-            }
-            sprite.Scale(OsbEasing.InOutSine, i, i + fadeTime * 2, Math.Round(generator.Random(0.4, 1), 2), 0);
         }
     }
-    public void Rain(int startTime, int endTime, double intensity, int type = 1)
+    public void Rain(int startTime, int endTime, double intensity, int type)
     {
         for (int i = 0; i < intensity * 10; i++)
         {
