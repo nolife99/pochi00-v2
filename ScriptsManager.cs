@@ -15,36 +15,55 @@ namespace StorybrewScripts
             GlitchSection();
             GearParts();
 
-            Scripts particleManager = new Scripts(this);
+            Scripts sprite = new Scripts(this);
 
-            particleManager.GenerateFog(28027, 70694, 380, 20, Color4.White, 0.6);
-            particleManager.GenerateFog(81360, 92027, 380, 20, Color4.White, 0.6);
-            particleManager.GenerateFog(145360, 166027, 380, 20, Color4.White, 0.6);
-            particleManager.GenerateFog(168027, 200027, 380, 20, Color4.White, 0.6, "fogKiai");
-            particleManager.GenerateFog(332523, 358014, 380, 20, Color4.White, 0.6);
-            particleManager.GenerateFog(401889, 422889, 380, 20, Color4.White, 0.6);
-            particleManager.GenerateFog(444722, 464555, 380, 20, Color4.Orange, 0.6);
-            particleManager.GenerateFog(473889, 496555, 380, 20, Color4.Orange, 0.6);
+            sprite.Fog(28027, 70694, 380, 20, Color4.White, 0.6);
+            sprite.Fog(81360, 92027, 380, 20, Color4.White, 0.6);
+            sprite.Fog(145360, 166027, 380, 20, Color4.White, 0.6);
+            sprite.Fog(168027, 200027, 380, 20, Color4.White, 0.6, "fogKiai");
+            sprite.Fog(332523, 358014, 380, 20, Color4.White, 0.6);
+            sprite.Fog(401889, 422889, 380, 20, Color4.White, 0.6);
+            sprite.Fog(444722, 464555, 380, 20, Color4.Orange, 0.6); 
+            sprite.Fog(473889, 496555, 380, 20, Color4.Orange, 0.6);
 
-            particleManager.GenerateDanmaku(102694, 124027, 5000);
+            sprite.Danmaku(102694, 124027, 5000);
 
-            particleManager.SquareTransition(331695, 332522, false, 50, new Color4(10, 10, 10, 1), OsbEasing.InExpo, false, "foreground transition"); 
-            particleManager.SquareTransition(355695, 359006, true, 18.2f, new Color4(10, 10, 10, 1), OsbEasing.In);
-            particleManager.SquareTransition(378913, 380555, false, 30, new Color4(33, 25, 25, 0), OsbEasing.InExpo, false, "tt");
-            particleManager.SquareTransition(400889, 401888, false, 50, new Color4(33, 25, 25, 0), OsbEasing.In, false, "foreground transition");
-            particleManager.SquareTransition(574888, 575555, false, 50, new Color4(10, 10, 10, 1), OsbEasing.InSine, true);
+            sprite.SquareTransition(331695, 332522, false, 50, new Color4(10, 10, 10, 1), OsbEasing.InExpo, false, "foreground transition"); 
+            sprite.SquareTransition(355695, 359006, true, 18.2f, new Color4(10, 10, 10, 1), OsbEasing.In);
+            sprite.SquareTransition(378913, 380555, false, 30, new Color4(33, 25, 25, 0), OsbEasing.InExpo, false, "tt");
+            sprite.SquareTransition(400889, 401888, false, 50, new Color4(33, 25, 25, 0), OsbEasing.In, false, "foreground transition");
+            sprite.SquareTransition(574888, 575555, false, 50, new Color4(10, 10, 10, 1), OsbEasing.InSine, true);
 
-            particleManager.TransitionLines(123360, 124027, 124277, "foreground transition");
-            particleManager.TransitionLines(144011, 145027, 145345);
-            particleManager.TransitionLines(166360, 166694, 167027, "foreground transition");
-            particleManager.TransitionLines(465222, 465555, 465889, "transition?");
-            particleManager.TransitionLines(628555, 629221, 631221, "transition end", true);
+            sprite.TransitionLines(123360, 124027, 124277, "foreground transition");
+            sprite.TransitionLines(144011, 145027, 145345);
+            sprite.TransitionLines(166360, 166694, 167027, "foreground transition");
+            sprite.TransitionLines(465222, 465555, 465889, "transition?");
+            sprite.TransitionLines(628555, 629221, 631221, "transition end", true);
 
-            particleManager.GenerateRain(380555, 433889, 12.5, 2);
-            particleManager.GenerateRain(587221, 629471, 10, 3);
-            particleManager.GenerateRain(608555, 629471, 17.5);
+            sprite.Rain(380555, 433889, 12.5, 2);
+            sprite.Rain(587221, 629471, 10, 3);
+            sprite.Rain(608555, 629471, 17.5);
 
-            particleManager.Highlight(610555, 628555, 0, 420, true);
+            sprite.Highlight(610555, 628555, 0, 420, true);
+
+            sprite.DiamondCross(27, 1276, 0, 100, false);
+            sprite.DiamondCross(2526, 5776, 500, 0, true, "cross", OsbEasing.InQuint);
+            sprite.DiamondCross(5276, 5776, 0, 300, false);
+            sprite.DiamondCross(5526, 5776, 0, 200, false); 
+            sprite.DiamondCross(28027, 29360, 0, 300, false);
+            sprite.DiamondCross(80027, 81360, 0, 300, false);
+            sprite.DiamondCross(80277, 81360, 0, 290, false);
+            sprite.DiamondCross(80527, 81360, 0, 280, false);
+            sprite.DiamondCross(80694, 81360, 0, 270, false);
+            sprite.DiamondCross(81360, 82694, 0, 400, false);
+            sprite.DiamondCross(166694, 168027, 0, 100, false, "foreground");
+            sprite.DiamondCross(168027, 169360, 0, 450, false);
+            sprite.DiamondCross(194027, 194694, 400, 0, true, "cross", OsbEasing.InQuint);
+            sprite.DiamondCross(195027, 196360, 0, 400, false);
+            sprite.DiamondCross(379461, 380556, 450, 0, true, "cross", OsbEasing.InQuint);
+            sprite.DiamondCross(401555, 402222, 0, 350, false, "foreground");
+            sprite.DiamondCross(421889, 423222, 450, 0, true, "cross", OsbEasing.InQuint);
+            sprite.DiamondCross(423222, 424555, 0, 350, false, "foreground");
         }
         public void Circles()
         {
@@ -52,7 +71,7 @@ namespace StorybrewScripts
             int EndTime = 144881;
             int Amount = 2;
 
-            var Beat = Beatmap.GetTimingPointAt(StartTime).BeatDuration / 1;
+            var Beat = Beatmap.GetTimingPointAt(StartTime).BeatDuration;
             var Pos = new Vector2(320, 240);
             var ConnectionAngle = Math.PI / Amount;
 

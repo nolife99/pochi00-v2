@@ -11,7 +11,7 @@ public class Scripts
     {
         this.generator = generator;
     }
-    public void GenerateFog(int startTime, int endTime, int posY, int quantity, Color4 color, double fade, string layer = "Fog", int stroke = 60)
+    public void Fog(int startTime, int endTime, int posY, int quantity, Color4 color, double fade, string layer = "Fog", int stroke = 60)
     {
         for (int i = 0; i < quantity; i++)
         {
@@ -30,7 +30,7 @@ public class Scripts
                 particle.MoveX(startTime, startTime + firstTimeDuration, generator.Random(posX - 25, posX + 25), endX);
                 particle.Fade(startTime, startTime + 1000, 0, 1);
                 particle.Fade(endTime, endTime + 1000, 1, 0);
-                particle.Scale(startTime, Math.Round(generator.Random(0.015, 0.025), 3));
+                particle.Scale(startTime, Math.Round(generator.Random(0.01, 0.02), 3));
                 if (color != Color4.White)
                     particle.Color(startTime, color);
                     
@@ -55,7 +55,7 @@ public class Scripts
             if (color != Color4.White)
                 sprite.Color(startTime, color);
 
-            sprite.Scale(startTime, Math.Round(generator.Random(0.5, 1.1), 2));
+            sprite.Scale(startTime, Math.Round(generator.Random(0.5, 1), 2));
 
             elementStartTime += firstTimeDuration;
             while (elementStartTime + 4000 < endTime)
@@ -73,7 +73,7 @@ public class Scripts
             }
         }
     }
-    public void GenerateDanmaku(int startTime, int endTime, int speed)
+    public void Danmaku(int startTime, int endTime, int speed)
     {
         Vector2 basePosition = new Vector2(320, 240);
         for (int i = 0; i < 4; i++)
@@ -99,14 +99,9 @@ public class Scripts
                 }
                 var scaleAtEnd = sprite.ScaleAt(endTime);
                 var posAtEnd = sprite.PositionAt(endTime);
-                if (scaleAtEnd.Y == 0 | posAtEnd.X <= -115 | posAtEnd.X >= 755 | posAtEnd.Y <= 30 | posAtEnd.Y >= 450)
-                {
-                    //placeholder
-                }
-                else
-                {
-                    sprite.Fade(endTime, endTime + 200, 1, 0);
-                }
+                if (scaleAtEnd.Y == 0 | posAtEnd.X <= -115 | posAtEnd.X >= 755 | posAtEnd.Y <= 30 | posAtEnd.Y >= 450){}
+                else sprite.Fade(endTime, endTime + 200, 1, 0);
+
                 angle += Math.PI / 50;
             }
         }
@@ -139,7 +134,7 @@ public class Scripts
             sprite.Scale(OsbEasing.InOutSine, i, i + fadeTime * 2, Math.Round(generator.Random(0.4, 1), 2), 0);
         }
     }
-    public void GenerateRain(int startTime, int endTime, double intensity, int type = 1)
+    public void Rain(int startTime, int endTime, double intensity, int type = 1)
     {
         for (int i = 0; i < intensity * 10; i++)
         {
@@ -175,9 +170,9 @@ public class Scripts
 
             var splash = generator.GetLayer(layer).CreateSprite("sb/d.png", OsbOrigin.Centre, new Vector2(posX, 460));
             splash.StartLoopGroup(startTime + i * delay + particleSpeed, duration / particleSpeed);
-            splash.MoveY(OsbEasing.OutExpo, 0, particleSpeed, 460, generator.Random(400, 450));
+            splash.MoveY(OsbEasing.OutExpo, 0, particleSpeed, 450, generator.Random(390, 430));
             splash.Fade(OsbEasing.OutExpo, 0, particleSpeed, 1, 0);
-            splash.Scale(OsbEasing.OutExpo, 0, particleSpeed, Math.Round(generator.Random(0.045, 0.055), 3), 0);
+            splash.Scale(OsbEasing.OutExpo, 0, particleSpeed, Math.Round(generator.Random(0.03, 0.04), 3), 0);
             splash.EndGroup();
         }
     }
@@ -251,6 +246,35 @@ public class Scripts
             sprite.MoveY(startTime, endTime, baseYPos, baseYPos + generator.Random(-100, 100));
             colorDark += 0.5f / gearNumber;
             maxScale -= 0.3 / gearNumber;
+        }
+    }
+    public void DiamondCross(int startTime, int endTime, double startScale, double endScale, bool upScale, string layer = "cross", OsbEasing easing = OsbEasing.OutQuint)
+    {
+        double angle = 0;
+        int duration = endTime - startTime;
+        var position = new Vector2(320, 240);
+        for (int i = 0; i < 4; i++)
+        {
+            var startPosition = new Vector2(
+                (float)(position.X + Math.Cos(angle) * startScale),
+                (float)(position.Y + Math.Sin(angle) * startScale));
+
+            var endPosition = new Vector2(
+                (float)(position.X + Math.Cos(angle) * endScale),
+                (float)(position.Y + Math.Sin(angle) * endScale));
+
+            double startBorderScale = Math.Sqrt(startScale * startScale + startScale * startScale);
+            double endBorderScale = Math.Sqrt(endScale * endScale + endScale * endScale);
+
+            var sprite = generator.GetLayer(layer).CreateSprite("sb/p.png", OsbOrigin.BottomCentre);
+            sprite.ScaleVec(easing, startTime, endTime, upScale ? 0 : 50, startBorderScale + (upScale ? 0 : 25), upScale ? 50 : 0, endBorderScale + (upScale ? 25 : 0));
+            sprite.Rotate(startTime, angle - Math.PI / 4);
+            sprite.Move(easing, startTime, endTime, startPosition, endPosition);
+            
+            if (!upScale)
+                sprite.Fade(endTime - duration / 2, endTime - duration / 5, 1, 0);
+
+            angle += Math.PI / 2;
         }
     }
 }

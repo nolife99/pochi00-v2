@@ -67,6 +67,11 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
+  921d9f7ff95349a381c4123e7fde2ff3:
+    Name: "cross"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
   37988f6a2bff470d83d4d9a8a0ba76bc:
     Name: "Gear1"
     OsbLayer: Background
@@ -99,6 +104,11 @@ Layers:
     Visible: Yes
   b519fa52467e4f18b4fa73bdc3a69458:
     Name: "Gear 1"
+    OsbLayer: Foreground
+    DiffSpecific: No
+    Visible: Yes
+  89375c814c2f4e07b6e482f7b0b2f081:
+    Name: "foreground"
     OsbLayer: Foreground
     DiffSpecific: No
     Visible: Yes
