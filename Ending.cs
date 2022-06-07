@@ -123,7 +123,7 @@ namespace StorybrewScripts
                         sprite.ScaleVec(OsbEasing.InSine, 0, FlipInterval, RandomScaling - 0.005, RandomScaling, 0, RandomScaling / 2);
                         sprite.ScaleVec(OsbEasing.OutSine, FlipInterval, FlipInterval * 2, 0, RandomScaling / 2, RandomScaling - 0.005, RandomScaling);
                         sprite.EndGroup();
-                        sprite.ScaleVec(OsbEasing.In, i + FlipInterval * 2 * loopcount, i + RealTravelTime, RandomScaling - 0.005, RandomScaling, 0, RandomScaling / 2);
+                        if (i + FlipInterval * 2 * loopcount < EndTime) sprite.ScaleVec(OsbEasing.In, i + FlipInterval * 2 * loopcount, i + RealTravelTime, RandomScaling - 0.005, RandomScaling, 0, RandomScaling / 2);
                     }
                     else
                     {
