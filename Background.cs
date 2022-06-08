@@ -214,9 +214,6 @@ namespace StorybrewScripts
         }
         public void Section3()
         {
-            var deleteBg = GetLayer("least priority").CreateSprite("bg.jpg");
-            deleteBg.Fade(0, 0);
-            
             var l0 = GetLayer("s3").CreateSprite("sb/b/5/l0.png", OsbOrigin.Centre, new Vector2(320, 240));
             l0.Scale(332523, 0.23076925);
             l0.Fade(332523, 333523, 0, 1);
