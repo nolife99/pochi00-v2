@@ -1,5 +1,4 @@
 [Events]
-Sprite,Background,Centre,"bg.jpg",0,0
 Sprite,Background,Centre,"sb/p.png",0,0
  M,0,277902,277984,294.9831,193.2758,297.3352,192.0906
  M,0,277984,278067,297.3352,192.0906,299.7433,191.0238

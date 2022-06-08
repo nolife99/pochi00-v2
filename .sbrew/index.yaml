@@ -3,6 +3,7 @@ BeatmapId: 3448549
 BeatmapName: "Chronostasis"
 Assemblies:
 Layers:
+  - "aa816999b7c047179c1eb19e683e134f"
   - "e5c235892d3445a9988e4550abe9b01c"
   - "16920c5d71cc4c338529b4f7f6e45677"
   - "0ad3f03cd3c64681badde2b8310c788f"
