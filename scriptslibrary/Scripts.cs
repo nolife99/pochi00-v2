@@ -170,12 +170,12 @@ public class Scripts
     public void SquareTransition(int startTime, int endTime, bool In, float squareScale, Color4 color, OsbEasing easing, bool Full = false, string layer = "transition")
     {
         float posX = -107;
-        float posY = 40;
+        float posY = 20;
         int duration = endTime - startTime;
 
         while (posX < 737 + squareScale)
         {
-            while (posY < 437 + squareScale)
+            while (posY < 450)
             {
                 var sprite = generator.GetLayer(layer).CreateSprite("sb/p.png", OsbOrigin.Centre, new Vector2(posX, posY));
 
@@ -239,7 +239,7 @@ public class Scripts
             maxScale -= 0.3 / gearNumber;
         }
     }
-    public void DiamondCross(int startTime, int endTime, double startScale, double endScale, bool upScale, string layer = "cross", OsbEasing easing = OsbEasing.OutQuint)
+    public void DiamondCross(int startTime, int endTime, double startScale, double endScale, bool noFade, string layer = "cross", OsbEasing easing = OsbEasing.OutQuint)
     {
         double angle = 0;
         int duration = endTime - startTime;
@@ -258,11 +258,11 @@ public class Scripts
             double endBorderScale = Math.Sqrt(endScale * endScale + endScale * endScale);
 
             var sprite = generator.GetLayer(layer).CreateSprite("sb/p.png", OsbOrigin.BottomCentre);
-            sprite.ScaleVec(easing, startTime, endTime, upScale ? 0 : 50, startBorderScale + (upScale ? 0 : 25), upScale ? 50 : 0, endBorderScale + (upScale ? 25 : 0));
+            sprite.ScaleVec(easing, startTime, endTime, noFade ? 0 : 50, startBorderScale + (noFade ? 0 : 25), noFade ? 50 : 0, endBorderScale + (noFade ? 25 : 0));
             sprite.Rotate(startTime, angle - Math.PI / 4);
             sprite.Move(easing, startTime, endTime, startPosition, endPosition);
             
-            if (!upScale)
+            if (!noFade)
                 sprite.Fade(endTime - duration / 2, endTime - duration / 5, 1, 0);
 
             angle += Math.PI / 2;

@@ -278,7 +278,6 @@ namespace StorybrewScripts
                 sprite.ScaleVec(OsbEasing.InOutSine, 3330, 6660, 0.006, 0.006, 0, 0.006);
                 sprite.MoveX(OsbEasing.InOutQuart, 0, 6660, 755, -115);
                 sprite.EndGroup();
-                sprite.Fade(527221, 527555, 0.45, 0);
             }
         }
         private void Gear(int startTime, int id, int endTime, double scale)

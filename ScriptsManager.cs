@@ -26,10 +26,10 @@ namespace StorybrewScripts
 
             sprite.Danmaku(102694, 124027, 5000);
 
-            sprite.SquareTransition(331695, 332522, false, 50, new Color4(10, 10, 10, 1), OsbEasing.InExpo, false, "foreground transition"); 
-            sprite.SquareTransition(355695, 359006, true, 18.2f, new Color4(10, 10, 10, 1), OsbEasing.In);
-            sprite.SquareTransition(378913, 380555, false, 30, new Color4(33, 25, 25, 0), OsbEasing.InExpo, false, "tt");
-            sprite.SquareTransition(400889, 401888, false, 50, new Color4(33, 25, 25, 0), OsbEasing.In, false, "foreground transition");
+            sprite.SquareTransition(331695, 332522, false, 50, new Color4(10, 10, 10, 1), OsbEasing.InQuad, false, "foreground transition"); 
+            sprite.SquareTransition(355695, 359006, true, 18.2f, new Color4(10, 10, 10, 1), OsbEasing.InQuad);
+            sprite.SquareTransition(378913, 380555, false, 30, new Color4(33, 25, 25, 0), OsbEasing.InQuad, false);
+            sprite.SquareTransition(401222, 401888, false, 50, new Color4(33, 25, 25, 0), OsbEasing.InSine, false, "foreground transition");
             sprite.SquareTransition(574888, 575555, false, 50, new Color4(10, 10, 10, 1), OsbEasing.InSine, true);
 
             sprite.TransitionLines(123360, 124027, 124277, "foreground transition");
