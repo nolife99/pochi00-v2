@@ -69,7 +69,7 @@ namespace StorybrewScripts
             int EndTime = 144881;
             int amount = 2;
 
-            var Beat = Beatmap.GetTimingPointAt(StartTime).BeatDuration;
+            var travelTime = Beatmap.GetTimingPointAt(StartTime).BeatDuration * 8;
             var Pos = new Vector2(320, 240);
             var ConnectionAngle = Math.PI / amount;
 
@@ -85,20 +85,16 @@ namespace StorybrewScripts
                 var position = new Vector2((int)x, (int)y);
 
                 var circle = GetLayer("circle").CreateSprite("sb/c.png", OsbOrigin.Centre, new Vector2(0, 0));
-
-                var travelTime = Beat * 8;
                 var duration = EndTime - StartTime;
 
-                circle.Scale(StartTime, 0.005);
-                circle.Color(StartTime, Color4.LightBlue);
-                for (double t = StartTime; t < EndTime; t += travelTime)
-                {
-                    circle.Scale(t + travelTime / 8 - 50, 0.02);
-                    circle.Scale(t + travelTime / 8 * 7 + 50, 0.005);
-                    circle.Color(t + travelTime / 8 - 50, Color4.GreenYellow);
-                    circle.Color(t + travelTime / 8 * 7 + 50, Color4.LightBlue);
-                }
                 circle.Fade(StartTime, StartTime + 500, 0, 1);
+                circle.StartLoopGroup(StartTime, duration / ((int)travelTime));
+                circle.Color(0, Color4.LightBlue);
+                circle.Scale(travelTime / 8 - 50, 0.02);
+                circle.Scale((travelTime / 8) * 7 + 50, 0.005);
+                circle.Color(travelTime / 8 - 50, Color4.GreenYellow);
+                circle.Color((travelTime / 8) * 7 + 50, travelTime, Color4.LightBlue, Color4.LightBlue);
+                circle.EndGroup();
 
                 var timeStep = Beatmap.GetTimingPointAt((int)StartTime).BeatDuration / 4;
                 for (double time = StartTime; time < EndTime; time += timeStep)
@@ -123,20 +119,16 @@ namespace StorybrewScripts
                 var position = new Vector2((int)x, (int)y);
 
                 var outCircle = GetLayer("circle").CreateSprite("sb/c.png", OsbOrigin.Centre, new Vector2(0, 0));
-
-                var travelTime = Beat * 8;
                 var duration = EndTime - StartTime;
 
-                outCircle.Scale(StartTime, 0.02);
-                outCircle.Color(StartTime, Color4.GreenYellow);
-                for (double t = StartTime; t < EndTime; t += travelTime)
-                {
-                    outCircle.Scale(t + travelTime / 8 - 50, 0.005);
-                    outCircle.Scale(t + travelTime / 8 * 7 + 50, 0.02);
-                    outCircle.Color(t + travelTime / 8 - 50, Color4.LightBlue);
-                    outCircle.Color(t + travelTime / 8 * 7 + 50, Color4.GreenYellow);
-                }
                 outCircle.Fade(StartTime, StartTime + 500, 0, 1);
+                outCircle.StartLoopGroup(StartTime, duration / ((int)travelTime));
+                outCircle.Color(0, Color4.GreenYellow);
+                outCircle.Scale(travelTime / 8 - 50, 0.005);
+                outCircle.Scale((travelTime / 8) * 7 + 50, 0.02);
+                outCircle.Color(travelTime / 8 - 50, Color4.LightBlue);
+                outCircle.Color((travelTime / 8) * 7 + 50, travelTime, Color4.GreenYellow, Color4.GreenYellow);
+                outCircle.EndGroup();
 
                 var timeStep = Beatmap.GetTimingPointAt((int)StartTime).BeatDuration / 4;
                 for (double t = StartTime; t < EndTime; t += timeStep)

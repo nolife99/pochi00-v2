@@ -108,13 +108,13 @@ public class Scripts
     }
     public void Highlight(int startTime, int endTime)
     {
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < 9; i++)
         {
             var fadeTime = generator.Random(1000, 5000);
             var sprite = generator.GetLayer("Highlight").CreateSprite("sb/hl.png");
             var fade = Math.Round(generator.Random(0.05, 0.1), 2);
 
-            for (int t = startTime + fadeTime * 2; t < endTime - fadeTime; t += fadeTime * 2)
+            for (int t = startTime + fadeTime * 2; t < endTime - fadeTime * 2; t += fadeTime * 2)
             {
                 var pos = new Vector2(generator.Random(0, 747), generator.Random(40, 440));
                 var newPos = new Vector2(generator.Random(-107, 854), generator.Random(0, 480));
