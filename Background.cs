@@ -117,13 +117,6 @@ namespace StorybrewScripts
             v.Fade(500555, 503222, 0, 1);
             v.Fade(553888, 0);
 
-            var a1 = GetLayer("alexithymia circles").CreateSprite("sb/c2.png", OsbOrigin.Centre, new Vector2(418, 240));
-            var a2 = GetLayer("alexithymia circles").CreateSprite("sb/c2.png", OsbOrigin.Centre, new Vector2(218, 240));
-            a1.Scale(124027, 0.2);
-            a2.Scale(124027, 0.2);
-            a1.Fade(124027, 145194, 1, 1);
-            a2.Fade(124027, 145194, 1, 1);
-
             var gradient = GetLayer("gradient").CreateSprite("sb/grad.png", OsbOrigin.CentreLeft, new Vector2(320, 480));
             gradient.Color(380556, 25, 25, 25);
             gradient.Fade(380556, 391222, 0, 0.12);

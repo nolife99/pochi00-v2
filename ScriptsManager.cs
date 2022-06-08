@@ -83,12 +83,14 @@ namespace StorybrewScripts
                 var x = radius * Math.Cos(rad) + Pos.X - 2;
                 var y = radius * Math.Sin(rad) + Pos.Y;
                 var position = new Vector2((int)x, (int)y);
-
-                var circle = GetLayer("circle").CreateSprite("sb/c.png", OsbOrigin.Centre, new Vector2(0, 0));
                 var duration = EndTime - StartTime;
 
+                var circles = GetLayer("circle").CreateSprite("sb/c2.png", OsbOrigin.Centre, position);
+                circles.Scale(124027, 144944, 0.2, 0.2);
+
+                var circle = GetLayer("circle").CreateSprite("sb/c.png", OsbOrigin.Centre, new Vector2(0, 0));
                 circle.Fade(StartTime, StartTime + 500, 0, 1);
-                circle.StartLoopGroup(StartTime, duration / ((int)travelTime));
+                circle.StartLoopGroup(StartTime, duration / ((int)travelTime) + 1);
                 circle.Color(0, Color4.LightBlue);
                 circle.Scale(travelTime / 8 - 50, 0.02);
                 circle.Scale((travelTime / 8) * 7 + 50, 0.005);
@@ -99,7 +101,7 @@ namespace StorybrewScripts
                 var timeStep = Beatmap.GetTimingPointAt((int)StartTime).BeatDuration / 4;
                 for (double time = StartTime; time < EndTime; time += timeStep)
                 {
-                    rad += 0.0983;
+                    rad += 0.0982;
 
                     x = radius * Math.Cos(rad) + Pos.X - 2;
                     y = radius * Math.Sin(rad) + Pos.Y;
@@ -117,12 +119,11 @@ namespace StorybrewScripts
                 var x = Radius * Math.Cos(rad) + Pos.X - 2;
                 var y = Radius * Math.Sin(rad) + Pos.Y;
                 var position = new Vector2((int)x, (int)y);
-
-                var outCircle = GetLayer("circle").CreateSprite("sb/c.png", OsbOrigin.Centre, new Vector2(0, 0));
                 var duration = EndTime - StartTime;
 
+                var outCircle = GetLayer("circle").CreateSprite("sb/c.png", OsbOrigin.Centre, new Vector2(0, 0));
                 outCircle.Fade(StartTime, StartTime + 500, 0, 1);
-                outCircle.StartLoopGroup(StartTime, duration / ((int)travelTime));
+                outCircle.StartLoopGroup(StartTime, duration / ((int)travelTime) + 1);
                 outCircle.Color(0, Color4.GreenYellow);
                 outCircle.Scale(travelTime / 8 - 50, 0.005);
                 outCircle.Scale((travelTime / 8) * 7 + 50, 0.02);

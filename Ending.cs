@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace StorybrewScripts
 {
-    public class Ending : StoryboardObjectGenerator
+    class Ending : StoryboardObjectGenerator
     {
         public override void Generate()
         {
@@ -18,7 +18,7 @@ namespace StorybrewScripts
             Birds(3500, 7000, 20, 30, 587221, 608888, 40, true, 0.02, 0.05);
             GodRays(587221, 614000);
         }
-        public void Birds(int MinDuration, int MaxDuration, int FlyingSpeed, int Acceleration, int StartTime, int EndTime, int SpriteAmount, bool right, double ScaleMin, double ScaleMax)
+        private void Birds(int MinDuration, int MaxDuration, int FlyingSpeed, int Acceleration, int StartTime, int EndTime, int SpriteAmount, bool right, double ScaleMin, double ScaleMax)
         {
             Vector2 StartPosition = new Vector2(320, 260);
             Vector2 EndPosition = new Vector2(320, 380);
@@ -148,8 +148,8 @@ namespace StorybrewScripts
 
                 sprite.StartLoopGroup(startTime + i * 120, (endTime - startTime - i * 90) / (RandomDuration * 2));
                 sprite.Fade(0, 1500, 0, Fade);
-                sprite.Rotate(0, RandomDuration, rotateStart, rotateEnd);
-                sprite.Rotate(RandomDuration, RandomDuration * 2, rotateEnd, rotateStart);
+                sprite.Rotate(OsbEasing.InOutSine, 0, RandomDuration, rotateStart, rotateEnd);
+                sprite.Rotate(OsbEasing.InOutSine, RandomDuration, RandomDuration * 2, rotateEnd, rotateStart);
                 sprite.Fade(RandomDuration * 2 - 1500, RandomDuration * 2 - 1000, Fade, 0);
                 sprite.EndGroup();
 
