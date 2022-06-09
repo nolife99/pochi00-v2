@@ -157,7 +157,7 @@ public class Scripts
             sprite.Rotate(0, particleSpeed, Math.PI / 2, angle);
             sprite.EndGroup();
             sprite.Fade(startTime + i * delay, Math.Round(generator.Random(0.15, 0.5), 2));
-            sprite.Scale(startTime + i * delay, Math.Round(generator.Random(0.03, 0.05), 2));
+            sprite.Scale(startTime + i * delay, Math.Round(generator.Random(0.3, 0.5), 2));
 
             var splash = generator.GetLayer(layer).CreateSprite("sb/d.png", OsbOrigin.Centre, new Vector2(posX, 460));
             splash.StartLoopGroup(startTime + i * delay + particleSpeed, duration / particleSpeed);
