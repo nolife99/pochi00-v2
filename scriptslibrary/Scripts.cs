@@ -47,7 +47,8 @@ public class Scripts
             var sprite = generator.GetLayer(layer).CreateSprite($"sb/s/s{generator.Random(0, 9)}.png", OsbOrigin.Centre, new Vector2(0, generator.Random(posY - stroke, posY + stroke)));
             sprite.MoveX(startTime, startTime + firstTimeDuration, posX, endX);
             sprite.Fade(startTime, startTime + 1000, 0, fade);
-            if (sprite.OpacityAt(endTime) != 0) sprite.Fade(endTime, endTime + 1000, fade, 0);
+            var endScale = sprite.ScaleAt(endTime);
+            if (endScale.X != 0) sprite.Fade(endTime, endTime + 1000, fade, 0);
             if (color != Color4.White) sprite.Color(startTime, color);
             sprite.Scale(startTime, Math.Round(generator.Random(0.5, 1), 2));
 
