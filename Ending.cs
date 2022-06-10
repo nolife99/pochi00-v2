@@ -107,17 +107,11 @@ namespace StorybrewScripts
                             sprite.Fade(EndTime - FadeTimeOut, EndTime, ParticleFade, 0);
                         }
                     }
-                    else
-                    {
-                        sprite.Fade(i, 0);
-                    }
                     if (ScaleMin != ScaleMax)
                     {
-                        if (ScaleMin == ScaleMax && ScaleMin != 1)
-                            sprite.ScaleVec(i, ScaleMin, ScaleMin);
+                        if (ScaleMin == ScaleMax && ScaleMin != 1) sprite.ScaleVec(i, ScaleMin, ScaleMin);
 
                         var loopcount = RealTravelTime / (FlipInterval * 2);
-
                         sprite.ScaleVec(i, RandomScaling, RandomScaling);
                         sprite.StartLoopGroup(i, loopcount);
                         sprite.ScaleVec(OsbEasing.InSine, 0, FlipInterval, RandomScaling - 0.005, RandomScaling, 0, RandomScaling / 2);
@@ -128,9 +122,7 @@ namespace StorybrewScripts
                     else
                     {
                         sprite.ScaleVec(i, ScaleMin, ScaleMax);
-
-                        if (ScaleMin == ScaleMax && ScaleMin != 1)
-                            sprite.ScaleVec(i, ScaleMin, ScaleMin);
+                        if (ScaleMin == ScaleMax && ScaleMin != 1) sprite.ScaleVec(i, ScaleMin, ScaleMin);
                     }
                 }
             }

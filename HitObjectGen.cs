@@ -42,14 +42,12 @@ namespace StorybrewScripts
             float EndScale = 0.2f;
             int FadeTime = 1000;
             float Fade = 1;
-            OsbEasing Easing = OsbEasing.OutExpo;
 
-            var hitobjectLayer = GetLayer("");
             foreach (var hitobject in Beatmap.HitObjects)
             {
                 if (hitobject.StartTime >= StartTime && hitobject.StartTime <= EndTime)
                 {
-                    var sprite = hitobjectLayer.CreateSprite("sb/cf.png", OsbOrigin.Centre, hitobject.Position);
+                    var sprite = GetLayer("").CreateSprite("sb/cf.png", OsbOrigin.Centre, hitobject.Position);
                     sprite.Additive(hitobject.StartTime);
                     sprite.Color(hitobject.StartTime, hitobject.Color);
 
@@ -96,8 +94,8 @@ namespace StorybrewScripts
                             sprite.Move(hitobject.StartTime, hitobject.EndTime, hitobject.PositionAtTime(startTime), hitobject.PositionAtTime(hitobject.EndTime));
                         }
                     }
-                    sprite.Fade(Easing, hitobject.EndTime, hitobject.EndTime + FadeTime, Fade, 0);
-                    sprite.Scale(Easing, hitobject.EndTime, hitobject.EndTime + FadeTime, StartScale, EndScale);
+                    sprite.Fade(OsbEasing.OutExpo, hitobject.EndTime, hitobject.EndTime + FadeTime, Fade, 0);
+                    sprite.Scale(OsbEasing.OutExpo, hitobject.EndTime, hitobject.EndTime + FadeTime, StartScale, EndScale);
                 }
             }
         }

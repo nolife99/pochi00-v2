@@ -16,8 +16,7 @@ public class Scripts
         for (int i = 0; i < quantity; i++)
         {
             int firstTimeDuration = generator.Random(1000, 20000);
-            if (firstTimeDuration >= 20000)
-                firstTimeDuration = firstTimeDuration * i / 10;
+            if (firstTimeDuration >= 20000) firstTimeDuration = firstTimeDuration * i / 10;
                         
             int posX = generator.Random(-157, 647);
             int endX = generator.Random(877, 907);
@@ -31,17 +30,14 @@ public class Scripts
                 particle.Fade(startTime, startTime + 1000, 0, 1);
                 particle.Fade(endTime, endTime + 1000, 1, 0);
                 particle.Scale(startTime, Math.Round(generator.Random(0.01, 0.02), 3));
-                if (color != Color4.White)
-                    particle.Color(startTime, color);
-                    
+                if (color != Color4.White) particle.Color(startTime, color);
                 particle.Additive(startTime);
 
                 particleStartTime += firstTimeDuration;
                 while (particleStartTime + 4000 < endTime)
                 {
                     int NewDuration = generator.Random(7500, 30000);
-                    if (startTime + firstTimeDuration + 5000 > endTime)
-                        NewDuration -= 1000;
+                    if (startTime + firstTimeDuration + 5000 > endTime) NewDuration -= 1000;
 
                     int particleEndTime = particleStartTime + NewDuration;
                     particle.MoveX(particleStartTime, particleEndTime, generator.Random(-127, -107), endX);
@@ -51,25 +47,21 @@ public class Scripts
             var sprite = generator.GetLayer(layer).CreateSprite($"sb/s/s{generator.Random(0, 9)}.png", OsbOrigin.Centre, new Vector2(0, generator.Random(posY - stroke, posY + stroke)));
             sprite.MoveX(startTime, startTime + firstTimeDuration, posX, endX);
             sprite.Fade(startTime, startTime + 1000, 0, fade);
-            sprite.Fade(endTime, endTime + 1000, fade, 0);
-            if (color != Color4.White)
-                sprite.Color(startTime, color);
-
+            if (sprite.OpacityAt(endTime) != 0) sprite.Fade(endTime, endTime + 1000, fade, 0);
+            if (color != Color4.White) sprite.Color(startTime, color);
             sprite.Scale(startTime, Math.Round(generator.Random(0.5, 1), 2));
 
             elementStartTime += firstTimeDuration;
             while (elementStartTime + 4000 < endTime)
             {
                 int newDuration = generator.Random(7500, 30000);
-                if (startTime + firstTimeDuration + 5000 > endTime)
-                    newDuration -= 1000;
+                if (startTime + firstTimeDuration + 5000 > endTime) newDuration -= 1000;
                 
                 int elementEndTime = elementStartTime + newDuration;
                 sprite.MoveX(elementStartTime, elementEndTime, generator.Random(-227, -220), endX);
                 elementStartTime += newDuration;
 
-                if (elementEndTime + 5000 > endTime)
-                    sprite.Scale(elementEndTime, 0);
+                if (elementEndTime + 5000 > endTime) sprite.Scale(elementEndTime, 0);
             }
         }
     }
@@ -167,7 +159,7 @@ public class Scripts
             splash.EndGroup();
         }
     }
-    public void SquareTransition(int startTime, int endTime, bool In, float squareScale, Color4 color, OsbEasing easing, bool Full = false, string layer = "transition")
+    public void SquareTransition(int startTime, int endTime, float squareScale, Color4 color, OsbEasing easing, bool Full = false, string layer = "transition")
     {
         float posX = -107;
         float posY = 20;
@@ -179,7 +171,7 @@ public class Scripts
             {
                 var sprite = generator.GetLayer(layer).CreateSprite("sb/p.png", OsbOrigin.Centre, new Vector2(posX, posY));
 
-                if (Full == false)
+                if (!Full)
                 {
                     sprite.Scale(easing, startTime, endTime, 0, squareScale);
                     sprite.Rotate(easing, startTime, endTime, Math.PI, 0);
@@ -204,9 +196,8 @@ public class Scripts
         int transitionDuration = endTransition - startTransition;
         int delay = 0;
         int posX = -120;
-        int scaleY = 406;
-        if (fullscreen)
-            scaleY = 484;
+        int scaleY = fullscreen ? 484 : 406;
+
         for(int i = 0; i < 60; i++)
         {
             var sprite = generator.GetLayer(layer).CreateSprite("sb/p.png", OsbOrigin.Centre, new Vector2(posX, 240));
@@ -227,7 +218,8 @@ public class Scripts
         {  
             int baseYPos = generator.Random(0, 480);
             int duration = generator.Random(15000, 30000);
-            bool isLeft = generator.Random(0,2) == 0 ? true : false;
+            bool isLeft = generator.Random(0, 2) == 0 ? true : false;
+
             var sprite = generator.GetLayer(layer).CreateSprite($"sb/g/g{generator.Random(1, 7)}.png", OsbOrigin.Centre, new Vector2(i % 2 == 0 ? -107 : 747, baseYPos));
             sprite.Fade(startTime + (i * 50), startTime + (i * 50) + 300, 0, 1);
             sprite.Fade(endTime - 1000, endTime, 1, 0);
@@ -235,6 +227,7 @@ public class Scripts
             sprite.Color(startTime, colorDark, colorDark, colorDark);
             sprite.Rotate(startTime, endTime, 0, generator.Random(0, 2) == 0 ? generator.Random(-5, -1) : generator.Random(1, 5));
             sprite.MoveY(startTime, endTime, baseYPos, baseYPos + generator.Random(-100, 100));
+
             colorDark += 0.5f / gearNumber;
             maxScale -= 0.3 / gearNumber;
         }
