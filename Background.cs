@@ -247,7 +247,6 @@ namespace StorybrewScripts
             l4.Fade(359005, 0);
 
             var mainBg = GetLayer("base bg").CreateSprite("sb/b/6/b.jpg", OsbOrigin.Centre, new Vector2(0, 240));
-            mainBg.Fade(0, 0);
             mainBg.Scale(401889, 0.23076925);
             mainBg.Additive(401889);
             mainBg.Fade(401889, 1);
