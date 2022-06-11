@@ -208,7 +208,7 @@ namespace StorybrewScripts
             littleHand.Scale(OsbEasing.OutSine, startTime, endTime, littleHand.ScaleAt(startTime).X, scale * 0.0018);
             bigHand.Scale(OsbEasing.OutSine, startTime, endTime, bigHand.ScaleAt(startTime).X, scale * 0.0018);
             center.Scale(OsbEasing.OutSine, startTime, endTime, bigHand.ScaleAt(startTime).X / 10.86, scale * 0.00016);
-            background.Scale(OsbEasing.OutSine, startTime, endTime, bigHand.ScaleAt(startTime).X / 2, scale * 0.0009);
+            if (ShowCadrant) background.Scale(OsbEasing.OutSine, startTime, endTime, startScale * 0.0009, scale * 0.0009);
 
             currentScale = scale;
         }

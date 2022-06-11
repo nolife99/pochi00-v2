@@ -14,11 +14,12 @@ namespace StorybrewScripts
     {
         public override void Generate()
         {
-            Birds(3500, 7000, 20, 30, 587221, 608888, 40, false, 0.02, 0.05);
-            Birds(3500, 7000, 20, 30, 587221, 608888, 40, true, 0.02, 0.05);
-            GodRays(587221, 614000);
+            int startTime = 587221;
+            Birds(20, 40, startTime, 608721, 40, false, 0.02, 0.05);
+            Birds(20, 40, startTime, 608721, 40, true, 0.02, 0.05);
+            GodRays(startTime, 614000);
         }
-        private void Birds(int MinDuration, int MaxDuration, int FlyingSpeed, int Acceleration, int StartTime, int EndTime, int SpriteAmount, bool right, double ScaleMin, double ScaleMax)
+        private void Birds(int FlyingSpeed, int Acceleration, int StartTime, int EndTime, int SpriteAmount, bool right, double ScaleMin, double ScaleMax)
         {
             Vector2 StartPosition = new Vector2(320, 260);
             Vector2 EndPosition = new Vector2(320, 380);
@@ -30,8 +31,8 @@ namespace StorybrewScripts
             using (var pool = new OsbSpritePool(layer, "sb/bird.png", OsbOrigin.Centre, (Sprite, startTime, endTime) =>
             {}))
             {
-                var RealTravelTime = Random(MinDuration, MaxDuration);
-                for (int i = StartTime; i < EndTime - MinDuration; i += RealTravelTime / SpriteAmount)
+                var RealTravelTime = Random(3500, 7000);
+                for (int i = StartTime; i < EndTime - 3500; i += RealTravelTime / SpriteAmount)
                 {
                     var sprite = pool.Get(i, i + RealTravelTime);
 
@@ -39,15 +40,15 @@ namespace StorybrewScripts
                     int FlipInterval = Random(FlyingSpeed * 12, Acceleration * 8);
                     float lastX = Random(StartPosition.X, EndPosition.X);
                     float lastY = Random(StartPosition.Y, EndPosition.Y);
-                    float rVec = MathHelper.DegreesToRadians(Random(360));
-                    double sVec = FlyingSpeed * 2.75;
+                    var rVec = Random(Math.PI * 2f);
+                    double sVec = FlyingSpeed * 2.5;
                     double vX = Math.Cos(rVec) * sVec;
                     double vY = Math.Sin(rVec) * sVec;
                     double lastAngle = 90;
-                    var timeStep = Beatmap.GetTimingPointAt(StartTime).BeatDuration * 1.325;
+                    var timeStep = RealTravelTime / 14 + 1;
                     sprite.Additive(i);
 
-                    for (double t = i; t < i + RealTravelTime / 1.01; t += timeStep)
+                    for (double t = i; t < i + RealTravelTime - 1; t += timeStep)
                     {
                         if (right)
                         {
@@ -82,7 +83,7 @@ namespace StorybrewScripts
                             var startPosition = new Vector2(lastX, lastY);
                             var endPosition = new Vector2(lastX, lastY);
 
-                            var angle = Math.Atan2((startPosition.Y - endPosition.Y), (startPosition.X - endPosition.X)) - Math.PI / 2f;
+                            var angle = Math.Atan2((startPosition.Y - endPosition.Y), (startPosition.X - endPosition.X)) - Math.PI / 2;
 
                             sprite.Move(t, t + timeStep, lastX, lastY, nextX, nextY);
                             sprite.Rotate(t, t + timeStep, currentAngle, newAngle);
@@ -136,7 +137,7 @@ namespace StorybrewScripts
                 var rotateStart = MathHelper.DegreesToRadians(Random(80, 100));
                 var rotateEnd = MathHelper.DegreesToRadians(Random(75, 115));
                 int RandomDuration = Random(4000, 7000);
-                var Fade = Random(0.3, 0.5);
+                var Fade = Random(0.3f, 0.5f);
 
                 sprite.StartLoopGroup(startTime + i * 120, (endTime - startTime - i * 90) / (RandomDuration * 2));
                 sprite.Fade(0, 1500, 0, Fade);

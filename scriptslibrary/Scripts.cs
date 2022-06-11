@@ -17,7 +17,7 @@ public class Scripts
         {
             int firstTimeDuration = generator.Random(1000, 20000);
             if (firstTimeDuration >= 20000) firstTimeDuration = firstTimeDuration * i / 10;
-                        
+
             int posX = generator.Random(-157, 647);
             int endX = generator.Random(877, 907);
             int elementStartTime = startTime;
@@ -47,7 +47,6 @@ public class Scripts
             var sprite = generator.GetLayer(layer).CreateSprite($"sb/s/s{generator.Random(0, 9)}.png", OsbOrigin.Centre, new Vector2(0, generator.Random(posY - stroke, posY + stroke)));
             sprite.MoveX(startTime, startTime + firstTimeDuration, posX, endX);
             sprite.Fade(startTime, startTime + 1000, 0, fade);
-            sprite.Fade(endTime, endTime + 1000, fade, 0);
             if (color != Color4.White) sprite.Color(startTime, color);
             sprite.Scale(startTime, Math.Round(generator.Random(0.4, 1), 2));
 
@@ -56,14 +55,15 @@ public class Scripts
             {
                 int newDuration = generator.Random(7500, 30000);
                 if (startTime + firstTimeDuration + 5000 > endTime) newDuration -= 1000;
-                
+
                 int elementEndTime = elementStartTime + newDuration;
                 sprite.MoveX(elementStartTime, elementEndTime, generator.Random(-227, -220), endX);
-                var posAtStart = sprite.PositionAt(elementStartTime + 1);
-                if (posAtStart.X >= 848) sprite.Scale(elementStartTime, 0);
-
                 elementStartTime += newDuration;
             }
+            var posAtStart = sprite.PositionAt(elementStartTime);
+            if (posAtStart.X >= 848) sprite.Scale(elementStartTime, 0);
+            var endScale = sprite.ScaleAt(endTime);
+            if (endScale.X != 0) sprite.Fade(endTime, endTime + 1000, fade, 0);
         }
     }
     public void Danmaku(int startTime, int endTime, int speed)
@@ -92,7 +92,7 @@ public class Scripts
                 }
                 var scaleAtEnd = sprite.ScaleAt(endTime);
                 var posAtEnd = sprite.PositionAt(endTime);
-                if (scaleAtEnd.Y == 0 | posAtEnd.X <= -115 | posAtEnd.X >= 755 | posAtEnd.Y <= 30 | posAtEnd.Y >= 450){}
+                if (scaleAtEnd.Y == 0 | posAtEnd.X <= -115 | posAtEnd.X >= 755 | posAtEnd.Y <= 30 | posAtEnd.Y >= 450) { }
                 else sprite.Fade(endTime, endTime + 200, 1, 0);
 
                 angle += Math.PI / 50;
@@ -199,27 +199,26 @@ public class Scripts
         int posX = -120;
         int scaleY = fullscreen ? 484 : 406;
 
-        for(int i = 0; i < 60; i++)
+        for (int i = 0; i < 60; i++)
         {
             var sprite = generator.GetLayer(layer).CreateSprite("sb/p.png", OsbOrigin.Centre, new Vector2(posX, 240));
             sprite.ScaleVec(startTransition + delay, startTransition + delay + 300, 0, scaleY, 14.93, scaleY);
             sprite.Fade(endTime, endTime + 1000, 1, 0);
             sprite.Rotate(startTransition + delay, 0.1);
             sprite.Color(startTransition + delay, transitionColor);
-            
+
             delay += transitionDuration / 60;
             posX += 15;
         }
     }
     public void GenerateGears(int startTime, int endTime, int gearNumber, string layer)
-    {   
+    {
         float colorDark = 0.15f;
         double maxScale = 0.35;
-        for(int i = 0; i < gearNumber; i ++)
-        {  
-            int baseYPos = generator.Random(0, 480);
+        for (int i = 0; i < gearNumber; i++)
+        {
+            int baseYPos = generator.Random(20, 460);
             int duration = generator.Random(15000, 30000);
-            bool isLeft = generator.Random(0, 2) == 0 ? true : false;
 
             var sprite = generator.GetLayer(layer).CreateSprite($"sb/g/g{generator.Random(1, 7)}.png", OsbOrigin.Centre, new Vector2(i % 2 == 0 ? -107 : 747, baseYPos));
             sprite.Fade(startTime + (i * 50), startTime + (i * 50) + 300, 0, 1);
@@ -248,14 +247,14 @@ public class Scripts
                 (float)(position.X + Math.Cos(angle) * endScale),
                 (float)(position.Y + Math.Sin(angle) * endScale));
 
-            double startBorderScale = Math.Sqrt(startScale * startScale + startScale * startScale);
-            double endBorderScale = Math.Sqrt(endScale * endScale + endScale * endScale);
+            double scaleStart = Math.Sqrt(2 * Math.Pow(startScale, 2));;
+            double scaleEnd = Math.Sqrt(2 * Math.Pow(endScale, 2));
 
             var sprite = generator.GetLayer(layer).CreateSprite("sb/p.png", OsbOrigin.BottomCentre);
-            sprite.ScaleVec(easing, startTime, endTime, noFade ? 0 : 50, startBorderScale + (noFade ? 0 : 25), noFade ? 50 : 0, endBorderScale + (noFade ? 25 : 0));
+            sprite.ScaleVec(easing, startTime, endTime, noFade ? 0 : 50, scaleStart + (noFade ? 0 : 25), noFade ? 50 : 0, scaleEnd + (noFade ? 25 : 0));
             sprite.Rotate(startTime, angle - Math.PI / 4);
             sprite.Move(easing, startTime, endTime, startPosition, endPosition);
-            
+
             if (!noFade)
                 sprite.Fade(endTime - duration / 2, endTime - duration / 5, 1, 0);
 

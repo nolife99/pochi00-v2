@@ -43,8 +43,7 @@ namespace StorybrewScripts
                     (float)(320 + Math.Cos(angle) * radius),
                     (float)(240 + Math.Sin(angle) * radius));
 
-                var layer = GetLayer("");
-                var lines = layer.CreateSprite("sb/p.png", OsbOrigin.Centre, new Vector2(0, 0));
+                var lines = GetLayer("").CreateSprite("sb/p.png", OsbOrigin.Centre, new Vector2(0, 0));
 
                 lines.ScaleVec(startTime, 1, 20);
                 lines.Fade(startTime, startTime + 1000, 0, 0.15);
@@ -90,8 +89,7 @@ namespace StorybrewScripts
                     (int)(320 + Math.Cos(angle) * radius),
                     (int)(240 + Math.Sin(angle) * radius));
 
-                var layer = GetLayer("");
-                var sprite = layer.CreateSprite("sb/p.png", OsbOrigin.Centre);
+                var sprite = GetLayer("").CreateSprite("sb/p.png", OsbOrigin.Centre);
 
                 Vector2 standardScale = new Vector2(100, 150);
                 Vector2 skewedScale = new Vector2(30, -150);
@@ -180,8 +178,7 @@ namespace StorybrewScripts
                     (float)(320 + Math.Cos(angle) * radius),
                     (float)(240 + Math.Sin(angle) * radius));
 
-                var layer = GetLayer("");
-                var sprite = layer.CreateSprite("sb/p.png", OsbOrigin.Centre);
+                var sprite = GetLayer("").CreateSprite("sb/p.png", OsbOrigin.Centre);
 
                 Vector2 standardScale = new Vector2(5, 100);
                 Vector2 skewedScale = new Vector2(50, -100);
@@ -317,8 +314,7 @@ namespace StorybrewScripts
                     (float)(320 + Math.Cos(angle) * radius),
                     (float)(240 + Math.Sin(angle) * radius));
 
-                var layer = GetLayer("");
-                var sprite = layer.CreateSprite("sb/p.png", OsbOrigin.Centre);
+                var sprite = GetLayer("").CreateSprite("sb/p.png", OsbOrigin.Centre);
 
                 Vector2 standardScale = new Vector2(5, 100);
                 Vector2 skewedScale = new Vector2(50, -100);
@@ -367,8 +363,7 @@ namespace StorybrewScripts
                     (int)(320 + Math.Cos(angle) * radius),
                     (int)(240 + Math.Sin(angle) * radius));
 
-                var layer = GetLayer("");
-                var sprite = layer.CreateSprite("sb/c.png", OsbOrigin.Centre);
+                var sprite = GetLayer("").CreateSprite("sb/c.png", OsbOrigin.Centre);
 
                 Vector2 standardScale = new Vector2(0.4f, 0.4f);
                 Vector2 skewedScale = new Vector2(0.01f, -0.4f);
@@ -414,8 +409,8 @@ namespace StorybrewScripts
             for (var i = 0; i < BarCount; i++)
                 heightKeyframes[i] = new KeyframedValue<float>(null);
 
-            double fftTimeStep = Beatmap.GetTimingPointAt(startTime).BeatDuration / 12;
-            double fftOffset = fftTimeStep * 0.2;
+            double fftTimeStep = Beatmap.GetTimingPointAt(startTime).BeatDuration / 8;
+            double fftOffset = fftTimeStep * 0.1;
             for (var time = (double)startTime; time <= endTime + 1; time += fftTimeStep)
             {
                 var fft = GetFft(time + fftOffset, BarCount, null, OsbEasing.InExpo);
@@ -434,15 +429,15 @@ namespace StorybrewScripts
             {
                 var positionX = posX + i * barWidth;
                 var keyframes = heightKeyframes[i];
-                keyframes.Simplify1dKeyframes(1, h => h);
+                keyframes.Simplify1dKeyframes(0.5, h => h);
 
                 var bar = GetLayer("").CreateSprite("sb/p.png", OsbOrigin.Centre, new Vector2(positionX - offset, Position.Y - offset));
 
                 bar.Color(startTime, Color);
                 bar.Fade(endTime, endTime, 0.4, 0);
 
-                var scaleX = Scale.X * barWidth / 1.75f / bitmap.Width;
-                scaleX = (float)Math.Floor(scaleX * 10) / 10;
+                var scaleX = Scale.X * barWidth / bitmap.Width / 1.6f;
+                scaleX = (int)Math.Floor(scaleX * 10) / 10;
 
                 var hasScale = false;
                 keyframes.ForEachPair(
@@ -455,7 +450,7 @@ namespace StorybrewScripts
                         scaleX, end.Value);
                     },
                     MinimalHeight,
-                    s => (float)Math.Round(s, 0)
+                    s => (int)s
                 );
                 if (!hasScale) bar.ScaleVec(startTime, scaleX, MinimalHeight);
             }
