@@ -264,7 +264,7 @@ namespace StorybrewScripts
             desert.Fade(496555, 500555, 1, 0);
 
             var flare1 = GetLayer("sun").CreateSprite("sb/flare.png", OsbOrigin.Centre, new Vector2(0, 40));
-            flare1.Scale(444555, 0.58);
+            flare1.Scale(444555, 0.6);
             flare1.Additive(444555);
             flare1.Fade(444555, 445555, 0, 0.7);
             flare1.MoveX(444555, 465222, 727, 747);
@@ -273,15 +273,15 @@ namespace StorybrewScripts
             flare1.MoveX(473889, 497222, 727, 747);
             flare1.Fade(496555, 497222, 0.7, 0);
 
-            var flare2 = GetLayer("sun").CreateSprite("sb/flare2.png", OsbOrigin.TopLeft, new Vector2(0, 100));
-            flare2.Scale(444555, 0.7);
+            var flare2 = GetLayer("sun").CreateSprite("sb/flare2.png", OsbOrigin.TopLeft, new Vector2(0, 40));
+            flare2.Scale(444555, 0.68);
             flare2.Additive(444555);
             flare2.Fade(444555, 445555, 0, 0.8);
-            flare2.MoveX(444555, 465222, 667, 687);
+            flare2.MoveX(444555, 465222, 727, 747);
             flare2.Rotate(444555, 465222, Math.PI / 2, Math.PI / 1.5);
             flare2.Fade(464889, 465222, 0.8, 0);
             flare2.Fade(473889, 0.8);
-            flare2.MoveX(473889, 497222, 667, 687);
+            flare2.MoveX(473889, 497222, 727, 747);
             flare2.Rotate(473889, 497222, Math.PI / 2, Math.PI / 1.5);
             flare2.Fade(496555, 497222, 0.8, 0);
 

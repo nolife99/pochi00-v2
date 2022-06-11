@@ -47,10 +47,9 @@ public class Scripts
             var sprite = generator.GetLayer(layer).CreateSprite($"sb/s/s{generator.Random(0, 9)}.png", OsbOrigin.Centre, new Vector2(0, generator.Random(posY - stroke, posY + stroke)));
             sprite.MoveX(startTime, startTime + firstTimeDuration, posX, endX);
             sprite.Fade(startTime, startTime + 1000, 0, fade);
-            var endScale = sprite.ScaleAt(endTime);
-            if (endScale.X != 0) sprite.Fade(endTime, endTime + 1000, fade, 0);
+            sprite.Fade(endTime, endTime + 1000, fade, 0);
             if (color != Color4.White) sprite.Color(startTime, color);
-            sprite.Scale(startTime, Math.Round(generator.Random(0.5, 1), 2));
+            sprite.Scale(startTime, Math.Round(generator.Random(0.4, 1), 2));
 
             elementStartTime += firstTimeDuration;
             while (elementStartTime + 4000 < endTime)
@@ -60,9 +59,10 @@ public class Scripts
                 
                 int elementEndTime = elementStartTime + newDuration;
                 sprite.MoveX(elementStartTime, elementEndTime, generator.Random(-227, -220), endX);
-                elementStartTime += newDuration;
+                var posAtStart = sprite.PositionAt(elementStartTime + 1);
+                if (posAtStart.X >= 848) sprite.Scale(elementStartTime, 0);
 
-                if (elementEndTime + 5000 > endTime) sprite.Scale(elementEndTime, 0);
+                elementStartTime += newDuration;
             }
         }
     }
