@@ -12,8 +12,8 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
-  e5c235892d3445a9988e4550abe9b01c:
-    Name: "s1"
+  c6dbac45592a42b3bc19eadf72eeb1a4:
+    Name: "Layered1"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
@@ -32,33 +32,8 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
-  210601d4b9a94ad0be967f812347f744:
-    Name: "base bg"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
-  d46aff5c02b74559a0e6979e136a14c9:
-    Name: "s3"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
-  40b14e41b11840b8bb8ec535e1248d62:
-    Name: "sandy"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
-  f9fbe114296c4909b4e0249fedf6fd4b:
-    Name: "sun"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
-  facfb7debc4444dfb8b6c026a0a3f141:
-    Name: "69"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
-  e7d7094a543949b99d8a5b47884e43b5:
-    Name: "420"
+  c513a3d6f6c240ff8ad6e000b468d8b5:
+    Name: "Base"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
@@ -67,8 +42,23 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
-  00dbd6242d9742a3b3330bbfd1b918a1:
-    Name: "s01"
+  283cd8dadf714675ba133a5dc5793d21:
+    Name: "Desert"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  fd63a8c872e644b495c54e493a01ffc5:
+    Name: "Layered3"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  00fd16622d8d4c3ea1c9fdad8afcacf6:
+    Name: "Forest"
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  84871474d911479e845051708d74f30b:
+    Name: "Layered01"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
@@ -94,6 +84,6 @@ Layers:
     Visible: Yes
   ef06fe72067d46e3915451d35bab1c4b:
     Name: "Vignette"
-    OsbLayer: Overlay
+    OsbLayer: Foreground
     DiffSpecific: No
     Visible: Yes

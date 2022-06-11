@@ -47,18 +47,13 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
-  921d9f7ff95349a381c4123e7fde2ff3:
-    Name: "cross"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
-  b44f5dadd6fa4e3497116b1d6c10ae54:
-    Name: "fogKiai"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
   8c4f14c51f7245f19e212f734352d702:
     Name: "rain "
+    OsbLayer: Background
+    DiffSpecific: No
+    Visible: Yes
+  921d9f7ff95349a381c4123e7fde2ff3:
+    Name: "cross"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes

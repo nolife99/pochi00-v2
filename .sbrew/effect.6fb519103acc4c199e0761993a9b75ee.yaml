@@ -4,7 +4,7 @@ Script: "Clock"
 Config:
   RandomSeed:
     Type: "System.Int32"
-    Value: "0"
+    Value: "1"
     DisplayName: "Random seed"
 Layers:
   d5f6a8ce2ee84dd8ad9a1d797a55c269:
