@@ -18,7 +18,7 @@ namespace StorybrewScripts
             sprite.Fog(28027, 70694, 380, 20, Color4.White, 0.6);
             sprite.Fog(81360, 92027, 380, 20, Color4.White, 0.6);
             sprite.Fog(145360, 166027, 380, 20, Color4.White, 0.6);
-            sprite.Fog(168027, 200027, 380, 20, Color4.White, 0.6, "fogKiai");
+            sprite.Fog(168027, 200027, 380, 20, Color4.White, 0.6);
             sprite.Fog(332523, 358014, 380, 20, Color4.White, 0.6);
             sprite.Fog(401889, 422889, 380, 20, Color4.White, 0.6);
             sprite.Fog(444722, 464555, 380, 20, Color4.Orange, 0.6); 

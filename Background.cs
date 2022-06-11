@@ -6,7 +6,7 @@ using System;
 
 namespace StorybrewScripts
 {
-    public class Background : StoryboardObjectGenerator
+    class Background : StoryboardObjectGenerator
     {
         public override void Generate()
         {
@@ -15,7 +15,7 @@ namespace StorybrewScripts
             Section2();
             Section3();
         }
-        public void ColorBackground()
+        private void ColorBackground()
         {
             var box1 = GetLayer("Letterbox").CreateSprite("sb/p.png", OsbOrigin.TopCentre, new Vector2(320, 0));
             box1.Color(6694, Color4.Black);
@@ -111,14 +111,14 @@ namespace StorybrewScripts
 
             var bMap = GetMapsetBitmap("sb/vig.png");
             var v = GetLayer("Vignette").CreateSprite("sb/vig.png", OsbOrigin.Centre, new Vector2(320, 240));
-            v.Scale(124027, 854d / bMap.Width);
+            v.Scale(124027, 854f / bMap.Width);
             v.Fade(124027, 124360, 0, 1);
             v.Fade(144027, 145360, 1, 0);
-            v.Fade(275833, 276247, 0, 1);
+            v.Fade(276247, 1);
             v.Fade(289488, 0);
             v.Fade(465805, 466222, 0, 1);
             v.Fade(473889, 0);
-            v.Fade(500555, 503222, 0, 1);
+            v.Fade(500555, 1);
             v.Fade(553888, 0);
 
             var gradient = GetLayer("gradient").CreateSprite("sb/grad.png", OsbOrigin.CentreLeft, new Vector2(320, 480));
@@ -128,51 +128,51 @@ namespace StorybrewScripts
             gradient.ScaleVec(391222, 0.7, 9);
             gradient.Fade(401555, 401868, 0.12, 0);
         }
-        public void Section1()
+        private void Section1()
         {
-            var grey = GetLayer("s1").CreateSprite("sb/b/0/w.jpg", OsbOrigin.Centre, new Vector2(320, 240));
+            var grey = GetLayer("Layered1").CreateSprite("sb/b/0/w.jpg", OsbOrigin.Centre, new Vector2(320, 240));
             grey.Additive(6693);
             grey.Fade(OsbEasing.InSine, 6693, 28027, 0, 1);
             grey.Scale(OsbEasing.InSine, 6693, 28027, 0.24, 0.23076925);
             grey.Fade(OsbEasing.OutSine, 28027, 29360, 1, 0);
 
-            var l0 = GetLayer("s1").CreateSprite("sb/b/0/l0.png", OsbOrigin.Centre, new Vector2(320, 240));
+            var l0 = GetLayer("Layered1").CreateSprite("sb/b/0/l0.png", OsbOrigin.Centre, new Vector2(320, 240));
             l0.Scale(28110, 0.23076925);
             l0.Fade(28110, 29110, 0, 1);
             l0.Fade(70694, 0);
 
-            var l1 = GetLayer("s1").CreateSprite("sb/b/0/l1.png", OsbOrigin.Centre, new Vector2(320, 0));
+            var l1 = GetLayer("Layered1").CreateSprite("sb/b/0/l1.png", OsbOrigin.Centre, new Vector2(320, 0));
             l1.Scale(28110, 0.23076925);
             l1.Fade(28110, 29110, 0, 1);
             l1.MoveY(OsbEasing.OutExpo, 28110, 70694, 220, 250);
             l1.Fade(70694, 0);
 
-            var l2 = GetLayer("s01").CreateSprite("sb/b/0/l2.png", OsbOrigin.Centre, new Vector2(320, 0));
+            var l2 = GetLayer("Layered01").CreateSprite("sb/b/0/l2.png", OsbOrigin.Centre, new Vector2(320, 0));
             l2.Scale(28110, 0.23076925);
             l2.Fade(28110, 29110, 0, 1);
             l2.MoveY(OsbEasing.OutExpo, 28110, 70694, 220, 305);
             l2.Fade(70694, 0);
 
-            var l3 = GetLayer("s01").CreateSprite("sb/b/0/l3.png", OsbOrigin.Centre, new Vector2(320, 0));
+            var l3 = GetLayer("Layered01").CreateSprite("sb/b/0/l3.png", OsbOrigin.Centre, new Vector2(320, 0));
             l3.Scale(28110, 0.4571429);
             l3.Fade(28110, 29110, 0, 1);
             l3.MoveY(OsbEasing.OutExpo, 28110, 70694, 400, 460);
             l3.Fade(70694, 0);
 
-            var l4 = GetLayer("s01").CreateSprite("sb/b/0/l4.png", OsbOrigin.Centre, new Vector2(320, 0));
+            var l4 = GetLayer("Layered01").CreateSprite("sb/b/0/l4.png", OsbOrigin.Centre, new Vector2(320, 0));
             l4.Scale(28110, 0.4571429);
             l4.Fade(28110, 29110, 0, 1);
             l4.MoveY(OsbEasing.OutExpo, 28110, 70694, 400, 520);
             l4.Fade(34110, 0);
 
-            var bg = GetLayer("s1").CreateSprite("sb/b/0/b.jpg", OsbOrigin.Centre, new Vector2(0, 240));
+            var bg = GetLayer("Layered1").CreateSprite("sb/b/0/b.jpg", OsbOrigin.Centre, new Vector2(0, 240));
             bg.Scale(81360, 0.23076925);
             bg.Additive(81360);
             bg.Fade(81360, 81660, 0, 1);
             bg.MoveX(81360, 92027, 335, 305);
             bg.Fade(92027, 102694, 1, 0);
         }
-        public void Section2()
+        private void Section2()
         {
             var b = GetLayer("before kiai").CreateSprite("sb/b/1/b.jpg", OsbOrigin.Centre, new Vector2(0, 240));
             b.Scale(145360, 0.23076925);
@@ -216,47 +216,47 @@ namespace StorybrewScripts
             l5.MoveY(OsbEasing.OutExpo, 168027, 200027, 345, 450);
             l5.Fade(200027, 0);
         }
-        public void Section3()
+        private void Section3()
         {
             var delete = GetLayer("-").CreateSprite("bg.jpg");
             delete.Scale(0, 0);
             
-            var l0 = GetLayer("s3").CreateSprite("sb/b/5/l0.png", OsbOrigin.Centre, new Vector2(320, 240));
+            var l0 = GetLayer("Layered3").CreateSprite("sb/b/5/l0.png", OsbOrigin.Centre, new Vector2(320, 240));
             l0.Scale(332523, 0.23076925);
             l0.Fade(332523, 333523, 0, 1);
             l0.Fade(359005, 0);
 
-            var l1 = GetLayer("s3").CreateSprite("sb/b/5/l1.png", OsbOrigin.Centre, new Vector2(320, 0));
+            var l1 = GetLayer("Layered3").CreateSprite("sb/b/5/l1.png", OsbOrigin.Centre, new Vector2(320, 0));
             l1.Scale(332523, 0.23076925);
             l1.Fade(332523, 333523, 0, 1);
             l1.MoveY(OsbEasing.OutExpo, 332523, 359005, 330, 355);
             l1.Fade(359005, 0);
 
-            var l2 = GetLayer("s3").CreateSprite("sb/b/5/l2.png", OsbOrigin.Centre, new Vector2(320, 0));
+            var l2 = GetLayer("Layered3").CreateSprite("sb/b/5/l2.png", OsbOrigin.Centre, new Vector2(320, 0));
             l2.Scale(332523, 0.23076925);
             l2.Fade(332523, 333523, 0, 1);
             l2.MoveY(OsbEasing.OutExpo, 332523, 359005, 257, 290);
             l2.Fade(359005, 0);
 
-            var l3 = GetLayer("s3").CreateSprite("sb/b/5/l3.png", OsbOrigin.Centre, new Vector2(320, 0));
+            var l3 = GetLayer("Layered3").CreateSprite("sb/b/5/l3.png", OsbOrigin.Centre, new Vector2(320, 0));
             l3.Scale(332523, 0.23076925);
             l3.Fade(332523, 333523, 0, 1);
             l3.MoveY(OsbEasing.OutExpo, 332523, 359005, 340, 410);
             l3.Fade(359005, 0);
 
-            var l4 = GetLayer("s3").CreateSprite("sb/b/5/l4.png", OsbOrigin.Centre, new Vector2(115, 0));
+            var l4 = GetLayer("Layered3").CreateSprite("sb/b/5/l4.png", OsbOrigin.Centre, new Vector2(115, 0));
             l4.Scale(332523, 0.4571429);
             l4.Fade(332523, 333523, 0, 1);
             l4.MoveY(OsbEasing.OutExpo, 332523, 359005, 195, 280);
             l4.Fade(359005, 0);
 
-            var mainBg = GetLayer("base bg").CreateSprite("sb/b/6/b.jpg", OsbOrigin.Centre, new Vector2(0, 240));
+            var mainBg = GetLayer("Base").CreateSprite("sb/b/6/b.jpg", OsbOrigin.Centre, new Vector2(0, 240));
             mainBg.Scale(401889, 0.23076925);
             mainBg.Additive(401889);
             mainBg.MoveX(401889, 423222, 335, 305);
             mainBg.Fade(423222, 423305, 1, 0);
 
-            var desert = GetLayer("sandy").CreateSprite("sb/b/7/b.jpg", OsbOrigin.Centre, new Vector2(0, 240));
+            var desert = GetLayer("Desert").CreateSprite("sb/b/7/b.jpg", OsbOrigin.Centre, new Vector2(0, 240));
             desert.Scale(444555, 0.23076925);
             desert.Additive(444555);
             desert.Fade(444555, 445889, 0, 1);
@@ -267,7 +267,7 @@ namespace StorybrewScripts
             desert.Scale(473889, 500555, 0.24, 0.223);
             desert.Fade(496555, 500555, 1, 0);
 
-            var flare1 = GetLayer("sun").CreateSprite("sb/flare.png", OsbOrigin.Centre, new Vector2(0, 40));
+            var flare1 = GetLayer("Desert").CreateSprite("sb/flare.png", OsbOrigin.Centre, new Vector2(0, 40));
             flare1.Scale(444555, 0.6);
             flare1.Additive(444555);
             flare1.Fade(444555, 445555, 0, 0.7);
@@ -277,32 +277,35 @@ namespace StorybrewScripts
             flare1.MoveX(473889, 497222, 727, 747);
             flare1.Fade(496555, 497222, 0.7, 0);
 
-            var flare2 = GetLayer("sun").CreateSprite("sb/flare2.png", OsbOrigin.TopLeft, new Vector2(0, 40));
+            var flare2 = GetLayer("Desert").CreateSprite("sb/flare2.png", OsbOrigin.TopLeft, new Vector2(0, 40));
             flare2.Scale(444555, 0.68);
             flare2.Additive(444555);
             flare2.Fade(444555, 445555, 0, 0.8);
             flare2.MoveX(444555, 465222, 727, 747);
-            flare2.Rotate(444555, 465222, Math.PI / 2, Math.PI / 1.5);
+            flare2.Rotate(444555, 465222, Math.PI / 2, Math.PI / 1.6);
             flare2.Fade(464889, 465222, 0.8, 0);
             flare2.Fade(473889, 0.8);
             flare2.MoveX(473889, 497222, 727, 747);
-            flare2.Rotate(473889, 497222, Math.PI / 2, Math.PI / 1.5);
+            flare2.Rotate(473889, 497222, Math.PI / 2, Math.PI / 1.6);
             flare2.Fade(496555, 497222, 0.8, 0);
 
-            var forest = GetLayer("69").CreateSprite("sb/b/8/b.jpg");
+            var forest = GetLayer("Forest").CreateSprite("sb/b/8/b.jpg");
             forest.Scale(553888, 0.23076925);
             forest.Additive(553888);
             forest.Fade(553888, 1);
             forest.Move(553888, 575209, 320, 250, 320, 230);
-            forest.Fade(575209, 0);
+            forest.Fade(575220, 0);
             forest.Fade(587221, 1);
             forest.Move(587221, 629512, 305, 240, 335, 240);
             forest.Fade(629512, 0);
 
-            var forestBlur = GetLayer("420").CreateSprite("sb/b/8/f.jpg");
+            var forestBlur = GetLayer("Forest").CreateSprite("sb/b/8/f.jpg");
             forestBlur.Additive(575221);
+            forestBlur.MoveX(575221, 320);
             forestBlur.Scale(575221, 587221, 0.24, 0.223);
             forestBlur.Fade(587221, 588555, 1, 0);
+            forestBlur.Scale(587221, 0.23);
+            forestBlur.MoveX(587221, 310);
         }
     }
 }

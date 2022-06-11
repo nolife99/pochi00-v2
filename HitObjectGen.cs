@@ -7,7 +7,7 @@ using System;
 
 namespace StorybrewScripts
 {
-    public class HitObjectGen : StoryboardObjectGenerator
+    class HitObjectGen : StoryboardObjectGenerator
     {
         public override void Generate()
         {
@@ -36,7 +36,7 @@ namespace StorybrewScripts
 
             PianoGenerator();
         }
-        public void GenerateRing(int BeatDivisor, int StartTime, int EndTime)
+        private void GenerateRing(int BeatDivisor, int StartTime, int EndTime)
         {
             float StartScale = 0.125f;
             float EndScale = 0.2f;
@@ -99,7 +99,7 @@ namespace StorybrewScripts
                 }
             }
         }
-        public void GenerateHighlight(int startTime, int endTime)
+        private void GenerateHighlight(int startTime, int endTime)
         {
             foreach (var hitobject in Beatmap.HitObjects)
             {
@@ -108,18 +108,19 @@ namespace StorybrewScripts
                     var sprite = GetLayer("").CreateSprite("sb/hl.png", OsbOrigin.Centre, hitobject.Position);
                     sprite.Additive(hitobject.StartTime);
                     sprite.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.4, 0);
-                    sprite.Scale(hitobject.StartTime, 0.1175);
+                    sprite.Scale(hitobject.StartTime, 0.13);
 
                     if (hitobject is OsuSlider)
                     {
-                        var timestep = Beatmap.GetTimingPointAt((int)hitobject.StartTime).BeatDuration / 14;
-                        var sTime = hitobject.StartTime;
+                        var timestep = Beatmap.GetTimingPointAt((int)hitobject.StartTime).BeatDuration / 8;
+                        var sTime = hitobject.StartTime + timestep;
                         while (true)
                         {
                             var stepSprite = GetLayer("").CreateSprite("sb/hl.png", OsbOrigin.Centre, hitobject.PositionAtTime(sTime));
-                            stepSprite.Additive(sTime);
-                            stepSprite.Fade(sTime, sTime + 1000, 0.35, 0);
-                            stepSprite.Scale(sTime, 0.1125);
+                            stepSprite.Additive(sTime - 50);
+                            stepSprite.Fade(sTime - 50, sTime, 0, 0.4);
+                            stepSprite.Fade(sTime, sTime + 1000, 0.4, 0);
+                            stepSprite.Scale(sTime, 0.13);
 
                             if (sTime > hitobject.EndTime)
                                 break;
@@ -158,19 +159,19 @@ namespace StorybrewScripts
                     piano.Fade(hit, hit + 500, 0.1, 0);
                     piano.Additive(hit);
 
-                    if (hit > 575638 & hit < 577805 | hit > 579138 & hit < 579305 | hit > 579638 & hit < 579805 | hit > 580055 & hit < 580221 | hit > 580471 & hit < 581217 | hit > 581388 & hit < 581555 | hit > 581805 & hit < 582467 | hit > 582721 & hit < 582888 | hit > 583138 & hit < 583845 | hit > 584055 & hit < 584221 | hit > 584471 & hit < 585638)
+                    if (hit >= 575721 & hit <= 577555 | hit == 579221 | hit == 579721 | hit == 580138 | hit >= 580555 & hit <= 581138 | hit == 581471 | hit >= 581888 & hit <= 582471 | hit == 582805 | hit >= 583221 & hit <= 583805 | hit == 584138 | hit >= 584555 & hit <= 585555)
                     {
                         piano.Color(hit, color1);
                     }
-                    else if (hit > 577805 & hit < 579138 | hit > 579305 & hit < 579638 | hit > 579805 & hit < 580055 | hit > 580221 & hit < 580471 | hit > 581217 & hit < 581388 | hit > 581555 & hit < 581805 | hit > 582477 & hit < 582638 | hit > 582888 & hit < 583138 | hit > 583846 & hit < 583971 | hit > 584221 & hit < 584471)
+                    else if (hit >= 577888 & hit <= 578888 | hit == 579471 | hit == 579888 | hit == 580388 | hit == 580543 | hit == 581221 | hit == 581555 | hit == 581721 | hit == 582555 | hit == 583055 | hit == 583888 | hit == 584388)
                     {
                         piano.Color(hit, color2);
                     }
-                    else if (hit > 585805 & hit < 585971)
+                    else if (hit == 585888)
                     {
                         piano.Color(hit, color3);
                     }
-                    else if (hit > 586138 & hit < 586305)
+                    else if (hit == 586221)
                     {
                         piano.Color(hit, color4);
                     }
@@ -194,7 +195,7 @@ namespace StorybrewScripts
                 }
             }
         }
-        public void GenerateBeam(int startTime, int endTime)
+        private void GenerateBeam(int startTime, int endTime)
         {
             foreach (var hitobject in Beatmap.HitObjects)
             {
@@ -213,7 +214,7 @@ namespace StorybrewScripts
                 }
             }
         }
-        public void GenerateSplash(int startTime, int endTime)
+        private void GenerateSplash(int startTime, int endTime)
         {
             foreach (var hitobject in Beatmap.HitObjects)
             {
@@ -227,7 +228,7 @@ namespace StorybrewScripts
                 }
             }
         }
-        public void PianoGenerator()
+        private void PianoGenerator()
         {
             var times = new int[]{
                 484555, 485055, 485139, 485222, 485555, 485722, 485889, 486139, 486389, 486555, 487222, 487722,
@@ -254,16 +255,16 @@ namespace StorybrewScripts
                 134345, 134428, 134511, 134595
             };
             var c = new int[]{
-                575710, 575793, 575877, 576210, 576377, 576543, 576793, 577043, 577210, 577543, 577877, 578210,
-                578293, 578377, 578460, 578543, 578877, 579210, 579460, 579710, 579877, 580127, 580377, 580543,
-                580877, 580960, 581043, 581127, 581210, 581460, 581710, 581877, 582210, 582377, 582460, 582543,
-                582793, 583043, 583210, 583543, 583710, 583793, 583877, 584127, 584377, 584543, 584793, 585043,
-                585210, 585555, 585888, 586221, 586555, 586888
+                575721, 575805, 575888, 576221, 576388, 576555, 576805, 577055, 577221, 577555, 577888, 578221,
+                578305, 578388, 578471, 578555, 578888, 579221, 579471, 579721, 579888, 580138, 580388, 580555,
+                580888, 580971, 581055, 581138, 581221, 581471, 581721, 581888, 582221, 582388, 582471, 582555,
+                582805, 583055, 583221, 583555, 583721, 583805, 583888, 584138, 584388, 584555, 584805, 585055,
+                585221, 585555, 585888, 586221, 586555, 586888
             };
             GenerateVerticalBar(a, b, c);
             GeneratePiano(359006, 376310);
         }
-        public void GeneratePiano(int startTime, int endTime)
+        private void GeneratePiano(int startTime, int endTime)
         {
             foreach (var hitobject in Beatmap.HitObjects)
             {
