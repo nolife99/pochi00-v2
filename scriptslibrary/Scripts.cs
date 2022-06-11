@@ -162,8 +162,8 @@ public class Scripts
     }
     public void SquareTransition(int startTime, int endTime, float squareScale, Color4 color, OsbEasing easing, bool Full = false, string layer = "transition")
     {
-        float posX = -107;
-        float posY = 20;
+        float posX = -100;
+        float posY = 40;
         int duration = endTime - startTime;
 
         while (posX < 737 + squareScale)
