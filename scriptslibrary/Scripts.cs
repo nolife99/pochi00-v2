@@ -28,7 +28,6 @@ public class Scripts
                 var particle = generator.GetLayer(layer).CreateSprite("sb/d.png", OsbOrigin.Centre, new Vector2(0, generator.Random(posY - stroke, posY + stroke)));
                 particle.MoveX(startTime, startTime + firstTimeDuration, generator.Random(posX - 25, posX + 25), endX);
                 particle.Fade(startTime, startTime + 1000, 0, 1);
-                particle.Fade(endTime, endTime + 1000, 1, 0);
                 particle.Scale(startTime, Math.Round(generator.Random(0.01, 0.02), 3));
                 if (color != Color4.White) particle.Color(startTime, color);
                 particle.Additive(startTime);
@@ -43,6 +42,10 @@ public class Scripts
                     particle.MoveX(particleStartTime, particleEndTime, generator.Random(-127, -107), endX);
                     particleStartTime += NewDuration;
                 }
+                var posStart = particle.PositionAt(particleStartTime);
+                if (posStart.X >= 757) particle.Scale(particleStartTime, 0);
+                var scaleEnd = particle.ScaleAt(endTime);
+                if (scaleEnd.X != 0) particle.Fade(endTime, endTime + 1000, 1, 0);
             }
             var sprite = generator.GetLayer(layer).CreateSprite($"sb/s/s{generator.Random(0, 9)}.png", OsbOrigin.Centre, new Vector2(0, generator.Random(posY - stroke, posY + stroke)));
             sprite.MoveX(startTime, startTime + firstTimeDuration, posX, endX);
@@ -60,8 +63,8 @@ public class Scripts
                 sprite.MoveX(elementStartTime, elementEndTime, generator.Random(-227, -220), endX);
                 elementStartTime += newDuration;
             }
-            var posAtStart = sprite.PositionAt(elementStartTime);
-            if (posAtStart.X >= 848) sprite.Scale(elementStartTime, 0);
+            var startPos = sprite.PositionAt(elementStartTime);
+            if (startPos.X >= 848) sprite.Scale(elementStartTime, 0);
             var endScale = sprite.ScaleAt(endTime);
             if (endScale.X != 0) sprite.Fade(endTime, endTime + 1000, fade, 0);
         }
@@ -255,8 +258,7 @@ public class Scripts
             sprite.Rotate(startTime, angle - Math.PI / 4);
             sprite.Move(easing, startTime, endTime, startPosition, endPosition);
 
-            if (!noFade)
-                sprite.Fade(endTime - duration / 2, endTime - duration / 5, 1, 0);
+            if (!noFade) sprite.Fade(endTime - duration / 2, endTime - duration / 5, 1, 0);
 
             angle += Math.PI / 2;
         }

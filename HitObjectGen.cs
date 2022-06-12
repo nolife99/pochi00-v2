@@ -11,21 +11,12 @@ namespace StorybrewScripts
     {
         public override void Generate()
         {
-            GenerateRing(8, 6693, 27444);
-            //danmaku section
-            GenerateRing(8, 113360, 115277);
-            GenerateRing(12, 115360, 115944);
-            GenerateRing(8, 116027, 117277);
-            GenerateRing(12, 117360, 118277);
-            GenerateRing(8, 118360, 118944);
-            GenerateRing(12, 119027, 120444);
-            GenerateRing(8, 120527, 123444);
-            GenerateRing(12, 123527, 123860);
-
-            GenerateRing(8, 189360, 199945);
-            GenerateRing(8, 256385, 272833);
-            GenerateRing(8, 325902, 332316);
-            GenerateRing(8, 433889, 444472);
+            GenerateRing(6693, 27444);
+            GenerateRing(113360, 123944);
+            GenerateRing(189360, 199945);
+            GenerateRing(256385, 272833);
+            GenerateRing(325902, 332316);
+            GenerateRing(433889, 444472);
             GenerateHighlight(81150, 92694);
             GenerateHighlight(194694, 203360);
             GenerateHighlight(484555, 494972);
@@ -36,7 +27,7 @@ namespace StorybrewScripts
 
             PianoGenerator();
         }
-        private void GenerateRing(int BeatDivisor, int StartTime, int EndTime)
+        private void GenerateRing(int StartTime, int EndTime)
         {
             float StartScale = 0.125f;
             float EndScale = 0.2f;
@@ -53,45 +44,34 @@ namespace StorybrewScripts
 
                     if (hitobject is OsuSlider)
                     {
-                        var timestep = Beatmap.GetTimingPointAt((int)hitobject.StartTime).BeatDuration / BeatDivisor;
+                        var timestep = Beatmap.GetTimingPointAt(StartTime).BeatDuration / 12;
                         var startTime = hitobject.StartTime;
                         var s = hitobject as OsuSlider;
-                        if (s.ControlPointCount > 1 | s.TravelDuration < 30)
+
+                        if (s.ControlPointCount > 1)
                         {
-                            while (hitobject is OsuSlider)
-                            {
-                                var endTime = startTime + timestep;
-
-                                var complete = hitobject.EndTime - endTime < 5;
-                                if (complete) endTime = hitobject.EndTime;
-
-                                var startPosition = sprite.PositionAt(startTime);
-                                sprite.Move(startTime, endTime, startPosition, hitobject.PositionAtTime(endTime));
-
-                                if (complete) break;
-                                startTime += timestep;
-                            }
+                            timestep = Beatmap.GetTimingPointAt(StartTime).BeatDuration / 8;
                         }
-                        else if (s.TravelDuration > 50 & s.RepeatCount != 0)
+                        else if (s.TravelDuration > 80 && s.RepeatCount > 0)
                         {
-                            while (hitobject is OsuSlider)
-                            {
-                                var tStep = Beatmap.GetTimingPointAt(StartTime).BeatDuration / 4;
-                                var end = startTime + tStep;
-
-                                var complete = hitobject.EndTime - end < 5;
-                                if (complete) end = hitobject.EndTime;
-
-                                var startPosition = sprite.PositionAt(startTime);
-                                sprite.Move(startTime, end, startPosition, hitobject.PositionAtTime(end));
-
-                                if (complete) break;
-                                startTime += tStep;
-                            }
+                            timestep = Beatmap.GetTimingPointAt(StartTime).BeatDuration / 4;
                         }
-                        else
+                        else if (s.RepeatCount == 0 & s.ControlPointCount == 1)
                         {
-                            sprite.Move(hitobject.StartTime, hitobject.EndTime, hitobject.PositionAtTime(startTime), hitobject.PositionAtTime(hitobject.EndTime));
+                            sprite.Move(startTime, hitobject.EndTime, hitobject.PositionAtTime(startTime), hitobject.PositionAtTime(hitobject.EndTime));
+                        }
+                        while (true && s.ControlPointCount > 1 | s.RepeatCount > 0)
+                        {
+                            var endTime = startTime + timestep;
+
+                            var complete = hitobject.EndTime - endTime < 5;
+                            if (complete) endTime = hitobject.EndTime;
+
+                            var startPosition = sprite.PositionAt(startTime);
+                            sprite.Move(startTime, endTime, startPosition, hitobject.PositionAtTime(endTime));
+
+                            if (complete) break;
+                            startTime += timestep;
                         }
                     }
                     sprite.Fade(OsbEasing.OutExpo, hitobject.EndTime, hitobject.EndTime + FadeTime, Fade, 0);
@@ -107,7 +87,7 @@ namespace StorybrewScripts
                 {
                     var sprite = GetLayer("").CreateSprite("sb/hl.png", OsbOrigin.Centre, hitobject.Position);
                     sprite.Additive(hitobject.StartTime);
-                    sprite.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.4, 0);
+                    sprite.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
                     sprite.Scale(hitobject.StartTime, 0.13);
 
                     if (hitobject is OsuSlider)
@@ -122,9 +102,7 @@ namespace StorybrewScripts
                             stepSprite.Fade(sTime, sTime + 1000, 0.4, 0);
                             stepSprite.Scale(sTime, 0.13);
 
-                            if (sTime > hitobject.EndTime)
-                                break;
-
+                            if (sTime > hitobject.EndTime) break;
                             sTime += timestep;
                         }
                     }
