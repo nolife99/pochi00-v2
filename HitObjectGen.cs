@@ -58,7 +58,7 @@ namespace StorybrewScripts
                         }
                         else if (s.RepeatCount == 0 & s.ControlPointCount == 1)
                         {
-                            sprite.Move(startTime, hitobject.EndTime, hitobject.PositionAtTime(startTime), hitobject.PositionAtTime(hitobject.EndTime));
+                            sprite.Move(startTime, hitobject.EndTime, hitobject.Position, hitobject.PositionAtTime(hitobject.EndTime));
                         }
                         while (true && s.ControlPointCount > 1 | s.RepeatCount > 0)
                         {
