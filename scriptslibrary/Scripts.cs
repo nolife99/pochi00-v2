@@ -71,7 +71,7 @@ public class Scripts
     }
     public void Danmaku(int startTime, int endTime, int speed)
     {
-        Vector2 basePosition = new Vector2(320, 240);
+        var basePosition = new Vector2(320, 240);
         for (int i = 0; i < 4; i++)
         {
             double angle = (Math.PI / 2) * i;
