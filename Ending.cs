@@ -14,15 +14,14 @@ namespace StorybrewScripts
     {
         public override void Generate()
         {
-            int startTime = 587221;
-            Birds(20, 40, startTime, 608721, 40, false, 0.02, 0.05);
-            Birds(20, 40, startTime, 608721, 40, true, 0.02, 0.05);
-            GodRays(startTime, 614000);
+            Birds(20, 40, 587221, 608721, 40, false, 0.02, 0.05);
+            Birds(20, 40, 587221, 608721, 40, true, 0.02, 0.05);
+            GodRays(587221, 614000);
         }
         private void Birds(int FlyingSpeed, int Acceleration, int StartTime, int EndTime, int SpriteAmount, bool right, double ScaleMin, double ScaleMax)
         {
-            Vector2 StartPosition = new Vector2(320, 260);
-            Vector2 EndPosition = new Vector2(320, 380);
+            var StartPosition = new Vector2(320, 260);
+            var EndPosition = new Vector2(320, 380);
             double ParticleFade = 1;
             int FadeTimeIn = 2000;
             int FadeTimeOut = 700;
@@ -36,7 +35,7 @@ namespace StorybrewScripts
                 {
                     var sprite = pool.Get(i, i + RealTravelTime);
 
-                    double RandomScaling = Random(ScaleMin, ScaleMax);
+                    var RandomScaling = Math.Round(Random(ScaleMin, ScaleMax), 3);
                     int FlipInterval = Random(FlyingSpeed * 12, Acceleration * 8);
                     float lastX = Random(StartPosition.X, EndPosition.X);
                     float lastY = Random(StartPosition.Y, EndPosition.Y);
@@ -63,7 +62,7 @@ namespace StorybrewScripts
 
                             double angle = Math.Atan2(startPosition.Y - endPosition.Y, startPosition.X - endPosition.X) - Math.PI / 2;
 
-                            sprite.Move(t, t + timeStep, lastX, lastY, nextX, nextY);
+                            sprite.Move(t, t + timeStep, (int)lastX, (int)lastY, (int)nextX, (int)nextY);
                             sprite.Rotate(t, t + timeStep, currentAngle, newAngle);
 
                             vX += Random(FlyingSpeed) * timeStep / 1000;
@@ -85,7 +84,7 @@ namespace StorybrewScripts
 
                             var angle = Math.Atan2((startPosition.Y - endPosition.Y), (startPosition.X - endPosition.X)) - Math.PI / 2;
 
-                            sprite.Move(t, t + timeStep, lastX, lastY, nextX, nextY);
+                            sprite.Move(t, t + timeStep, (int)lastX, (int)lastY, (int)nextX, (int)nextY);
                             sprite.Rotate(t, t + timeStep, currentAngle, newAngle);
 
                             vX += Random(FlyingSpeed) * timeStep / 1000;
