@@ -27,8 +27,7 @@ namespace StorybrewScripts
             int FadeTimeOut = 700;
 
             var layer = GetLayer("Birds");
-            using (var pool = new OsbSpritePool(layer, "sb/bird.png", OsbOrigin.Centre, (Sprite, startTime, endTime) =>
-            {}))
+            using (var pool = new OsbSpritePool(layer, "sb/bird.png", OsbOrigin.Centre, true))
             {
                 var RealTravelTime = Random(3500, 7000);
                 for (int i = StartTime; i < EndTime - 3500; i += RealTravelTime / SpriteAmount)
@@ -44,8 +43,7 @@ namespace StorybrewScripts
                     double vX = Math.Cos(rVec) * sVec;
                     double vY = Math.Sin(rVec) * sVec;
                     double lastAngle = 90;
-                    var timeStep = RealTravelTime / 14 + 1;
-                    sprite.Additive(i);
+                    var timeStep = RealTravelTime / 14 + 0.5;
 
                     for (double t = i; t < i + RealTravelTime - 1; t += timeStep)
                     {
