@@ -3,6 +3,7 @@ using OpenTK;
 using OpenTK.Graphics;
 using StorybrewCommon.Scripting;
 using StorybrewCommon.Storyboarding;
+using StorybrewCommon.Storyboarding.Util;
 
 public class Scripts
 {
@@ -104,22 +105,24 @@ public class Scripts
     }
     public void Highlight(int startTime, int endTime)
     {
-        for (int i = 0; i < 9; i++)
+        using (var pool = new OsbSpritePool(generator.GetLayer("Highlight"), "sb/hl.png", OsbOrigin.Centre, true))
         {
-            var fadeTime = generator.Random(1000, 5000);
-            var sprite = generator.GetLayer("Highlight").CreateSprite("sb/hl.png");
-            var fade = Math.Round(generator.Random(0.05, 0.1), 2);
-
-            for (int t = startTime + fadeTime * 2; t < endTime - fadeTime * 2; t += fadeTime * 2)
+            for (int i = startTime; i < endTime; i += 530)
             {
-                var pos = new Vector2(generator.Random(0, 747), generator.Random(40, 440));
-                var newPos = new Vector2(generator.Random(-107, 854), generator.Random(0, 480));
-                sprite.Move(OsbEasing.Out, t, t + fadeTime * 2, pos, newPos);
+                var fade = Math.Round(generator.Random(0.02, 0.03), 2);
+                var fadeTime = generator.Random(1000, 2500);
+                var sprite = pool.Get(i, i + fadeTime * 2);
+                var pos = new Vector2(generator.Random(0, 727), generator.Random(10, 380));
+                var newPos = new Vector2(generator.Random(-107, 854), generator.Random(-17, 480));
+
+                sprite.Move(OsbEasing.OutSine, i, i + fadeTime * 2, pos, newPos);
+                sprite.Fade(i, i + 250, 0, fade);
+                if (fade > 0.01)
+                {
+                    sprite.Fade(OsbEasing.InSine, i + fadeTime, i + fadeTime * 2, fade, 0);
+                }
+                sprite.Scale(OsbEasing.InOutSine, i, i + fadeTime * 2, Math.Round(generator.Random(0.85, 2), 2), 0);
             }
-            sprite.StartLoopGroup(startTime + fadeTime * 2, ((endTime - startTime - fadeTime * 2) / (fadeTime * 2)));
-            sprite.Fade(OsbEasing.Out, 0, fadeTime / 4, 0, fade);
-            sprite.Fade(OsbEasing.In, fadeTime, fadeTime * 2, fade, 0);
-            sprite.Scale(OsbEasing.Out, 0, fadeTime * 2, Math.Round(generator.Random(0.3, 1), 2), 0.2);
         }
     }
     public void Rain(int startTime, int endTime, double intensity, int type)

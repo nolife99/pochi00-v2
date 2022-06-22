@@ -42,7 +42,7 @@ namespace StorybrewScripts
             sprite.Rain(587221, 629471, 10, 3);
             sprite.Rain(608555, 629471, 12.5, 1);
 
-            sprite.Highlight(608555, 631221);
+            sprite.Highlight(611221, 628555);
 
             sprite.DiamondCross(27, 1276, 0, 100, false);
             sprite.DiamondCross(2526, 5776, 500, 0, true, "cross", OsbEasing.InQuint);
