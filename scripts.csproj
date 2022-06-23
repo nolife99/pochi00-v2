@@ -59,7 +59,6 @@
     <Compile Include="HitObjectGen.cs" />
     <Compile Include="ImportOsb.cs" />
     <Compile Include="ScriptsManager.cs" />
-    <Compile Include="scriptslibrary/Scripts.cs" />
   </ItemGroup>
   <ItemGroup />
 </Project>

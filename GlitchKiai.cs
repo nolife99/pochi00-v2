@@ -11,6 +11,7 @@ namespace StorybrewScripts
     {
         public override void Generate()
         {
+            Circles();
 		    int startTime = 276247;
             int endTime = 289488;
             var ani = GetLayer("").CreateAnimation("sb/b/a/l.png", 5, 10, OsbLoopType.LoopForever);
@@ -26,6 +27,89 @@ namespace StorybrewScripts
             SquaresGlitch();
             Squares3();
             RotatingLines();
+        }
+        private void Circles()
+        {
+            int StartTime = 124027;
+            int EndTime = 144881;
+            int amount = 2;
+
+            var travelTime = Beatmap.GetTimingPointAt(StartTime).BeatDuration * 8;
+            var Pos = new Vector2(320, 240);
+            var ConnectionAngle = Math.PI / amount;
+
+            double rad;
+            double angle = 0;
+            double radius = 100;
+            double Radius = 170;
+            for (int i = 0; i < amount; i++)
+            {
+                rad = angle * Math.PI / ConnectionAngle;
+                var x = radius * Math.Cos(rad) + Pos.X - 2;
+                var y = radius * Math.Sin(rad) + Pos.Y;
+                var position = new Vector2((int)x, (int)y);
+                var duration = EndTime - StartTime;
+
+                var circles = GetLayer("circle").CreateSprite("sb/c2.png", OsbOrigin.Centre, position);
+                circles.Scale(124027, 144944, 0.2, 0.2);
+
+                var circle = GetLayer("circle").CreateSprite("sb/c.png", OsbOrigin.Centre, new Vector2(0, 0));
+                circle.Fade(StartTime, StartTime + 500, 0, 1);
+                circle.StartLoopGroup(StartTime, duration / ((int)travelTime) + 1);
+                circle.Color(0, Color4.LightBlue);
+                circle.Scale(travelTime / 8 - 50, 0.02);
+                circle.Scale((travelTime / 8) * 7 + 50, 0.005);
+                circle.Color(travelTime / 8 - 50, Color4.GreenYellow);
+                circle.Color((travelTime / 8) * 7 + 50, travelTime, Color4.LightBlue, Color4.LightBlue);
+                circle.EndGroup();
+
+                var timeStep = Beatmap.GetTimingPointAt((int)StartTime).BeatDuration / 4;
+                for (double time = StartTime; time < EndTime; time += timeStep)
+                {
+                    rad += 0.0982;
+
+                    x = radius * Math.Cos(rad) + Pos.X - 2;
+                    y = radius * Math.Sin(rad) + Pos.Y;
+
+                    var newPos = new Vector2((int)x, (int)y);
+
+                    circle.Move(time, time + timeStep, position, newPos);
+                    position = newPos;
+                }
+                angle += ConnectionAngle / (amount / 2);
+            }
+            for (int l = 0; l < amount; l++)
+            {
+                rad = angle * Math.PI / ConnectionAngle;
+                var x = Radius * Math.Cos(rad) + Pos.X - 2;
+                var y = Radius * Math.Sin(rad) + Pos.Y;
+                var position = new Vector2((int)x, (int)y);
+                var duration = EndTime - StartTime;
+
+                var outCircle = GetLayer("circle").CreateSprite("sb/c.png", OsbOrigin.Centre, new Vector2(0, 0));
+                outCircle.Fade(StartTime, StartTime + 500, 0, 1);
+                outCircle.StartLoopGroup(StartTime, duration / ((int)travelTime) + 1);
+                outCircle.Color(0, Color4.GreenYellow);
+                outCircle.Scale(travelTime / 8 - 50, 0.005);
+                outCircle.Scale((travelTime / 8) * 7 + 50, 0.02);
+                outCircle.Color(travelTime / 8 - 50, Color4.LightBlue);
+                outCircle.Color((travelTime / 8) * 7 + 50, travelTime, Color4.GreenYellow, Color4.GreenYellow);
+                outCircle.EndGroup();
+
+                var timeStep = Beatmap.GetTimingPointAt((int)StartTime).BeatDuration / 4;
+                for (double t = StartTime; t < EndTime; t += timeStep)
+                {
+                    rad += 0.0493;
+                    x = Radius * Math.Cos(rad) + Pos.X - 2;
+                    y = Radius * Math.Sin(rad) + Pos.Y;
+
+                    var newPos = new Vector2((int)x, (int)y);
+
+                    outCircle.Move(t, t + timeStep, position, newPos);
+                    position = newPos;
+                }
+                angle += ConnectionAngle / (amount / 2);
+            }
         }
         private void RotatingLines()
         {
@@ -429,7 +513,7 @@ namespace StorybrewScripts
             {
                 var positionX = posX + i * barWidth;
                 var keyframes = heightKeyframes[i];
-                keyframes.Simplify1dKeyframes(0.5, h => h);
+                keyframes.Simplify1dKeyframes(1, h => h);
 
                 var bar = GetLayer("").CreateSprite("sb/p.png", OsbOrigin.Centre, new Vector2(positionX - offset, Position.Y - offset));
 

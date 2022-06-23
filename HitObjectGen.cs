@@ -10,23 +10,27 @@ namespace StorybrewScripts
 {
     class HitObjectGen : StoryboardObjectGenerator
     {
+        OsbSpritePools pool;
         public override void Generate()
         {
-            GenerateRing(6693, 27444);
-            GenerateRing(113360, 123944);
-            GenerateRing(189360, 199945);
-            GenerateRing(256385, 272833);
-            GenerateRing(325902, 332316);
-            GenerateRing(433889, 444472);
-            GenerateHighlight(81150, 92694);
-            GenerateHighlight(194694, 203360);
-            GenerateHighlight(484555, 494972);
-            GenerateBeam(81194, 82527);
-            GenerateBeam(82694, 92027);
-            GenerateBeam(412389, 423139);
+            using (pool = new OsbSpritePools(GetLayer("")))
+            {
+                pool.MaxPoolDuration = (int)AudioDuration;
+                GenerateRing(6693, 27444);
+                GenerateRing(113360, 123944);
+                GenerateRing(189360, 199945);
+                GenerateRing(256385, 272833);
+                GenerateRing(325902, 332316);
+                GenerateRing(433889, 444472);
+                GenerateHighlight(81150, 92694);
+                GenerateHighlight(194694, 203360);
+                GenerateHighlight(484555, 494972);
+                GenerateBeam(81194, 82527);
+                GenerateBeam(82694, 92027);
+                GenerateBeam(412389, 423139);
+                PianoGenerator();
+            }
             GenerateSplash(380555, 401888);
-
-            PianoGenerator();
         }
         private void GenerateRing(int StartTime, int EndTime)
         {
@@ -35,87 +39,81 @@ namespace StorybrewScripts
             int FadeTime = 1000;
             float Fade = 1;
 
-            using (var pool = new OsbSpritePool(GetLayer(""), "sb/cf.png", OsbOrigin.Centre, true))
+            foreach (var hitobject in Beatmap.HitObjects)
             {
-                foreach (var hitobject in Beatmap.HitObjects)
+                if (hitobject.StartTime >= StartTime && hitobject.StartTime <= EndTime)
                 {
-                    if (hitobject.StartTime >= StartTime && hitobject.StartTime <= EndTime)
+                    var sprite = pool.Get(hitobject.StartTime, hitobject.EndTime + FadeTime, "sb/cf.png", OsbOrigin.Centre, true);
+                    sprite.Color(hitobject.StartTime, hitobject.Color);
+                    sprite.Move(hitobject.StartTime, hitobject.Position);
+
+                    if (hitobject is OsuSlider)
                     {
-                        var sprite = pool.Get(hitobject.StartTime, hitobject.EndTime + FadeTime);
-                        sprite.Color(hitobject.StartTime, hitobject.Color);
-                        sprite.Move(hitobject.StartTime, hitobject.Position);
+                        var timestep = Beatmap.GetTimingPointAt(StartTime).BeatDuration / 12;
+                        var startTime = hitobject.StartTime;
+                        var s = hitobject as OsuSlider;
 
-                        if (hitobject is OsuSlider)
+                        if (s.ControlPointCount > 1)
                         {
-                            var timestep = Beatmap.GetTimingPointAt(StartTime).BeatDuration / 12;
-                            var startTime = hitobject.StartTime;
-                            var s = hitobject as OsuSlider;
-
-                            if (s.ControlPointCount > 1)
-                            {
-                                timestep = Beatmap.GetTimingPointAt(StartTime).BeatDuration / 8;
-                            }
-                            else if (s.TravelDuration > 80 && s.RepeatCount > 0)
-                            {
-                                timestep = Beatmap.GetTimingPointAt(StartTime).BeatDuration / 4;
-                            }
-                            else if (s.RepeatCount == 0 & s.ControlPointCount == 1)
-                            {
-                                sprite.Move(startTime, hitobject.EndTime, hitobject.Position, hitobject.PositionAtTime(hitobject.EndTime));
-                            }
-                            while (true && s.ControlPointCount > 1 | s.RepeatCount > 0)
-                            {
-                                var endTime = startTime + timestep;
-
-                                var complete = hitobject.EndTime - endTime < 5;
-                                if (complete) endTime = hitobject.EndTime;
-
-                                var startPosition = sprite.PositionAt(startTime);
-                                sprite.Move(startTime, endTime, startPosition, hitobject.PositionAtTime(endTime));
-
-                                if (complete) break;
-                                startTime += timestep;
-                            }
+                            timestep = Beatmap.GetTimingPointAt(StartTime).BeatDuration / 8;
                         }
-                        if (hitobject is OsuSlider)
+                        else if (s.TravelDuration > 80 && s.RepeatCount > 0)
                         {
-                            sprite.Fade(hitobject.StartTime, Fade);
-                            sprite.Scale(hitobject.StartTime, StartScale);
+                            timestep = Beatmap.GetTimingPointAt(StartTime).BeatDuration / 4;
                         }
-                        sprite.Fade(OsbEasing.OutExpo, hitobject.EndTime, hitobject.EndTime + FadeTime, Fade, 0);
-                        sprite.Scale(OsbEasing.OutExpo, hitobject.EndTime, hitobject.EndTime + FadeTime, StartScale, EndScale);
+                        else if (s.RepeatCount == 0 & s.ControlPointCount == 1)
+                        {
+                            sprite.Move(startTime, hitobject.EndTime, hitobject.Position, hitobject.PositionAtTime(hitobject.EndTime));
+                        }
+                        while (true && s.ControlPointCount > 1 | s.RepeatCount > 0)
+                        {
+                            var endTime = startTime + timestep;
+
+                            var complete = hitobject.EndTime - endTime < 5;
+                            if (complete) endTime = hitobject.EndTime;
+
+                            var startPosition = sprite.PositionAt(startTime);
+                            sprite.Move(startTime, endTime, startPosition, hitobject.PositionAtTime(endTime));
+
+                            if (complete) break;
+                            startTime += timestep;
+                        }
                     }
+                    if (hitobject is OsuSlider)
+                    {
+                        sprite.Fade(hitobject.StartTime, Fade);
+                        sprite.Scale(hitobject.StartTime, StartScale);
+                    }
+                    sprite.Fade(OsbEasing.OutExpo, hitobject.EndTime, hitobject.EndTime + FadeTime, Fade, 0);
+                    sprite.Scale(OsbEasing.OutExpo, hitobject.EndTime, hitobject.EndTime + FadeTime, StartScale, EndScale);
                 }
             }
         }
         private void GenerateHighlight(int startTime, int endTime)
         {
-            using (var pool = new OsbSpritePool(GetLayer(""), "sb/hl.png", OsbOrigin.Centre, true))
+            foreach (var hitobject in Beatmap.HitObjects)
             {
-                foreach (var hitobject in Beatmap.HitObjects)
+                if (hitobject.StartTime > startTime - 5 && hitobject.StartTime < endTime + 5)
                 {
-                    if (hitobject.StartTime > startTime - 5 && hitobject.StartTime < endTime + 5)
+                    var sprite = pool.Get(hitobject.StartTime, hitobject.StartTime + 1000, "sb/hl.png", OsbOrigin.Centre, true);
+                    sprite.Move(hitobject.StartTime, hitobject.Position);
+                    sprite.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
+                    sprite.Scale(hitobject.StartTime, 0.13);
+
+                    if (hitobject is OsuSlider)
                     {
-                        var sprite = pool.Get(hitobject.StartTime, hitobject.StartTime + 1000);
-                        sprite.Move(hitobject.StartTime, hitobject.Position);
-                        sprite.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
-                        sprite.Scale(hitobject.StartTime, 0.13);
-
-                        if (hitobject is OsuSlider)
+                        var timestep = Beatmap.GetTimingPointAt((int)hitobject.StartTime).BeatDuration / 8;
+                        var sTime = hitobject.StartTime + timestep;
+                        while (true)
                         {
-                            var timestep = Beatmap.GetTimingPointAt((int)hitobject.StartTime).BeatDuration / 8;
-                            var sTime = hitobject.StartTime + timestep;
-                            while (true)
-                            {
-                                var stepSprite = pool.Get(sTime - 50, sTime + 1000);
-                                stepSprite.Move(sTime - 50, hitobject.PositionAtTime(sTime));
-                                stepSprite.Fade(sTime - 50, sTime, 0, 0.4);
-                                stepSprite.Fade(sTime, sTime + 1000, 0.4, 0);
-                                stepSprite.Scale(sTime - 50, 0.13);
+                            var stepSprite = pool.Get(sTime - 50, sTime + 1000, "sb/hl.png", OsbOrigin.Centre, true);
+                            stepSprite.Move(sTime - 50, hitobject.PositionAtTime(sTime));
+                            stepSprite.Fade(sTime - 50, sTime, 0, 0.4);
+                            stepSprite.Fade(sTime, sTime + 1000, 0.4, 0);
+                            stepSprite.Scale(sTime - 50, 0.13);
 
-                                if (sTime > hitobject.EndTime) break;
-                                sTime += timestep;
-                            }
+                            if (sTime > hitobject.EndTime) break;
+                            sTime += timestep;
                         }
                     }
                 }
@@ -123,85 +121,86 @@ namespace StorybrewScripts
         }
         private void GenerateVerticalBar(int[] a, int[] b, int[] c)
         {
-            for (int i = 0; i < Random(2, 4); i++)
+            using (var pooling = new OsbSpritePool(GetLayer("PianoHighlights"), "sb/p.png", OsbOrigin.Centre, true))
             {
-                foreach (var hit in a)
+                pooling.MaxPoolDuration = (int)AudioDuration;
+                for (int i = 0; i < Random(2, 4); i++)
                 {
-                    var position = new Vector2(Random(-77, 727), 240);
-                    var sprite = GetLayer("PianoHighlights").CreateSprite("sb/p.png", OsbOrigin.Centre, position);
+                    foreach (var hit in a)
+                    {
+                        var position = new Vector2(Random(-77, 727), 240);
+                        var sprite = pooling.Get(hit, hit + 500);
 
-                    sprite.ScaleVec(hit, 40, 400);
-                    sprite.Fade(hit, hit + 500, 0.025, 0);
-                    sprite.Additive(hit);
-                    sprite.Color(hit, Color4.LightBlue);
+                        sprite.Move(hit, position);
+                        sprite.ScaleVec(hit, 40, 400);
+                        sprite.Fade(hit, hit + 500, 0.025, 0);
+                        sprite.Color(hit, Color4.LightBlue);
+                    }
+                    foreach (var hit in c)
+                    {
+                        var color1 = new Color4(91, 206, 164, 1);
+                        var color2 = new Color4(129, 87, 86, 1);
+                        var color3 = new Color4(204, 49, 96, 1);
+                        var color4 = new Color4(250, 169, 80, 1);
+                        var color5 = new Color4(63, 220, 248, 1);
+                        var position = new Vector2(Random(-77, 727), 240);
+                        var piano = pooling.Get(hit, hit + 500);
+
+                        piano.ScaleVec(hit, 60, 400);
+                        piano.Fade(hit, hit + 500, 0.1, 0);
+                        piano.Move(hit, position);
+
+                        if (hit >= 575721 & hit <= 577555 | hit == 579221 | hit == 579721 | hit == 580138 | hit >= 580555 & hit <= 581138 | hit == 581471 | hit >= 581888 & hit <= 582471 | hit == 582805 | hit >= 583221 & hit <= 583805 | hit == 584138 | hit >= 584555 & hit <= 585555)
+                        {
+                            piano.Color(hit, color1);
+                        }
+                        else if (hit >= 577888 & hit <= 578888 | hit == 579471 | hit == 579888 | hit == 580388 | hit == 580543 | hit == 581221 | hit == 581555 | hit == 581721 | hit == 582555 | hit == 583055 | hit == 583888 | hit == 584388)
+                        {
+                            piano.Color(hit, color2);
+                        }
+                        else if (hit == 585888)
+                        {
+                            piano.Color(hit, color3);
+                        }
+                        else if (hit == 586221)
+                        {
+                            piano.Color(hit, color4);
+                        }
+                        else
+                        {
+                            piano.Color(hit, color5);
+                        }
+                    }
                 }
-                foreach (var hit in c)
+                for (double i = 0; i < 15; i++)
                 {
-                    var color1 = new Color4(91, 206, 164, 1);
-                    var color2 = new Color4(129, 87, 86, 1);
-                    var color3 = new Color4(204, 49, 96, 1);
-                    var color4 = new Color4(250, 169, 80, 1);
-                    var color5 = new Color4(63, 220, 248, 1);
-                    var position = new Vector2(Random(-77, 727), 240);
-                    var piano = GetLayer("PianoHighlights").CreateSprite("sb/p.png", OsbOrigin.Centre, position);
+                    foreach (var Hit in b)
+                    {
+                        var position = new Vector2(Random(-77, 727), 240);
+                        var sprite = pooling.Get(Hit, Hit + 300);
 
-                    piano.ScaleVec(hit, 60, 400);
-                    piano.Fade(hit, hit + 500, 0.1, 0);
-                    piano.Additive(hit);
-
-                    if (hit >= 575721 & hit <= 577555 | hit == 579221 | hit == 579721 | hit == 580138 | hit >= 580555 & hit <= 581138 | hit == 581471 | hit >= 581888 & hit <= 582471 | hit == 582805 | hit >= 583221 & hit <= 583805 | hit == 584138 | hit >= 584555 & hit <= 585555)
-                    {
-                        piano.Color(hit, color1);
+                        sprite.ScaleVec(Hit, 10, 400);
+                        sprite.Fade(Hit, Hit + 300, 0.03, 0);
+                        sprite.Color(Hit, Color4.GreenYellow);
+                        sprite.Move(Hit, position);
                     }
-                    else if (hit >= 577888 & hit <= 578888 | hit == 579471 | hit == 579888 | hit == 580388 | hit == 580543 | hit == 581221 | hit == 581555 | hit == 581721 | hit == 582555 | hit == 583055 | hit == 583888 | hit == 584388)
-                    {
-                        piano.Color(hit, color2);
-                    }
-                    else if (hit == 585888)
-                    {
-                        piano.Color(hit, color3);
-                    }
-                    else if (hit == 586221)
-                    {
-                        piano.Color(hit, color4);
-                    }
-                    else
-                    {
-                        piano.Color(hit, color5);
-                    }
-                }
-            }
-            for (double i = 0; i < 17; i++)
-            {
-                foreach (var Hit in b)
-                {
-                    var position = new Vector2(Random(-77, 727), 240);
-                    var sprite = GetLayer("PianoHighlights").CreateSprite("sb/p.png", OsbOrigin.Centre, position);
-
-                    sprite.ScaleVec(Hit, 10, 400);
-                    sprite.Fade(Hit, Hit + 300, 0.03, 0);
-                    sprite.Additive(Hit);
-                    sprite.Color(Hit, Color4.GreenYellow);
                 }
             }
         }
         private void GenerateBeam(int startTime, int endTime)
         {
-            using (var pool = new OsbSpritePool(GetLayer(""), "sb/p.png", OsbOrigin.Centre, true))
+            foreach (var hitobject in Beatmap.HitObjects)
             {
-                foreach (var hitobject in Beatmap.HitObjects)
+                if (hitobject.StartTime >= startTime - 1 && hitobject.StartTime <= endTime + 1)
                 {
-                    if (hitobject.StartTime >= startTime - 1 && hitobject.StartTime <= endTime + 1)
-                    {
-                        int scaleY = 810;
-                        if (startTime > 380555) scaleY = 730;
+                    int scaleY = 810;
+                    if (startTime > 380555) scaleY = 730;
 
-                        var sprite = pool.Get(hitobject.StartTime, hitobject.StartTime + 1000);
-                        sprite.Move(hitobject.StartTime, hitobject.Position);
-                        sprite.Rotate(hitobject.StartTime, Random(-Math.PI / 8, Math.PI / 8));
-                        sprite.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 1000, 3, scaleY, 0, scaleY);
-                        sprite.Fade(hitobject.StartTime, 0.8);
-                    }
+                    var sprite = pool.Get(hitobject.StartTime, hitobject.StartTime + 1000, "sb/p.png", OsbOrigin.Centre, true);
+                    sprite.Move(hitobject.StartTime, hitobject.Position);
+                    sprite.Rotate(hitobject.StartTime, Random(-Math.PI / 8, Math.PI / 8));
+                    sprite.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 1000, 3, scaleY, 0, scaleY);
+                    sprite.Fade(hitobject.StartTime, 0.8);
                 }
             }
         }
@@ -261,27 +260,24 @@ namespace StorybrewScripts
         }
         private void GeneratePiano(int startTime, int endTime)
         {
-            using (var pool = new OsbSpritePool(GetLayer(""), "sb/grad.png", OsbOrigin.CentreLeft, false))
+            foreach (var hitobject in Beatmap.HitObjects)
             {
-                foreach (var hitobject in Beatmap.HitObjects)
-                {
-                    if ((startTime != 0 || endTime != 0) &&
-                        (hitobject.StartTime < startTime - 5 || endTime - 5 <= hitobject.StartTime))
-                        continue;
+                if ((startTime != 0 || endTime != 0) &&
+                    (hitobject.StartTime < startTime - 5 || endTime - 5 <= hitobject.StartTime))
+                    continue;
 
-                    var sprite = pool.Get(hitobject.StartTime, hitobject.StartTime + 3000);
-                    var sprite2 = pool.Get(hitobject.StartTime, hitobject.StartTime + 3000);
+                var sprite = pool.Get(hitobject.StartTime, hitobject.StartTime + 3000, "sb/grad.png", OsbOrigin.CentreLeft, false);
+                var sprite2 = pool.Get(hitobject.StartTime, hitobject.StartTime + 3000, "sb/grad.png", OsbOrigin.CentreLeft, false);
 
-                    sprite.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
-                    sprite.Move(hitobject.StartTime, hitobject.Position.X, 450);
-                    sprite.Rotate(hitobject.StartTime, -Math.PI / 2);
-                    sprite.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 3000, 0.3, 0.5, 0.3, 0);
+                sprite.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
+                sprite.Move(hitobject.StartTime, hitobject.Position.X, 450);
+                sprite.Rotate(hitobject.StartTime, -Math.PI / 2);
+                sprite.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 3000, 0.3, 0.5, 0.3, 0);
 
-                    sprite2.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
-                    sprite2.Move(hitobject.StartTime, hitobject.Position.X, 30);
-                    sprite2.Rotate(hitobject.StartTime, Math.PI / 2);
-                    sprite2.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 3000, 0.3, 0.5, 0.3, 0);
-                }
+                sprite2.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
+                sprite2.Move(hitobject.StartTime, hitobject.Position.X, 30);
+                sprite2.Rotate(hitobject.StartTime, Math.PI / 2);
+                sprite2.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 3000, 0.3, 0.5, 0.3, 0);
             }
         }
         private void Piano(int time)
@@ -291,13 +287,15 @@ namespace StorybrewScripts
                 if (hitobject.StartTime <= time + 1 && hitobject.EndTime >= time - 1)
                 {
                     var pos = hitobject.PositionAtTime(time);
-                    var sprite = GetLayer("").CreateSprite("sb/grad.png", OsbOrigin.CentreLeft, new Vector2(pos.X, 450));
-                    var sprite2 = GetLayer("").CreateSprite("sb/grad.png", OsbOrigin.CentreLeft, new Vector2(pos.X, 30));
+                    var sprite = pool.Get(time, time + 3000, "sb/grad.png", OsbOrigin.CentreLeft, false);
+                    var sprite2 = pool.Get(time, time + 3000, "sb/grad.png", OsbOrigin.CentreLeft, false);
 
                     sprite.Fade(time, time + 1000, 0.5, 0);
+                    sprite.Move(time, pos.X, 450);
                     sprite.ScaleVec(OsbEasing.OutExpo, time, time + 3000, 0.3, 0.5, 0.3, 0);
 
                     sprite2.Fade(time, time + 1000, 0.5, 0);
+                    sprite2.Move(time, pos.X, 30);
                     sprite2.ScaleVec(OsbEasing.OutExpo, time, time + 3000, 0.3, 0.5, 0.3, 0);
 
                     sprite.Rotate(time, -Math.PI / 2);
