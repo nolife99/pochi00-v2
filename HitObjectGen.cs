@@ -3,6 +3,7 @@ using OpenTK.Graphics;
 using StorybrewCommon.Mapset;
 using StorybrewCommon.Scripting;
 using StorybrewCommon.Storyboarding;
+using StorybrewCommon.Storyboarding.Util;
 using System;
 
 namespace StorybrewScripts
@@ -34,76 +35,87 @@ namespace StorybrewScripts
             int FadeTime = 1000;
             float Fade = 1;
 
-            foreach (var hitobject in Beatmap.HitObjects)
+            using (var pool = new OsbSpritePool(GetLayer(""), "sb/cf.png", OsbOrigin.Centre, true))
             {
-                if (hitobject.StartTime >= StartTime && hitobject.StartTime <= EndTime)
+                foreach (var hitobject in Beatmap.HitObjects)
                 {
-                    var sprite = GetLayer("").CreateSprite("sb/cf.png", OsbOrigin.Centre, hitobject.Position);
-                    sprite.Additive(hitobject.StartTime);
-                    sprite.Color(hitobject.StartTime, hitobject.Color);
-
-                    if (hitobject is OsuSlider)
+                    if (hitobject.StartTime >= StartTime && hitobject.StartTime <= EndTime)
                     {
-                        var timestep = Beatmap.GetTimingPointAt(StartTime).BeatDuration / 12;
-                        var startTime = hitobject.StartTime;
-                        var s = hitobject as OsuSlider;
+                        var sprite = pool.Get(hitobject.StartTime, hitobject.EndTime + FadeTime);
+                        sprite.Color(hitobject.StartTime, hitobject.Color);
+                        sprite.Move(hitobject.StartTime, hitobject.Position);
 
-                        if (s.ControlPointCount > 1)
+                        if (hitobject is OsuSlider)
                         {
-                            timestep = Beatmap.GetTimingPointAt(StartTime).BeatDuration / 8;
-                        }
-                        else if (s.TravelDuration > 80 && s.RepeatCount > 0)
-                        {
-                            timestep = Beatmap.GetTimingPointAt(StartTime).BeatDuration / 4;
-                        }
-                        else if (s.RepeatCount == 0 & s.ControlPointCount == 1)
-                        {
-                            sprite.Move(startTime, hitobject.EndTime, hitobject.Position, hitobject.PositionAtTime(hitobject.EndTime));
-                        }
-                        while (true && s.ControlPointCount > 1 | s.RepeatCount > 0)
-                        {
-                            var endTime = startTime + timestep;
+                            var timestep = Beatmap.GetTimingPointAt(StartTime).BeatDuration / 12;
+                            var startTime = hitobject.StartTime;
+                            var s = hitobject as OsuSlider;
 
-                            var complete = hitobject.EndTime - endTime < 5;
-                            if (complete) endTime = hitobject.EndTime;
+                            if (s.ControlPointCount > 1)
+                            {
+                                timestep = Beatmap.GetTimingPointAt(StartTime).BeatDuration / 8;
+                            }
+                            else if (s.TravelDuration > 80 && s.RepeatCount > 0)
+                            {
+                                timestep = Beatmap.GetTimingPointAt(StartTime).BeatDuration / 4;
+                            }
+                            else if (s.RepeatCount == 0 & s.ControlPointCount == 1)
+                            {
+                                sprite.Move(startTime, hitobject.EndTime, hitobject.Position, hitobject.PositionAtTime(hitobject.EndTime));
+                            }
+                            while (true && s.ControlPointCount > 1 | s.RepeatCount > 0)
+                            {
+                                var endTime = startTime + timestep;
 
-                            var startPosition = sprite.PositionAt(startTime);
-                            sprite.Move(startTime, endTime, startPosition, hitobject.PositionAtTime(endTime));
+                                var complete = hitobject.EndTime - endTime < 5;
+                                if (complete) endTime = hitobject.EndTime;
 
-                            if (complete) break;
-                            startTime += timestep;
+                                var startPosition = sprite.PositionAt(startTime);
+                                sprite.Move(startTime, endTime, startPosition, hitobject.PositionAtTime(endTime));
+
+                                if (complete) break;
+                                startTime += timestep;
+                            }
                         }
+                        if (hitobject is OsuSlider)
+                        {
+                            sprite.Fade(hitobject.StartTime, Fade);
+                            sprite.Scale(hitobject.StartTime, StartScale);
+                        }
+                        sprite.Fade(OsbEasing.OutExpo, hitobject.EndTime, hitobject.EndTime + FadeTime, Fade, 0);
+                        sprite.Scale(OsbEasing.OutExpo, hitobject.EndTime, hitobject.EndTime + FadeTime, StartScale, EndScale);
                     }
-                    sprite.Fade(OsbEasing.OutExpo, hitobject.EndTime, hitobject.EndTime + FadeTime, Fade, 0);
-                    sprite.Scale(OsbEasing.OutExpo, hitobject.EndTime, hitobject.EndTime + FadeTime, StartScale, EndScale);
                 }
             }
         }
         private void GenerateHighlight(int startTime, int endTime)
         {
-            foreach (var hitobject in Beatmap.HitObjects)
+            using (var pool = new OsbSpritePool(GetLayer(""), "sb/hl.png", OsbOrigin.Centre, true))
             {
-                if (hitobject.StartTime > startTime - 5 && hitobject.StartTime < endTime + 5)
+                foreach (var hitobject in Beatmap.HitObjects)
                 {
-                    var sprite = GetLayer("").CreateSprite("sb/hl.png", OsbOrigin.Centre, hitobject.Position);
-                    sprite.Additive(hitobject.StartTime);
-                    sprite.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
-                    sprite.Scale(hitobject.StartTime, 0.13);
-
-                    if (hitobject is OsuSlider)
+                    if (hitobject.StartTime > startTime - 5 && hitobject.StartTime < endTime + 5)
                     {
-                        var timestep = Beatmap.GetTimingPointAt((int)hitobject.StartTime).BeatDuration / 8;
-                        var sTime = hitobject.StartTime + timestep;
-                        while (true)
-                        {
-                            var stepSprite = GetLayer("").CreateSprite("sb/hl.png", OsbOrigin.Centre, hitobject.PositionAtTime(sTime));
-                            stepSprite.Additive(sTime - 50);
-                            stepSprite.Fade(sTime - 50, sTime, 0, 0.4);
-                            stepSprite.Fade(sTime, sTime + 1000, 0.4, 0);
-                            stepSprite.Scale(sTime, 0.13);
+                        var sprite = pool.Get(hitobject.StartTime, hitobject.StartTime + 1000);
+                        sprite.Move(hitobject.StartTime, hitobject.Position);
+                        sprite.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
+                        sprite.Scale(hitobject.StartTime, 0.13);
 
-                            if (sTime > hitobject.EndTime) break;
-                            sTime += timestep;
+                        if (hitobject is OsuSlider)
+                        {
+                            var timestep = Beatmap.GetTimingPointAt((int)hitobject.StartTime).BeatDuration / 8;
+                            var sTime = hitobject.StartTime + timestep;
+                            while (true)
+                            {
+                                var stepSprite = pool.Get(sTime - 50, sTime + 1000);
+                                stepSprite.Move(sTime - 50, hitobject.PositionAtTime(sTime));
+                                stepSprite.Fade(sTime - 50, sTime, 0, 0.4);
+                                stepSprite.Fade(sTime, sTime + 1000, 0.4, 0);
+                                stepSprite.Scale(sTime - 50, 0.13);
+
+                                if (sTime > hitobject.EndTime) break;
+                                sTime += timestep;
+                            }
                         }
                     }
                 }
@@ -175,34 +187,39 @@ namespace StorybrewScripts
         }
         private void GenerateBeam(int startTime, int endTime)
         {
-            foreach (var hitobject in Beatmap.HitObjects)
+            using (var pool = new OsbSpritePool(GetLayer(""), "sb/p.png", OsbOrigin.Centre, true))
             {
-                if (hitobject.StartTime >= startTime - 1 && hitobject.StartTime <= endTime + 1)
+                foreach (var hitobject in Beatmap.HitObjects)
                 {
-                    int scaleY = 810;
-                    if (startTime > 380555)
+                    if (hitobject.StartTime >= startTime - 1 && hitobject.StartTime <= endTime + 1)
                     {
-                        scaleY = 730;
+                        int scaleY = 810;
+                        if (startTime > 380555) scaleY = 730;
+
+                        var sprite = pool.Get(hitobject.StartTime, hitobject.StartTime + 1000);
+                        sprite.Move(hitobject.StartTime, hitobject.Position);
+                        sprite.Rotate(hitobject.StartTime, Random(-Math.PI / 8, Math.PI / 8));
+                        sprite.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 1000, 3, scaleY, 0, scaleY);
+                        sprite.Fade(hitobject.StartTime, 0.8);
                     }
-                    var sprite = GetLayer("").CreateSprite("sb/p.png", OsbOrigin.Centre, hitobject.Position);
-                    sprite.Rotate(hitobject.StartTime, Random(-Math.PI / 8, Math.PI / 8));
-                    sprite.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 1000, 3, scaleY, 0, scaleY);
-                    sprite.Additive(hitobject.StartTime);
-                    sprite.Fade(hitobject.StartTime, 0.8);
                 }
             }
         }
         private void GenerateSplash(int startTime, int endTime)
         {
-            foreach (var hitobject in Beatmap.HitObjects)
+            using (var pool = new OsbSpritePool(GetLayer(""), "sb/c2.png", OsbOrigin.Centre, false))
             {
-                if (hitobject.StartTime >= startTime && hitobject.StartTime <= endTime)
+                foreach (var hitobject in Beatmap.HitObjects)
                 {
-                    var position = hitobject.Position;
-                    double scaleY = Random(0.5, 1.3);
-                    var sprite = GetLayer("").CreateSprite("sb/c2.png", OsbOrigin.Centre, position);
-                    sprite.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
-                    sprite.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 500, 0, position.Y / 5000 * scaleY, position.Y / 1000 * scaleY, position.Y / 5000 * scaleY);
+                    if (hitobject.StartTime >= startTime && hitobject.StartTime <= endTime)
+                    {
+                        var position = hitobject.Position;
+                        double scaleY = Random(0.5, 1.3);
+                        var sprite = pool.Get(hitobject.StartTime, hitobject.StartTime + 1000);
+                        sprite.Move(hitobject.StartTime, position);
+                        sprite.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
+                        sprite.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 500, 0, position.Y / 5000 * scaleY, position.Y / 1000 * scaleY, position.Y / 5000 * scaleY);
+                    }
                 }
             }
         }
@@ -244,22 +261,27 @@ namespace StorybrewScripts
         }
         private void GeneratePiano(int startTime, int endTime)
         {
-            foreach (var hitobject in Beatmap.HitObjects)
+            using (var pool = new OsbSpritePool(GetLayer(""), "sb/grad.png", OsbOrigin.CentreLeft, false))
             {
-                if ((startTime != 0 || endTime != 0) &&
-                    (hitobject.StartTime < startTime - 5 || endTime - 5 <= hitobject.StartTime))
-                    continue;
+                foreach (var hitobject in Beatmap.HitObjects)
+                {
+                    if ((startTime != 0 || endTime != 0) &&
+                        (hitobject.StartTime < startTime - 5 || endTime - 5 <= hitobject.StartTime))
+                        continue;
 
-                var sprite = GetLayer("").CreateSprite("sb/grad.png", OsbOrigin.CentreLeft, new Vector2(hitobject.Position.X, 450));
-                var sprite2 = GetLayer("").CreateSprite("sb/grad.png", OsbOrigin.CentreLeft, new Vector2(hitobject.Position.X, 30));
+                    var sprite = pool.Get(hitobject.StartTime, hitobject.StartTime + 3000);
+                    var sprite2 = pool.Get(hitobject.StartTime, hitobject.StartTime + 3000);
 
-                sprite.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
-                sprite.Rotate(hitobject.StartTime, -Math.PI / 2);
-                sprite.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 3000, 0.3, 0.5, 0.3, 0);
+                    sprite.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
+                    sprite.Move(hitobject.StartTime, hitobject.Position.X, 450);
+                    sprite.Rotate(hitobject.StartTime, -Math.PI / 2);
+                    sprite.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 3000, 0.3, 0.5, 0.3, 0);
 
-                sprite2.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
-                sprite2.Rotate(hitobject.StartTime, Math.PI / 2);
-                sprite2.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 3000, 0.3, 0.5, 0.3, 0);
+                    sprite2.Fade(hitobject.StartTime, hitobject.StartTime + 1000, 0.5, 0);
+                    sprite2.Move(hitobject.StartTime, hitobject.Position.X, 30);
+                    sprite2.Rotate(hitobject.StartTime, Math.PI / 2);
+                    sprite2.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 3000, 0.3, 0.5, 0.3, 0);
+                }
             }
         }
         private void Piano(int time)
