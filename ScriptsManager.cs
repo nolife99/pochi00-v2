@@ -163,7 +163,7 @@ namespace StorybrewScripts
         {
             using (var pool = new OsbSpritePool(GetLayer("Highlight"), "sb/hl.png", OsbOrigin.Centre, true))
             {
-                for (int i = startTime; i < endTime; i += 530)
+                for (int i = startTime; i <= endTime - 1000; i += 550)
                 {
                     var fade = Math.Round(Random(0.02, 0.03), 2);
                     var fadeTime = Random(1000, 2500);
@@ -188,11 +188,10 @@ namespace StorybrewScripts
                 int particleSpeed = Random(300, 400);
                 int posX = Random(-106, 747);
                 int endX = Random(posX - 15, posX + 15);
-                double angle = Math.Atan2(680, endX - posX);
+                var angle = Math.Atan2(680, endX - posX);
                 int delay = 20;
                 int duration = endTime - startTime - i * delay;
      
-                var sprite = pool.Get(startTime + i * delay, endTime + i * delay, "sb/pl.png", OsbOrigin.Centre, true);
                 if (type == 2)
                 {
                     delay += 80;
@@ -203,10 +202,10 @@ namespace StorybrewScripts
                     delay += 130;
                     duration = endTime - startTime - i * delay;
                 }
-     
+
+                var sprite = pool.Get(startTime + i * delay, 629888, "sb/pl.png", OsbOrigin.Centre, true);
                 sprite.StartLoopGroup(startTime + i * delay, duration / particleSpeed);
-                sprite.MoveY(0, particleSpeed, 20, 460);
-                sprite.MoveX(0, particleSpeed, posX, endX);
+                sprite.Move(0, particleSpeed, posX, 20, endX, 460);
                 sprite.Rotate(0, particleSpeed, Math.PI / 2, angle);
                 sprite.EndGroup();
                 sprite.Fade(startTime + i * delay, Math.Round(Random(0.15, 0.5), 2));
@@ -214,9 +213,7 @@ namespace StorybrewScripts
      
                 var splash = pool.Get(startTime + i * delay, endTime + i * delay, "sb/d.png", OsbOrigin.Centre, false);
                 splash.StartLoopGroup(startTime + i * delay + particleSpeed, duration / particleSpeed);
-                splash.MoveX(OsbEasing.OutExpo, 0, particleSpeed, endX, endX + Random(-5, 5));
-                splash.MoveY(OsbEasing.OutExpo, 0, particleSpeed, 450, Random(390, 430));
-                splash.Fade(OsbEasing.OutExpo, 0, particleSpeed, 1, 0);
+                splash.Move(OsbEasing.OutExpo, 0, particleSpeed, endX, 450, endX, Random(410, 440));
                 splash.Scale(OsbEasing.OutExpo, 0, particleSpeed, Math.Round(Random(0.03, 0.04), 3), 0);
                 splash.EndGroup();
             }

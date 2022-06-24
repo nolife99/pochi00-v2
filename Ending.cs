@@ -43,9 +43,9 @@ namespace StorybrewScripts
                     double vX = Math.Cos(rVec) * sVec;
                     double vY = Math.Sin(rVec) * sVec;
                     double lastAngle = 90;
-                    var timeStep = RealTravelTime / 14 + 0.5;
+                    var timeStep = RealTravelTime / 14 + 0.6;
 
-                    for (double t = i; t < i + RealTravelTime - 1; t += timeStep)
+                    for (double t = i; t < i + RealTravelTime; t += timeStep)
                     {
                         if (right)
                         {
