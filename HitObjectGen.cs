@@ -13,6 +13,11 @@ namespace StorybrewScripts
         OsbSpritePools pool;
         public override void Generate()
         {
+            int[] linesTimes = {
+                145345, 146678, 147345, 148011, 149345, 150011, 150678, 151345, 152011, 152678, 153011, 153345, 154678, 156011, 157345, 158011, 158678,
+                159345, 160011, 160678, 161345, 162011, 162678, 163011, 163345, 164011, 164678, 165011, 165345, 148678, 149011, 155345, 157011, 157178,
+                159678, 146345, 146511, 155345
+            };
             using (pool = new OsbSpritePools(GetLayer("")))
             {
                 pool.MaxPoolDuration = (int)AudioDuration;
@@ -29,10 +34,11 @@ namespace StorybrewScripts
                 GenerateBeam(82694, 92027);
                 GenerateBeam(412389, 423139);
                 PianoGenerator();
+                ParticleBurst(linesTimes);
             }
             GenerateSplash(380555, 401888);
         }
-        private void GenerateRing(int StartTime, int EndTime)
+        void GenerateRing(int StartTime, int EndTime)
         {
             float StartScale = 0.125f;
             float EndScale = 0.2f;
@@ -89,7 +95,7 @@ namespace StorybrewScripts
                 }
             }
         }
-        private void GenerateHighlight(int startTime, int endTime)
+        void GenerateHighlight(int startTime, int endTime)
         {
             foreach (var hitobject in Beatmap.HitObjects)
             {
@@ -119,7 +125,7 @@ namespace StorybrewScripts
                 }
             }
         }
-        private void GenerateVerticalBar(int[] a, int[] b, int[] c)
+        void GenerateVerticalBar(int[] a, int[] b, int[] c)
         {
             using (var pooling = new OsbSpritePool(GetLayer("PianoHighlights"), "sb/p.png", OsbOrigin.Centre, true))
             {
@@ -187,7 +193,7 @@ namespace StorybrewScripts
                 }
             }
         }
-        private void GenerateBeam(int startTime, int endTime)
+        void GenerateBeam(int startTime, int endTime)
         {
             foreach (var hitobject in Beatmap.HitObjects)
             {
@@ -204,7 +210,7 @@ namespace StorybrewScripts
                 }
             }
         }
-        private void GenerateSplash(int startTime, int endTime)
+        void GenerateSplash(int startTime, int endTime)
         {
             using (var pool = new OsbSpritePool(GetLayer(""), "sb/c2.png", OsbOrigin.Centre, false))
             {
@@ -222,7 +228,7 @@ namespace StorybrewScripts
                 }
             }
         }
-        private void PianoGenerator()
+        void PianoGenerator()
         {
             var times = new int[]{
                 484555, 485055, 485139, 485222, 485555, 485722, 485889, 486139, 486389, 486555, 487222, 487722,
@@ -258,7 +264,7 @@ namespace StorybrewScripts
             GenerateVerticalBar(a, b, c);
             GeneratePiano(359006, 376310);
         }
-        private void GeneratePiano(int startTime, int endTime)
+        void GeneratePiano(int startTime, int endTime)
         {
             foreach (var hitobject in Beatmap.HitObjects)
             {
@@ -280,7 +286,7 @@ namespace StorybrewScripts
                 sprite2.ScaleVec(OsbEasing.OutExpo, hitobject.StartTime, hitobject.StartTime + 3000, 0.3, 0.5, 0.3, 0);
             }
         }
-        private void Piano(int time)
+        void Piano(int time)
         {
             foreach (var hitobject in Beatmap.HitObjects)
             {
@@ -301,6 +307,60 @@ namespace StorybrewScripts
                     sprite.Rotate(time, -Math.PI / 2);
                     sprite2.Rotate(time, Math.PI / 2);
                 }
+            }
+        }
+        void ParticleBurst(int[] times)
+        {
+            foreach (var hitobject in Beatmap.HitObjects)
+            {
+                foreach (var time in times)
+                {
+                    if (hitobject.StartTime >= time && hitobject.StartTime <= time + 20)
+                    {
+                        GenerateLinesPlane((int)hitobject.StartTime, hitobject.Position, Random(0, 10) > 5 ? true : false);
+                    }
+                }
+            }
+        }
+        void GenerateLinesPlane(int startTime, Vector2 position, bool direction)
+        {
+            var line = pool.Get(startTime, startTime + 2000, "sb/pl.png", OsbOrigin.CentreRight, true);
+            line.Fade(startTime, startTime + 2000, 1, 0);
+            line.ScaleVec(OsbEasing.OutExpo, startTime, startTime + 2000, 30, 2, 0, 0);
+            line.MoveY(startTime, position.Y);
+            line.MoveX(OsbEasing.OutExpo, startTime, startTime + 500, direction ? -250 : 1000, direction ? 1000 : -250);
+            
+            if (!direction) line.Rotate(startTime, Math.PI);
+            else line.Rotate(startTime, 0);
+
+            var hl = pool.Get(startTime, startTime + 1000, "sb/hl.png", OsbOrigin.Centre, true);
+            hl.Fade(startTime, startTime + 1000, 1, 0);
+            hl.Scale(OsbEasing.OutExpo, startTime, startTime + 1000, 0.1, 0.125);
+            hl.Move(startTime, position);
+
+            var circle = pool.Get(startTime, startTime + 1000, "sb/c2.png", OsbOrigin.Centre, true);
+            circle.Fade(startTime, startTime + 1000, 1, 0);
+            circle.Scale(OsbEasing.OutExpo, startTime, startTime + 1000, 0.3, 0.35);
+            circle.Move(startTime, position);
+
+            GenerateFairy(startTime, position, 1000, 3000);
+        }
+        void GenerateFairy(double startTime, Vector2 position, int durationMin, int durationMax)
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                double angle = Random(0, Math.PI * 2);
+                var radius = Random(10, 50);
+
+                var endPosition = new Vector2(
+                    (int)(position.X + Math.Cos(angle) * radius),
+                    (int)(position.Y + Math.Sin(angle) * radius));
+
+                var particleDuration = Random(durationMin, durationMax);
+                var sprite = pool.Get(startTime, startTime + particleDuration, "sb/d.png", OsbOrigin.Centre, true);
+                sprite.Fade(startTime, startTime + particleDuration, 1, 0);
+                sprite.Scale(startTime, startTime + particleDuration, radius * 0.001, 0);
+                sprite.Move(OsbEasing.OutExpo, startTime, startTime + particleDuration, position, endPosition);
             }
         }
     }

@@ -485,9 +485,7 @@ namespace StorybrewScripts
             float LogScale = 270;
             int Width = 287;
             Vector2 Position = new Vector2(337, 377);
-
             int BarCount = 10;
-            var bitmap = GetMapsetBitmap("sb/p.png");
 
             var heightKeyframes = new KeyframedValue<float>[BarCount];
             for (var i = 0; i < BarCount; i++)
@@ -500,7 +498,7 @@ namespace StorybrewScripts
                 var fft = GetFft(time + fftOffset, BarCount, null, OsbEasing.InExpo);
                 for (var i = 0; i < BarCount; i++)
                 {
-                    var height = (float)Math.Log10(1 + fft[i] * LogScale) * Scale.Y / bitmap.Height;
+                    var height = (float)Math.Log10(1 + fft[i] * LogScale) * Scale.Y;
                     if (height < MinimalHeight) height = MinimalHeight;
 
                     heightKeyframes[i].Add(time, height);
@@ -520,7 +518,7 @@ namespace StorybrewScripts
                 bar.Color(startTime, Color);
                 bar.Fade(endTime, endTime, 0.4, 0);
 
-                var scaleX = Scale.X * barWidth / bitmap.Width / 1.6f;
+                var scaleX = Scale.X * barWidth / 1.6f;
                 scaleX = (int)Math.Floor(scaleX * 10) / 10;
 
                 var hasScale = false;

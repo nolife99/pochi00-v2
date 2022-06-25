@@ -12,11 +12,6 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
-  be20acb173f640199a0fb3c596c8d1d4:
-    Name: "Pass"
-    OsbLayer: Pass
-    DiffSpecific: No
-    Visible: Yes
   0feff76d53534ca491468397d93de2a9:
     Name: "Foreground"
     OsbLayer: Foreground

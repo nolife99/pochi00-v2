@@ -17,18 +17,13 @@ Layers:
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
-  5d4d54d1569344c2b5191c2e39c361f3:
-    Name: "transition?"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
   68e3e2c0ac2b45539b19820728e51bf7:
     Name: "rain"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
-  b7905155891648bd8df332b85437b74d:
-    Name: "transition end"
+  5d4d54d1569344c2b5191c2e39c361f3:
+    Name: "transition?"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
@@ -49,11 +44,6 @@ Layers:
     Visible: Yes
   83e115d5fedc4f7dae82b9e84f150abf:
     Name: "Gear 1"
-    OsbLayer: Background
-    DiffSpecific: No
-    Visible: Yes
-  b26ab72fac954c5e91783df9411c18db:
-    Name: "Gear 2"
     OsbLayer: Background
     DiffSpecific: No
     Visible: Yes
